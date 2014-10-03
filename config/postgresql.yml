@@ -1,0 +1,24 @@
+Default: &defaults
+  user: betty
+  password: betty
+  host: localhost
+  port: 5432
+  database: betty
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: betty_test
+  <<: *defaults
+
+Staging:
+  database: betty_staging
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: betty_production
+  poolsize: 100
+  <<: *defaults
