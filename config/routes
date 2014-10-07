@@ -18,6 +18,6 @@
 /profile        ProfileR        GET POST
 /profile/start  ProfileStartR   GET POST
 
+/add/bg         AddBGR          GET POST
+/history/bg     HistoryBGR      GET
 
-/add/bg AddBGR GET POST
-/history/bg HistoryBGR GET
