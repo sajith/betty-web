@@ -23,6 +23,7 @@ library
                      Handler.About
                      Handler.ContactR
                      Handler.FaqR
+                     Handler.Privacy
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
