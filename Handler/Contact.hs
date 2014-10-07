@@ -1,4 +1,4 @@
-module Handler.ContactR where
+module Handler.Contact where
 
 import           Import
 

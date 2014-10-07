@@ -1,4 +1,4 @@
-module Handler.FaqR where
+module Handler.Faq where
 
 import           Import
 
