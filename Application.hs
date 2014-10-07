@@ -36,6 +36,7 @@ import Handler.Security
 import Handler.Profile
 import Handler.ProfileStart
 import Handler.AddBG
+import Handler.HistoryBG
 
 -- This line actually creates our YesodDispatch instance. It is the second half
 -- of the call to mkYesodData which occurs in Foundation.hs. Please see the

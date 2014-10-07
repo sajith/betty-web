@@ -29,6 +29,7 @@ library
                      Handler.Profile
                      Handler.ProfileStart
                      Handler.AddBG
+                     Handler.HistoryBG
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
