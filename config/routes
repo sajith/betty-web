@@ -8,3 +8,4 @@
 
 /               HomeR           GET
 
+/info/about AboutR GET
