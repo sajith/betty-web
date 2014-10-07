@@ -9,3 +9,4 @@
 /               HomeR           GET
 
 /info/about AboutR GET
+/info/contact ContactRR GET
