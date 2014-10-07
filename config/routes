@@ -13,3 +13,4 @@
 /info/faq FaqRR GET
 /info/privacy PrivacyR GET
 /info/terms TermsR GET
+/info/security SecurityR GET
