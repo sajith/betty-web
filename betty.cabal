@@ -21,8 +21,8 @@ library
                      Settings.Development
                      Handler.Home
                      Handler.About
-                     Handler.ContactR
-                     Handler.FaqR
+                     Handler.Contact
+                     Handler.Faq
                      Handler.Privacy
                      Handler.Terms
                      Handler.Security
