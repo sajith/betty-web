@@ -27,6 +27,7 @@ library
                      Handler.Terms
                      Handler.Security
                      Handler.Profile
+                     Handler.ProfileStart
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
