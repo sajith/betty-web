@@ -1,7 +1,10 @@
-/static StaticR Static getStatic
-/auth   AuthR   Auth   getAuth
+-- -*- haskell -*-
 
-/favicon.ico FaviconR GET
-/robots.txt RobotsR GET
+/static         StaticR         Static getStatic
+/auth           AuthR           Auth   getAuth
 
-/ HomeR GET POST
+/favicon.ico    FaviconR        GET
+/robots.txt     RobotsR         GET
+
+/               HomeR           GET
+
