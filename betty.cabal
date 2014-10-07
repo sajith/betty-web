@@ -28,6 +28,7 @@ library
                      Handler.Security
                      Handler.Profile
                      Handler.ProfileStart
+                     Handler.AddBG
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

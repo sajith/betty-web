@@ -19,3 +19,4 @@
 /profile/start  ProfileStartR   GET POST
 
 
+/add/bg AddBGR GET POST
