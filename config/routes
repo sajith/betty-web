@@ -10,3 +10,4 @@
 
 /info/about AboutR GET
 /info/contact ContactRR GET
+/info/faq FaqRR GET

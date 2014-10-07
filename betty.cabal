@@ -22,6 +22,7 @@ library
                      Handler.Home
                      Handler.About
                      Handler.ContactR
+                     Handler.FaqR
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
