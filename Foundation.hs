@@ -147,9 +147,23 @@ instance YesodAuth App where
                     }
 
     -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = []
+    authPlugins _ = [authEmail]
 
     authHttpManager = httpManager
+
+-- Yesod.Auth.Email customizations here.
+instance YesodAuthEmail App where
+  type AuthEmailId App = UserId
+  addUnverified _ _    = undefined
+  sendVerifyEmail      = undefined
+  getVerifyKey         = undefined
+  setVerifyKey _ _     = undefined
+  verifyAccount _      = undefined
+  getPassword          = undefined
+  setPassword _ _      = undefined
+  getEmailCreds _      = undefined
+  getEmail             = undefined
+  afterPasswordRoute _ = undefined
 
 -- This instance is required to use forms. You can modify renderMessage to
 -- achieve customized and internationalized form validation messages.
