@@ -1,48 +1,152 @@
-$newline never
-\<!doctype html>
-\<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-\<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-\<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-\<!--[if gt IE 8]><!-->
-<html class="no-js" lang="en"> <!--<![endif]-->
-    <head>
-        <meta charset="UTF-8">
+$doctype 5
+$# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>#{pageTitle pc}
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <title>#{pageTitle pc}
 
-        <meta name="viewport" content="width=device-width,initial-scale=1">
+    ^{pageHead pc}
 
-        ^{pageHead pc}
+    <script type="text/javascript" src=@{StaticR js_modernizr_custom_03621_js}>
+    <script type="text/javascript" src=@{StaticR js_jquery_1_11_1_min_js}>
+    <script type="text/javascript" src=@{StaticR js_bootstrap_js}>
 
-        \<!--[if lt IE 9]>
-        \<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        \<![endif]-->
+    \<!--[if lt IE 9]>
+    \<script type="text/javascript" src=@{StaticR js_respond_min_js}></script>
+    \<![endif]-->
 
-        <script>
-          document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
-    <body>
-        <div class="container">
-            <header>
-            <div id="main" role="main">
+  <body>
+    <div .wrapper>
+
+      <!-- top navbar -->
+      <div .navbar .navbar-default .navbar-fixed-top role=navigation>
+        <div .container>
+          <div .navbar-header>
+
+            $maybe u <- ma
+              <button type=button .navbar-toggle data-toggle=offcanvas data-target=.sidebar-nav>
+                <span .icon-bar>
+                <span .icon-bar>
+                <span .icon-bar>
+  
+              <a .navbar-brand href=@{HomeR}>
+                <span .nowrap>
+                  Project D
+  
+              <div #navbar-user-status .hidden-xs>
+                <ul .nav .navbar-nav .navbar-right>
+                  <li>
+                    <a href=@{ProfileR}>
+                      <span .fa .fa-user>
+                      <!-- TODO: #{entityUserEmail u} -->
+                  <li>
+                    <a href=@{AuthR LogoutR}>
+                      <span .fa .fa-sign-out>
+                      Log out
+            $nothing
+              <a .navbar-brand #navbar-brand-notloggedin href=@{HomeR}>
+                <span .nowrap>
+                  Project D
+
+              <div #navbar-user-status>
+                <ul .nav .navbar-nav .navbar-right>
+                  <li>
+                    <a href=@{AuthR LoginR}>
+                      Log in
+                  <li .hidden-xs>
+                    <a href=@{AuthR registerR}>
+                      Sign up
+
+      <!-- end top navbar -->
+
+      <div .container>
+        <div .row>
+
+          <!-- sidebar -->
+          $maybe u <- ma
+            <div .col-xs-6 .col-sm-4 .col-md-3>
+              <div #sidebar .panel .sidebar-offcanvas>
+                <ul #affix .nav .nav-stacked>
+                  <li>
+                    <a href=@{HomeR}>
+                      <span .fa .fa-home .sidebar-icon>
+                      Home
+                  <li>
+                    <a href=@{AddBGR}>
+                      <span .fa .fa-pencil .sidebar-icon>
+                      Add
+                  <li>
+                    <a href=@{HistoryBGR}>
+                      <span .fa .fa-list-alt .sidebar-icon>
+                      Logs
+                  <li>
+                    <a href="#">
+                      <span .fa .fa-file-pdf-o .sidebar-icon>
+                      Reports
+                  <li>
+                    <a href=@{ProfileR}>
+                      <span .fa .fa-gears .sidebar-icon>
+                      Settings
+                      <!-- #{entityUserEmail u} -->
+                  <li .visible-xs-block>
+                    <a href=@{AuthR LogoutR}>
+                      <span .fa .fa-sign-out .sidebar-icon>
+                      Log out
+          $nothing
+            <div .col-xs-6 .col-sm-4 .col-md-3 #sidebar-noauth>
+              <div .sidebar-offcanvas>
+                <ul #affix .nav .nav-stacked>
+                  <li>
+                    <a href=@{AuthR registerR}>
+                      Sign up
+                  <li>
+                    <a href=@{AuthR LoginR}>
+                      Log in
+          <!-- end sidebar -->
+
+          <!-- content -->
+          <div .col-xs-12 .col-sm-8 .col-md-9 .content>
+            <div #page-main .page-main>
               ^{pageBody pc}
-            <footer>
-                #{extraCopyright $ appExtra $ settings master}
 
-        $maybe analytics <- extraAnalytics $ appExtra $ settings master
-            <script>
-              if(!window.location.href.match(/localhost/)){
-                window._gaq = [['_setAccount','#{analytics}'],['_trackPageview'],['_trackPageLoadTime']];
-                (function() {
-                \  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                \  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                \  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-                })();
-              }
-        \<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.  chromium.org/developers/how-tos/chrome-frame-getting-started -->
-        \<!--[if lt IE 7 ]>
-            <script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js">
-            <script>
-                window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})
-        \<![endif]-->
+      <!-- footer -->
+      <footer>
+        <div #footer>
+          <div .container>
+            <div .muted>
+              <div .text-muted>
+                <p>
+                  <span .nowrap>
+                    Copyright &copy; 2014 Sajith Sasidharan.
+              <div .site-meta .muted>
+                <ul>
+                  <li>
+                    <a href="@{AboutR}">
+                      About
+                  <li>
+                    <a href="@{ContactR}">
+                      Contact
+                  <li>
+                    <a href="@{FaqR}">
+                      FAQ
+                  <li>
+                    <a href="@{TermsR}">
+                      Terms of Use
+                  <li>
+                    <a href="@{PrivacyR}">
+                      Privacy Policy
+              <div #version-info .text-muted>
+                <p>
+                  Rev #{gitCommitHash} <!-- buit at #{buildTime} -->
+      <!-- end footer -->
+
+    \ <script>
+    \   $(document).ready(function() {
+    \       $('[data-toggle=offcanvas]').click(function() {
+    \         $('.sidebar-offcanvas').toggleClass('active', 1000);
+    \       });
+    \     });
+    \ </script>
