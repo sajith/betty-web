@@ -19,17 +19,18 @@ library
                      Settings
                      Settings.StaticFiles
                      Settings.Development
-                     Handler.Home
-                     Handler.About
-                     Handler.Contact
-                     Handler.Faq
-                     Handler.Privacy
-                     Handler.Terms
-                     Handler.Security
-                     Handler.Profile
-                     Handler.ProfileStart
-                     Handler.AddBG
-                     Handler.HistoryBG
+
+    other-modules: Handler.Home
+                   Handler.About
+                   Handler.Contact
+                   Handler.Faq
+                   Handler.Privacy
+                   Handler.Terms
+                   Handler.Security
+                   Handler.Profile
+                   Handler.ProfileStart
+                   Handler.AddBG
+                   Handler.HistoryBG
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
