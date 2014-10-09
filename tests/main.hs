@@ -1,16 +1,17 @@
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
+{-# LANGUAGE OverloadedStrings         #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module Main where
 
+import Application          (makeFoundation)
 import Import
+import Test.Hspec           (hspec)
 import Yesod.Default.Config
 import Yesod.Test
-import Test.Hspec (hspec)
-import Application (makeFoundation)
 
 import HomeTest
+import SESTest
 
 main :: IO ()
 main = do
@@ -21,3 +22,4 @@ main = do
     hspec $ do
         yesodSpec foundation $ do
             homeSpecs
+            sesMailSpecs

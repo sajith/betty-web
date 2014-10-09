@@ -19,6 +19,7 @@ library
                      Settings
                      Settings.StaticFiles
                      Settings.Development
+                     Betty.SESCreds
 
     other-modules: Handler.Home
                    Handler.About
@@ -32,7 +33,6 @@ library
                    Handler.AddBG
                    Handler.HistoryBG
                    Betty.Version
-                   Betty.SESCreds
                    Betty.Signup
                    Betty.Signup.MailText
                    Betty.Signup.SES
@@ -123,3 +123,7 @@ test-suite test
                  , monad-logger
                  , transformers
                  , hspec
+                 , blaze-html
+                 , mime-mail
+                 , mime-mail-ses
+                 , http-conduit
