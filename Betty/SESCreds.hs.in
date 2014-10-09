@@ -3,11 +3,11 @@ module Betty.SESCreds (access, secret, sender) where
 import Data.String (IsString)
 
 access :: IsString a => a
-access = "SES_ACCESS"
+access = "AWS_SES_ACCESS"
 
 secret :: IsString a => a
-secret = "SES_SECRET"
+secret = "AWS_SES_SECRET"
 
 sender :: IsString a => a
-sender = "SES_SENDER"
+sender = "AWS_SES_SENDER"
 
