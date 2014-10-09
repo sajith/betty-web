@@ -15,8 +15,8 @@ import Data.String           (IsString)
 import Data.Text.Encoding    (encodeUtf8)
 import Network.HTTP.Conduit  (withManager)
 
+import Betty.SESCreds        (access, secret)
 import Betty.Signup.MailText (verHeaders, verHtml, verText)
-import Settings.SESCreds     (access, secret)
 
 -- TODO: make this a setting
 senderEmail :: IsString a => a
