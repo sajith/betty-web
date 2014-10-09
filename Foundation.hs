@@ -23,6 +23,7 @@ import           Yesod.Static
 import           Control.Monad               (join)
 import           Data.Maybe                  (isJust)
 
+import           Betty.Signup
 import           Betty.Version
 
 -- | The site argument for your application. This can be a good place to
@@ -164,8 +165,7 @@ instance YesodAuthEmail App where
   addUnverified email verkey =
     runDB $ insert $ User email Nothing (Just verkey) False
 
-  -- TODO
-  sendVerifyEmail = undefined
+  sendVerifyEmail = sendVerificationEmail
 
   getVerifyKey = runDB . fmap (join . fmap userVerkey) . get
 
