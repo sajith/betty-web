@@ -11,7 +11,6 @@ import Network.Mail.Mime
 import Network.Mail.Mime.SES
 import Yesod.Auth.Email
 
-import Data.String           (IsString)
 import Data.Text.Encoding    (encodeUtf8)
 import Network.HTTP.Conduit  (withManager)
 
