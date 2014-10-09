@@ -1,4 +1,8 @@
-module Betty.SESCreds (access, secret, sender) where
+module Betty.SESCreds
+       ( access
+       , secret
+       , sender
+       , ender ) where
 
 import Data.String (IsString)
 
@@ -10,4 +14,8 @@ secret = "AWS_SES_SECRET"
 
 sender :: IsString a => a
 sender = "AWS_SES_SENDER"
+
+-- for testing
+ender :: IsString a => a
+ender = "AWS_SES_TEST_TARGET"
 
