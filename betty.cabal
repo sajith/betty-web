@@ -32,6 +32,11 @@ library
                    Handler.AddBG
                    Handler.HistoryBG
                    Betty.Version
+                   Betty.SESCreds
+                   Betty.Signup
+                   Betty.Signup.MailText
+                   Betty.Signup.SES
+                   Betty.Signup.Sendmail
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
