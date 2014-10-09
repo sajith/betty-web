@@ -34,7 +34,7 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
   
               <a .navbar-brand href=@{HomeR}>
                 <span .nowrap>
-                  Project D
+                  Betty
   
               <div #navbar-user-status .hidden-xs>
                 <ul .nav .navbar-nav .navbar-right>
