@@ -20,6 +20,9 @@ import           Yesod.Default.Config
 import           Yesod.Default.Util          (addStaticContentExternal)
 import           Yesod.Static
 
+import           Control.Monad               (join)
+import           Data.Maybe                  (isJust)
+
 import           Betty.Version
 
 -- | The site argument for your application. This can be a good place to
@@ -143,8 +146,10 @@ instance YesodAuth App where
             Just (Entity uid _) -> return $ Just uid
             Nothing -> do
                 fmap Just $ insert User
-                    { userIdent = credsIdent creds
+                    { userEmail    = credsIdent creds
                     , userPassword = Nothing
+                    , userVerkey   = Nothing
+                    , userVerified = False
                     }
 
     -- You can add other plugins like BrowserID, email or OAuth here
@@ -155,15 +160,44 @@ instance YesodAuth App where
 -- Yesod.Auth.Email customizations here.
 instance YesodAuthEmail App where
   type AuthEmailId App = UserId
-  addUnverified _ _    = undefined
-  sendVerifyEmail      = undefined
-  getVerifyKey         = undefined
-  setVerifyKey _ _     = undefined
-  verifyAccount _      = undefined
-  getPassword          = undefined
-  setPassword _ _      = undefined
-  getEmailCreds _      = undefined
-  getEmail             = undefined
+
+  addUnverified email verkey =
+    runDB $ insert $ User email Nothing (Just verkey) False
+
+  -- TODO
+  sendVerifyEmail = undefined
+
+  getVerifyKey = runDB . fmap (join . fmap userVerkey) . get
+
+  setVerifyKey uid key = runDB $ update uid [ UserVerkey =. Just key ]
+
+  verifyAccount uid = runDB $ do
+    m <- get uid
+    case m of
+      Nothing -> return Nothing
+      Just _  -> do
+        update uid [UserVerified =. True]
+        return $ Just uid
+
+  getPassword = runDB . fmap (join . fmap userPassword) . get
+
+  setPassword uid pass = runDB $ update uid [UserPassword =. Just pass]
+
+  getEmailCreds email = runDB $ do
+    mu <- getBy $ UniqueUser email
+    case mu of
+      Nothing             -> return Nothing
+      Just (Entity uid u) ->
+        return $ Just EmailCreds { emailCredsId = uid
+                                 , emailCredsAuthId = Just uid
+                                 , emailCredsStatus = isJust $ userPassword u
+                                 , emailCredsVerkey = userVerkey u
+                                 , emailCredsEmail  = email
+                                 }
+
+  getEmail = runDB . fmap (fmap userEmail) . get
+
+  -- TODO
   afterPasswordRoute _ = undefined
 
 -- This instance is required to use forms. You can modify renderMessage to

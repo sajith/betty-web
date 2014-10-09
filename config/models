@@ -1,14 +1,11 @@
 -- -*- haskell -*-
-User
-    ident Text
-    password Text Maybe
-    UniqueUser ident
-    deriving Typeable
 
-Email
+User
     email Text
-    user UserId Maybe
-    verkey Text Maybe
-    UniqueEmail email
+    password Text Maybe -- password is not be set until verification
+    verkey Text Maybe   -- verification key for setting/resetting passwords
+    verified Bool
+    UniqueUser email
+    deriving Typeable
 
  -- By default this file is used in Model.hs (which is imported by Foundation.hs)
