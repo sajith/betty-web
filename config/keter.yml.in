@@ -1,0 +1,16 @@
+exec: ../dist/build/betty/betty
+args:
+    - production
+host: KETER_HOST
+
+ssl: true
+
+redirects:
+  - from: KETER_REDIRECT_FROM
+    to: KETER_REDIRECT_TO
+
+# Use the following to automatically copy your bundle upon creation via `yesod
+# keter`. Uses `scp` internally, so you can set it to a remote destination
+# copy-to: user@host:/opt/keter/incoming
+copy-to: KETER_USER@KETER_HOST:/opt/keter/incoming
+

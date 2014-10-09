@@ -1,0 +1,10 @@
+module Betty.SESCreds (access, secret) where
+
+import Data.String (IsString)
+
+access :: IsString a => a
+access = "SES_ACCESS"
+
+secret :: IsString a => a
+secret = "SES_SECRET"
+

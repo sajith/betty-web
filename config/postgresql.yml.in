@@ -1,0 +1,32 @@
+Default: &defaults
+  user: DEFAULT_DB_USER
+  password: DEFAULT_DB_PASS
+  host: DEFAULT_DB_HOST
+  port: DEFAULT_DB_PORT
+  database: DEFAULT_DB_NAME
+  poolsize: DEFAULT_DB_POOL
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: TESTING_DB_NAME
+  <<: *defaults
+
+Staging:
+  user: STAGING_DB_USER
+  password: STAGING_DB_PASS
+  host: STAGING_DB_HOST
+  port: STAGING_DB_PORT
+  database: STAGING_DB_NAME
+  poolsize: STAGING_DB_POOL
+  <<: *defaults
+
+Production:
+  user: PRODUCTION_DB_USER
+  password: PRODUCTION_DB_PASS
+  host: PRODUCTION_DB_HOST
+  port: PRODUCTION_DB_PORT
+  database: PRODUCTION_DB_NAME
+  poolsize: PRODUCTION_DB_POOL
+  <<: *defaults
