@@ -15,15 +15,11 @@ import Data.String           (IsString)
 import Data.Text.Encoding    (encodeUtf8)
 import Network.HTTP.Conduit  (withManager)
 
-import Betty.SESCreds        (access, secret)
+import Betty.SESCreds        (access, secret, sender)
 import Betty.Signup.MailText (verHeaders, verHtml, verText)
 
--- TODO: make this a setting
-senderEmail :: IsString a => a
-senderEmail = "hello@example.net"
-
 ses :: Email -> SES
-ses email = SES { sesFrom       = senderEmail
+ses email = SES { sesFrom       = sender
                 , sesTo         = [encodeUtf8 email]
                 , sesAccessKey  = access
                 , sesSecretKey  = secret
@@ -40,7 +36,7 @@ sendVerificationEmail email _ verurl = do
 
 formMail :: Email -> VerUrl -> Mail
 formMail email verurl = Mail
-    { mailFrom    = Address Nothing senderEmail
+    { mailFrom    = Address Nothing sender
     , mailTo      = [Address Nothing email]
     , mailCc      = []
     , mailBcc     = []

@@ -1,4 +1,4 @@
-module Betty.SESCreds (access, secret) where
+module Betty.SESCreds (access, secret, sender) where
 
 import Data.String (IsString)
 
@@ -7,4 +7,7 @@ access = "SES_ACCESS"
 
 secret :: IsString a => a
 secret = "SES_SECRET"
+
+sender :: IsString a => a
+sender = "SES_SENDER"
 
