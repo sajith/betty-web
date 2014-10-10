@@ -1,0 +1,17 @@
+.ui-timepicker-table td span {
+    padding: 0.1em; 
+    width: 2.1em;
+}
+
+.ui-timepicker-table td a {
+    padding: 0.1em; 
+    width: 2.1em;
+}
+
+.bg-form {
+  padding: 0.5em;
+}
+
+.form-group { 
+  margin-bottom: 5px;
+}
