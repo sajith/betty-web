@@ -1,0 +1,80 @@
+/*
+ * "defaultDate: null" in datepicker should work, but it doesn't.
+ * "defaultTime: 'now'" in timepicker should work, but it doesn't.
+ * The rest of the code is kludge to justify that.
+ */
+
+$.getScript("@{StaticR vendor_jquery_ui_1_11_1_jquery_ui_min_js}")
+    .done ( function (script, textStatus) {
+        console.log ("jquery ui: " + textStatus);
+
+        /* save original _gotoToday */
+        var real_gotoToday = $.datepicker._gotoToday;
+
+        /* make a new _gotoToday */
+        $.datepicker._gotoToday = function(id) {
+
+            real_gotoToday.call(this, id);
+
+            var tgt  = $(id);
+            var inst = this._getInst(tgt[0]);
+
+            this._selectDate(id, this._formatDate(inst,
+                                                  inst.selectedDay, 
+                                                  inst.drawMonth, 
+                                                  inst.drawYear));
+        }
+
+        $( '#datepicker' ).datepicker({defaultDate: null,
+                                       showButtonPanel: true,
+                                       dateFormat: "yy-mm-dd"});
+
+    })
+    .fail ( function (jqhxr, settings, exception) {
+        console.log ( "error loading jquery ui" );
+    });
+
+$.getScript("@{StaticR vendor_jquery_ui_timepicker_0_3_3_jquery_ui_timepicker_js}")
+    .done ( function (script, textStatus) {
+        console.log ("jquery ui timepicker: " + textStatus);
+        $( '#timepicker' ).timepicker({defaultTime: 'now',
+                                       showPeriod: true,
+                                       showNowButton: true,
+                                       showCloseButton: true});
+    })
+    .fail ( function (jqhxr, settings, exception) {
+        console.log ("error loading jquery ui timepicker");
+    });
+
+Date.prototype.toYYYYMMDD = (function() {
+    var now = new Date();
+    var y   = now.getFullYear();
+    var m   = (now.getMonth() + 1);
+    var d   = now.getDate();
+    if (m < 10) m = "0" + m;
+    if (d < 10) d = "0" + d;
+    return y + "-" + m + "-" + d;
+});
+
+$( document ).ready( function() {
+    $( '#datepicker' ).val( new Date().toYYYYMMDD() );
+});
+
+Date.prototype.toHHMM = (function() {
+    var now = new Date();
+    var h   = now.getHours();
+    var m   = now.getMinutes();
+    var ap  = h < 12 ? "AM" : "PM"
+    if (h > 12) h = h - 12;
+    if (h < 10) h = "0" + h;
+    if (m < 10) m = "0" + m;
+    return h + ":" + m + " " + ap;
+});
+
+$( document ).ready( function() {
+    $( '#timepicker' ).val( new Date().toHHMM() );
+});
+
+$( document ).ready( function() {
+    $( '#timezone' ).val( new Date().getTimezoneOffset() );
+});
