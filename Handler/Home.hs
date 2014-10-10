@@ -14,7 +14,10 @@ getHomeR = do
         Nothing -> loggedOutPage
 
 loggedOutPage :: Handler Html
-loggedOutPage = undefined
+loggedOutPage = defaultLayout $ do
+    master <- getYesod
+    setTitle "Betty: Welcome!"
+    $(widgetFile "homepage")
 
 loggedInPage :: Handler Html
 loggedInPage = undefined
