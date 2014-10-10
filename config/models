@@ -11,7 +11,7 @@ User
 BloodGlucoseHistory
     uid UserId
     utctime UTCTime      -- TODO: remove duplicate time/date fields.   
-    localtime ZonedTime Maybe
+    -- localtime ZonedTime Maybe
     date Day
     time TimeOfDay
     timezone Text Maybe  -- TODO: use TimeZone data type, or
