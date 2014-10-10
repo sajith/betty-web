@@ -23,6 +23,7 @@ import           Yesod.Static
 import           Control.Monad               (join)
 import           Data.Maybe                  (isJust)
 
+import           Betty.Helpers
 import           Betty.Signup
 import           Betty.Version
 

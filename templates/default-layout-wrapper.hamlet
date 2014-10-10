@@ -41,7 +41,7 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
                   <li>
                     <a href=@{ProfileR}>
                       <span .fa .fa-user>
-                      <!-- TODO: #{entityUserEmail u} -->
+                      #{entityUserEmail u}
                   <li>
                     <a href=@{AuthR LogoutR}>
                       <span .fa .fa-sign-out>
