@@ -1,0 +1,81 @@
+.navbar {
+  background: transparent;
+  background-color: transparent;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  color: white !important;
+  font-color: white !important;
+  text-color: white !important;
+  foregound-color: white !important;
+}
+
+.navbar .nav > li > a {
+  color: white !important;
+}
+
+.navbar .navbar-brand {
+  color: white !important;
+}
+
+.banner-area {
+  padding: 10%;
+  overflow: auto;
+}
+
+.banner h1 { 
+  color: white;
+  text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 0px;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.btn .btn-large {
+  line-height: 1.33;
+  border-radius: 6px;
+}
+
+.btn-outline-inverse {
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+}
+
+#footer {
+  border-top: none;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+body { 
+  background-attachment: fixed;
+  background-color: rgba(96, 140, 200, 1.0);
+  background-position: left top;
+  background-image: url(@{StaticR img_floral_png});
+  background-repeat: repeat;
+
+  /*
+  -webkit-background-size: cover;
+     -moz-background-size: cover;
+       -o-background-size: cover;
+          background-size: cover;
+  */
+}
+
+/* media queries */
+
+@media screen and (max-width: 767px) {
+  #sidebar-noauth .sidebar-offcanvas { 
+    /* background: transparent; */
+    border-right: 1px;
+  }
+}
+

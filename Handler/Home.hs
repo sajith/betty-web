@@ -4,7 +4,8 @@
 module Handler.Home where
 
 import Import
-import Yesod.Auth (maybeAuth, requireAuth)
+import Yesod.Auth           (maybeAuth, requireAuth)
+import Yesod.Default.Config (appExtra)
 
 getHomeR :: Handler Html
 getHomeR = do
