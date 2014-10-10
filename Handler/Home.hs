@@ -4,7 +4,7 @@
 module Handler.Home where
 
 import Import
-import Yesod.Auth (maybeAuth)
+import Yesod.Auth (maybeAuth, requireAuth)
 
 getHomeR :: Handler Html
 getHomeR = do
@@ -20,5 +20,10 @@ loggedOutPage = defaultLayout $ do
     $(widgetFile "homepage")
 
 loggedInPage :: Handler Html
-loggedInPage = undefined
+loggedInPage = do
+    Entity uid u <- requireAuth
+
+    defaultLayout $ do
+        setTitle "Betty: Welcome!"
+        $(widgetFile "homepage.signed-in")
 
