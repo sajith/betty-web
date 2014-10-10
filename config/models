@@ -8,6 +8,18 @@ User
     UniqueUser email
     deriving Typeable
 
+UserProfile
+    uid UserId
+    timezone Text Maybe     -- default: GMT
+    dtype Text Maybe        -- default: unknown (diabetes type)
+    bgunits BGUnit Maybe    -- default: mg/dL
+    wtunits WtUnit Maybe      -- default: kg
+    insunits Text Maybe     -- default: unknown (insulin units)
+    birthYear Int Maybe     -- default: nil
+    diagnosedYear Int Maybe -- default: nil
+    UniqueUserProfile uid
+    deriving Show
+
 BloodGlucoseHistory
     uid UserId
     utctime UTCTime      -- TODO: remove duplicate time/date fields.   
