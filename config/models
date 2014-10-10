@@ -1,5 +1,10 @@
 -- -*- haskell -*-
 
+------------------------------------------------------------------------
+
+-- "user" table has just enough details to support email auth, and
+-- this comes from Yesod book.
+
 User
     email Text
     password Text Maybe -- password is not be set until verification
@@ -7,6 +12,10 @@ User
     verified Bool
     UniqueUser email
     deriving Typeable
+
+------------------------------------------------------------------------
+
+-- other details about a user goes here
 
 UserProfile
     uid UserId
@@ -20,6 +29,10 @@ UserProfile
     UniqueUserProfile uid
     deriving Show
 
+------------------------------------------------------------------------
+
+-- blood glucose logs
+
 BloodGlucoseHistory
     uid UserId
     utctime UTCTime      -- TODO: remove duplicate time/date fields.   
@@ -31,4 +44,6 @@ BloodGlucoseHistory
     value Double
     unit BGUnit Maybe
     notes Text Maybe
+
+------------------------------------------------------------------------
 
