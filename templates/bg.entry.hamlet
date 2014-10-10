@@ -1,0 +1,63 @@
+<div #bgentry>
+  <div .panel .panel-default>
+    <div .panel-heading>
+      <i .fa .fa-edit .fa-fw>
+      Add blood sugar numbers
+    <div .panel-body>  
+      <div .bg-form>
+        <form #entry-sugars action=@{AddBGR} .form-horizontal role=form method=post>
+          <div .form-group>
+            <label .col-sm-2 .control-label>
+              Date
+            <div .col-sm-10>
+              <div .input-group>
+                <input #datepicker .form-control type=text name=date placeholder=date />
+                <div .input-group-addon #datepicker-addon>
+                  <span .fa .fa-calendar>
+          <div .form-group>
+            <label .col-sm-2 .control-label>
+              Time
+            <div .col-sm-10>
+              <div .input-group>
+                <input #timepicker .form-control type=text name=time placeholder=time />
+                <div .input-group-addon #timepicker-addon>
+                  <span .fa .fa-clock-o>
+            <input #timezone type=hidden name=timezone />
+          <div .form-group>
+            <label .col-sm-2 .control-label>
+              Blood sugar
+            <div .col-sm-10>
+              <input #sugarvalue .form-control type=text name=value placeholder="in mg/dL" autofocus/>
+          <div .form-group>
+            <label .col-sm-2 .control-label>
+              Notes
+            <div .col-sm-10>
+              <input #notes .form-control type=text name=notes placeholder=notes />
+          <div .form-group>
+            <div .col-sm-offset-2 .col-sm-10>
+              <input type=reset value=Reset .btn .btn-default>
+              <input type=submit value=Submit .btn .btn-default>
+
+<!--
+
+  <div .panel .panel-default>
+    <div .panel-heading>
+      Add blood sugar numbers
+   <div .panel-body>  
+     <form role="form">
+       <div class="form-group">
+         <label for="exampleInputEmail1">Email address
+         <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+       <div class="form-group">
+         <label for="exampleInputPassword1">Password
+         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+       <div class="form-group">
+         <label for="exampleInputFile">File input
+         <input type="file" id="exampleInputFile">
+         <p class="help-block">Example block-level help text here.
+       <div class="checkbox">
+         <label>
+           <input type="checkbox"> Check me out
+       <button type="submit" class="btn btn-default">Submit
+  
+-->
