@@ -35,7 +35,7 @@ getAddBGR = do
     _ <- requireAuth
 
     defaultLayout $ do
-        setTitle "Project D : Add Blood Sugar"
+        setTitle "Betty : Add Blood Sugar"
         $(widgetFile "bg.entry")
 
 ------------------------------------------------------------------------
