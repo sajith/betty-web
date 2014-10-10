@@ -17,6 +17,9 @@ import Betty.Model
 -- would be elegant and better functioning), since that seems to give
 -- better control over the UI.
 
+-- TODO: Client side validation.  Monadic or Applicative forms might
+-- be the way to go about it, rather than handcoding JS.
+
 ------------------------------------------------------------------------
 
 data BGData =
@@ -36,6 +39,8 @@ getAddBGR = do
 
     defaultLayout $ do
         setTitle "Betty : Add Blood Sugar"
+        -- TODO: Add JQuery UI
+        -- TODO: Add JQuery UI time picker plugin
         $(widgetFile "bg.entry")
 
 ------------------------------------------------------------------------
