@@ -37,6 +37,7 @@ library
                    Betty.Signup.MailText
                    Betty.Signup.SES
                    Betty.Signup.Sendmail
+                   Betty.Model
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
@@ -89,6 +90,7 @@ library
                  , blaze-html                    >= 0.7        && < 0.8
                  , mime-mail                     >= 0.4        && < 0.5
                  , mime-mail-ses                 >= 0.3        && < 0.4
+                 , time                          >= 1.4        && < 1.5
 
     -- see https://github.com/yesodweb/yesod/issues/814
     if !os(windows)
