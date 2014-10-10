@@ -49,7 +49,7 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
             $nothing
               <a .navbar-brand #navbar-brand-notloggedin href=@{HomeR}>
                 <span .nowrap>
-                  Project D
+                  Betty
 
               <div #navbar-user-status>
                 <ul .nav .navbar-nav .navbar-right>
