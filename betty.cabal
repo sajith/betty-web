@@ -38,6 +38,7 @@ library
                    Betty.Signup.SES
                    Betty.Signup.Sendmail
                    Betty.Model
+                   Betty.Helpers
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
