@@ -56,8 +56,14 @@ postAddBGR = do
 
     let tzs = fmap (pack . timeZoneOffsetString . minutesToTimeZone) $ tz bgdata
 
-    -- TODO: get preferred unit from profile.
-    let unit = MgDL
+    -- Mg/dL is the default blood sugar unit.
+    -- TODO: there could be a better way of doing this. Revisit later.
+    profile <- runDB $ selectFirst [UserProfileUid ==. uid] []
+    let unit = case profile of
+            Just p  -> case (userProfileBgunits . entityVal) p of
+                Just un -> un
+                Nothing -> MgDL
+            Nothing -> MgDL
 
     let record = BloodGlucoseHistory
                  uid
