@@ -9,3 +9,8 @@ data BGUnit = MgDL | Mmol
 
 derivePersistField "BGUnit"
 
+data WtUnit = Kg | Lb
+     deriving (Show, Read, Eq, Enum, Bounded)
+
+derivePersistField "WtUnit"
+
