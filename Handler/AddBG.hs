@@ -39,8 +39,13 @@ getAddBGR = do
 
     defaultLayout $ do
         setTitle "Betty : Add Blood Sugar"
-        -- TODO: Add JQuery UI
-        -- TODO: Add JQuery UI time picker plugin
+
+        -- TODO: We don't need of all the JQuery UI bells and whistles, just the
+        -- datepicker.  Test a custom build: http://jqueryui.com/download/
+        addStylesheet $ StaticR vendor_jquery_ui_1_11_1_jquery_ui_min_css
+
+        addStylesheet $ StaticR vendor_jquery_ui_timepicker_0_3_3_jquery_ui_timepicker_css
+
         $(widgetFile "bg.entry")
 
 ------------------------------------------------------------------------
