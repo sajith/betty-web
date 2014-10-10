@@ -84,6 +84,8 @@ instance Yesod App where
                 [ css_normalize_css
                 , css_bootstrap_css
                 , css_betty_css
+                -- TODO: device a scheme for simplifying vendor paths
+                , vendor_font_awesome_4_2_0_css_font_awesome_min_css
                 ])
             $(widgetFile "default-layout")
         withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
