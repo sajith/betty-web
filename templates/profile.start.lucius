@@ -1,0 +1,14 @@
+#greeting {
+  border: 1px solid #e7e7e7;
+}
+
+#button-panel {
+  box-shadow: none;
+}
+
+#profile-start-form .panel-footer {
+  font-size: 85%;
+  opacity: 0.5;
+  height: 3em;
+  background-color: #fff;
+}

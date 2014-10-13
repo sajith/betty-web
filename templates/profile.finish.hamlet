@@ -1,0 +1,35 @@
+
+<div .panel .panel-default>
+  <div .panel-heading>
+    Thank you!
+  <div .panel-body>
+    <p>
+      Thank you for signing up.  Your account is now ready.
+
+    <ul>
+      <li>
+        <p>
+          When you are logged in, the <a href=@{HomeR}>homepage</a>
+          will show an overview of recently logged data and some quick
+          access tools.
+
+      <li>
+        <p .visible-sm-block .visible-md-block .visible-lg-block>
+          The sidebar on the left side shows the tools available.  
+        <p .visible-xs-block>
+          The hamburger menu on the top-bar will show tools available.
+
+      <li>
+        <p>
+          Visit the <a href=@{ProfileR}>settings page</a>, if you ever
+          need to change some of your defaults.
+
+      <li>
+        <p>
+          If you have comments, criticism, feedback, or just need help
+          using the site, please send me an email.  See
+          the <a href=@{ContactR}>contact page</a> for details.
+
+<div #button>
+  <a .btn .btn-default href=@{HomeR}>
+    Go to homepage.
