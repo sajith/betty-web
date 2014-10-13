@@ -1,0 +1,33 @@
+<div .content-area>
+
+  <h1>Privacy Policy
+
+  <p>
+    I do not share individual user data with third parties.
+
+  <p>
+    Unless you have asked me to do so, your data will not be shared
+    with anyone.  (Sometimes you might want to share your data with
+    third parties, such as your physician or other care providers.)
+
+  <p>
+    This site uses SSL wherever possible.
+
+  <p>
+    This site will not serve ads.
+
+  <p>
+    This site will not serve third-party content, with the exception
+    of some analytics scripts.
+
+  <p>
+    Some public pages may contain Google Analytics script.  Analytics
+    scripts are not served to logged-in users.
+
+  <!-- TODO: info about third party (payment/upgrade?) content -->
+
+  <p>
+    If there is a security or privacy problem, please report it to
+    me. Please see the <a href="@{ContactR}">contact page</a> for
+    email addresses and encryption keys.
+
