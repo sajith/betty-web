@@ -25,7 +25,6 @@ library
                    Handler.Info
                    Handler.Info.About
                    Handler.Info.Contact
-                   Handler.Info.Faq
                    Handler.Info.Privacy
                    Handler.Info.Terms
                    Handler.Info.Security
