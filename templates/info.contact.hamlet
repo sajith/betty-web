@@ -1,0 +1,34 @@
+<div .content-area>
+
+  <h1>Contact
+
+  <!-- TODO: publish contact; use a config value maybe? -->
+
+  <p>
+    If you have questions, suggestions, or critisism about this
+    project, please email me: <code>TODO</code>.
+
+  <h2>Security
+     
+  <p>
+    I make every effort to keep your data secure.  However, the
+    reality about computing today is that it is very hard to promise
+    absolute secrecy and security of data transmitted over the public
+    Internet.
+
+  <p>
+    If you believe that your account has been compromised, log out
+    immediately, and report the issue to me over email.  Please
+    include the email account you have used to sign up for the
+    service, the last time you've used the site, and reasons why you
+    suspect why your account has been compromised.  Include the word
+    "Urgent" in the subject line.
+
+  <!-- TODO: update GPG key -->  
+
+  <p>
+    If you have a security or privacy problem to report, please email
+    me.  My public key is available
+    <a href="http://nonzen.in/pubkey.asc">here</a>, with key
+    ID <code>TODO</code> and fingerprint <code>TODO</code>.
+

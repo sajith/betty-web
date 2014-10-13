@@ -1,6 +1,12 @@
 module Handler.Contact where
 
-import           Import
+import Import
+
+------------------------------------------------------------------------
 
 getContactR :: Handler Html
-getContactR = error "Not yet implemented: getContactRR"
+getContactR = defaultLayout $ do
+    setTitle "Betty : Contact"
+    $(widgetFile "info.contact")
+
+------------------------------------------------------------------------
