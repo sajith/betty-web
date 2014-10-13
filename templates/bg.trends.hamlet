@@ -1,0 +1,23 @@
+<!-- TODO: generate a real chart! -->
+
+<div #bgchart>
+  <div .panel .panel-default>
+    <div .panel-heading>
+      <i .fa .fa-bar-chart-o .fa-fw>
+      Recent Trends
+    <div .panel-body>
+      <div #chart-area>
+        <div #chart>
+    <div .table-responsive>
+      <table .table .table-bordered>
+        <thead>
+          <tr>
+            <th>Average
+            <th>High
+            <th>Low
+        <tbody>
+          <tr>
+            <td>#{avgbg}
+            <td>#{maxbg}
+            <td>#{minbg}
+    <div .panel-footer>

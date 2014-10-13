@@ -4,8 +4,11 @@
 module Handler.Home where
 
 import Import
+import Numeric              (showFFloat)
 import Yesod.Auth           (maybeAuth, requireAuth)
 import Yesod.Default.Config (appExtra)
+
+------------------------------------------------------------------------
 
 getHomeR :: Handler Html
 getHomeR = do
@@ -14,17 +17,62 @@ getHomeR = do
         Just _  -> loggedInPage
         Nothing -> loggedOutPage
 
+------------------------------------------------------------------------
+
 loggedOutPage :: Handler Html
 loggedOutPage = defaultLayout $ do
     master <- getYesod
     setTitle "Betty: Welcome!"
     $(widgetFile "homepage")
 
+------------------------------------------------------------------------
+
 loggedInPage :: Handler Html
 loggedInPage = do
     Entity uid u <- requireAuth
+
+    -- TODO: Get the past week's story, not just the past 10 entries
+    sugars <- fmap (map entityVal) $
+              runDB $
+              selectList [BloodGlucoseHistoryUid ==. uid] [LimitTo 10]
+
+    let sns   = map bloodGlucoseHistoryValue sugars
+        maxbg = max' sns
+        minbg = min' sns
+        avgbg = avg' sns
 
     defaultLayout $ do
         setTitle "Betty: Welcome!"
         $(widgetFile "homepage.signed-in")
 
+        -- TODO: device a better way to handle paths like these.
+        addStylesheet $ StaticR vendor_jquery_ui_timepicker_0_3_3_include_ui_1_10_0_ui_lightness_jquery_ui_1_10_0_custom_min_css
+        addStylesheet $ StaticR vendor_jquery_ui_timepicker_0_3_3_jquery_ui_timepicker_css
+        $(widgetFile "bg.entry")
+
+        addStylesheet $ StaticR vendor_jqplot_1_0_8_jquery_jqplot_min_css
+        addScript $ StaticR vendor_jqplot_1_0_8_jquery_jqplot_min_js
+        addScript $ StaticR vendor_jqplot_1_0_8_plugins_jqplot_dateAxisRenderer_min_js
+
+        $(widgetFile "bg.trends")
+        $(widgetFile "bg.history")
+
+------------------------------------------------------------------------
+
+max' :: (Ord a, Show a) => [a] -> String
+max' sv = case sv of
+    [] -> "_"
+    _  -> show $ maximum sv
+
+min' :: (Ord a, Show a) => [a] -> String
+min' sv = case sv of
+    [] -> "_"
+    _  -> show $ maximum sv
+
+-- showFFloat lets us choose the number of decimal places displayed.
+avg' :: RealFloat a => [a] -> String
+avg' sv = case sv of
+    [] -> "_"
+    _  -> showFFloat (Just 2) ((sum sv) / fromIntegral (length sv)) ""
+
+------------------------------------------------------------------------

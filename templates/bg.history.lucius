@@ -1,0 +1,17 @@
+#blood-sugar-log {
+ .panel-body {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  .panel-footer {
+    background-color: #fff;
+  }
+
+  tr {
+    #day   { width: 20%; }
+    #time  { width: 20%; }
+    #value { width: 20%; }
+    #notes { width: 40%; }
+  }
+}
+

@@ -1,0 +1,58 @@
+// jqplot stuff
+
+$( document ).ready( function() {
+
+    // TODO: this is dummy data; actual data will have to be pulled
+    // using site API.
+    var sugars = [
+        ['2014-09-01 8:00AM', 91],
+        ['2014-09-02 8:00AM', 122],
+        ['2014-09-03 8:00AM', 98],
+        ['2014-09-04 8:00AM', 123],
+        ['2014-09-05 8:00AM', 134],
+        ['2014-09-06 8:00AM', 121],
+        ['2014-09-07 8:00AM', 89]
+    ];
+
+    var plot1 = $.jqplot ('chart', [sugars], {
+
+        series: [{ color: '#7e7e7e',
+                   lineWidth: 2,
+                   shadow: false,
+                   showMarker: false }],
+
+        grid: {
+            background: '#fff',
+            shadow: false,
+            borderColor: '#efefef',
+            borderWidth: 1
+        },
+
+        axes: {
+            xaxis: {
+                renderer: $.jqplot.DateAxisRenderer,
+                tickOptions: {formatString: '%b %#d, %y'},
+                min: 'Sep 1, 2014',
+                tickInterval: '1 day',
+                // label:'Time'
+            },
+
+            yaxis: {
+                // label:'Blood sugar',
+            },
+
+            series: [ 
+                { 
+                    // color: '#ff4466',
+                    lineWidth: 4, 
+                    markerOptions: {style:'square'}
+                }
+            ]
+        }
+    });
+
+    window.onresize = function(event) {
+        plot1.replot();
+    }
+
+});

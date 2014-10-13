@@ -1,0 +1,60 @@
+<div #blood-sugar-log>
+  <div>
+    <div .panel .panel-default>
+      <div .panel-heading>
+        <i .fa .fa-list-alt .fa-fw>
+        Blood sugar logs
+      $if null sugars
+        <div .alert> <!-- TODO: show a nicer message -->
+          Nothing in the logs.
+      $else
+        <!-- <div .panel-body> -->
+        <!--   <div .row> -->
+        <!--     <div>  --> <!-- was: .col-lg-4 -->
+        <div .table-responsive>  
+          <table .table .table-bordered .table-hover .table-striped>
+            <thead>
+              <tr>
+                <!-- <th># -->
+                <th #day>Day
+                <th #time>Time
+                <th #value>Value
+                <th #notes>Notes
+                <!-- <th>Edit --> <!-- TODO -->
+            <tbody>
+              $forall val <- sugars
+                <tr>
+                  <!-- <td>#{show key} -->
+                  <td>#{show (bloodGlucoseHistoryDate val)}
+                  <td>#{show (bloodGlucoseHistoryTime val)}
+                  <td>#{show (bloodGlucoseHistoryValue val)}
+                  $case (bloodGlucoseHistoryNotes val)
+                    $of Just note
+                      <td>#{note}
+                    $of Nothing
+                      <td>
+                  <!-- <td>
+                    <i .fa .fa-edit .fa-fw>
+                  <td>
+                    <i .fa .fa-minus-circle .fa-fw> --> <!-- TODO -->
+     <div .panel-footer>
+
+<!-- TODO
+   <div #bg-pagination>
+     <ul .pagination>
+       <li>
+         <a href="#">
+           &laquo;
+       <li>
+         <a href="#">
+           1
+       <li>
+         <a href="#">
+           2
+       <li>
+         <a href="#">
+           3
+         <a href="#">
+           &raquo;
+-->
+

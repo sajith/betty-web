@@ -1,0 +1,20 @@
+
+#bgchart {  
+  table {
+    th {
+      width:33%; 
+      text-align: center;
+    }
+    td {
+      text-align: center;
+    }
+  }
+  .panel-footer {
+    background-color: #fff;
+  }
+}
+
+#chart-area {
+  margin: 0px 10px;
+}
+
