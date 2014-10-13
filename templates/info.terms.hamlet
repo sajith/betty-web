@@ -1,0 +1,63 @@
+<div .content-area>
+
+  <h1>
+    Terms of Use
+
+  <h2>
+    Scope of Services
+
+  <p>
+    You will, naturally, need a web browser to access the service.
+    This site should support most modern web browsers; please contact
+    me you are having trouble with this.
+
+  <h2>
+    Your Rights
+
+  <p>
+    In short, you and your data will be treated with respect and
+    discretion.
+
+  <p>
+    I will not actively try to keep your data locked in this service.
+    You will have the option of exporting all your data, modulo bugs
+    and other implementation problems.  You will have the option of
+    being able to delete your account and all your data.
+
+  <p>
+    Unless you authorize me, your data will not be intentionally
+    shared with anyone, including other users of the site, or third
+    parties.
+
+  <p>
+    When you are logged in, except for payment purposes, you will not
+    be served third-party content, including cookies, scripts or
+    images.
+
+  <p>
+    I will not attempt to hide problems with the service.  There will
+    be occasional maintenance windows.  If there is a significant
+    service outage, you will receive a full explanation of what
+    happened and what measures will be taken to avoid similar events
+    in the future.
+
+  <p>
+    If the site ceases operation, you will receive an opportunity to
+    download all your data in a standard format.
+
+  <h2>
+    Your Responsibilities
+
+  <p>
+    You should not make automated requests to the site more
+    frequently than it can handle.
+
+  <p>
+    You must not abuse the site by knowingly posting malicious code
+    that could harm other users.  If you find a security or privacy
+    issue with the site, please 
+    \<a href="@{ContactR}">report it to me</a> immediately via email.
+
+  <p>
+    I reserve the right to throttle, block, or close accounts
+    consuming an unreasonable proportion of site resources.

@@ -2,5 +2,11 @@ module Handler.Terms where
 
 import Import
 
+------------------------------------------------------------------------
+
 getTermsR :: Handler Html
-getTermsR = error "Not yet implemented: getTermsR"
+getTermsR = defaultLayout $ do
+    setTitle "Betty : Terms of Use"
+    $(widgetFile "info.terms")
+
+------------------------------------------------------------------------
