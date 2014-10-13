@@ -22,6 +22,7 @@ library
                      Betty.SESCreds
 
     other-modules: Handler.Home
+                   Handler.Info
                    Handler.Info.About
                    Handler.Info.Contact
                    Handler.Info.Faq
