@@ -25,6 +25,7 @@ import           Data.Maybe                  (isJust)
 
 import           Betty.Helpers
 import           Betty.Signup
+import           Betty.Vendor
 import           Betty.Version
 
 -- | The site argument for your application. This can be a good place to
@@ -86,7 +87,7 @@ instance Yesod App where
                 , css_bootstrap_css
                 , css_betty_css
                 -- TODO: device a scheme for simplifying vendor paths
-                , vendor_font_awesome_4_2_0_css_font_awesome_min_css
+                , faCss
                 ])
             $(widgetFile "default-layout")
         withUrlRenderer $(hamletFile "templates/default-layout-wrapper.hamlet")
