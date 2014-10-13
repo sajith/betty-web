@@ -39,6 +39,7 @@ library
                    Betty.Signup.Sendmail
                    Betty.Model
                    Betty.Helpers
+                   Betty.Vendor
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
