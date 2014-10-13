@@ -7,13 +7,13 @@
 -- Surely enough, 'buildTime' timestamps are approximations at best.
 --
 
-import           Control.Monad                   (liftM)
-import           Data.Time.Clock                 (getCurrentTime)
-import           Distribution.PackageDescription (emptyHookedBuildInfo)
-import           Distribution.PackageDescription (HookedBuildInfo)
-import           Distribution.Simple
-import           Prelude
-import           System.Process                  (readProcess)
+import Control.Monad                   (liftM)
+import Data.Time.Clock                 (getCurrentTime)
+import Distribution.PackageDescription (emptyHookedBuildInfo)
+import Distribution.PackageDescription (HookedBuildInfo)
+import Distribution.Simple
+import Prelude
+import System.Process                  (readProcess)
 
 main :: IO ()
 main = defaultMainWithHooks myHooks
@@ -39,3 +39,4 @@ bettyPreConf _ _ = do
         , "buildTime = " ++ show now
         ]
     return emptyHookedBuildInfo
+
