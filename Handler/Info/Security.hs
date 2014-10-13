@@ -1,4 +1,4 @@
-module Handler.Security where
+module Handler.Info.Security where
 
 import Import
 

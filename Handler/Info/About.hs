@@ -1,4 +1,4 @@
-module Handler.About where
+module Handler.Info.About where
 
 import Import
 

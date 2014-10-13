@@ -22,12 +22,12 @@ library
                      Betty.SESCreds
 
     other-modules: Handler.Home
-                   Handler.About
-                   Handler.Contact
-                   Handler.Faq
-                   Handler.Privacy
-                   Handler.Terms
-                   Handler.Security
+                   Handler.Info.About
+                   Handler.Info.Contact
+                   Handler.Info.Faq
+                   Handler.Info.Privacy
+                   Handler.Info.Terms
+                   Handler.Info.Security
                    Handler.Profile
                    Handler.ProfileStart
                    Handler.AddBG

@@ -1,4 +1,4 @@
-module Handler.Terms where
+module Handler.Info.Terms where
 
 import Import
 

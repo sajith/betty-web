@@ -1,6 +1,6 @@
-module Handler.Faq where
+module Handler.Info.Faq where
 
-import           Import
+import Import
 
 getFaqR :: Handler Html
 getFaqR = error "Not yet implemented: getFaqRR"
