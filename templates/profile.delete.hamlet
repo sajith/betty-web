@@ -1,0 +1,19 @@
+<!-- TODO: write post handler -->
+
+<div #profile-delete-panel .panel .panel-default>
+  <div .panel-heading>
+    <i .fa .fa-minus-circle .fa-fw>
+    Delete account
+  <div .panel-body>
+    <div #profile-delete>
+      <form #profile-delete-form action="#" .form-horizontal role=form method=post>
+        <p>
+          Please proceed with caution.  Your account and all its
+          associated data will be deleted from the database.  This
+          process is <b>not reversible</b>.  Make sure you have
+          backups!
+        <div .form-group>
+          <label .col-sm-4 .control-label>
+            Really delete your account?
+          <div .col-sm-8>
+            <input type=submit value="Yes, really delete" .btn .btn-default .btn-danger>

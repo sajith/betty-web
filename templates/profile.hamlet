@@ -1,0 +1,5 @@
+<!--  Profile is refactored into several smaller profile.*.* files.  -->
+
+<div  #greeting .panel .visible-xs-block>
+  <div .panel-body>
+    Hi, #{userEmail u}.

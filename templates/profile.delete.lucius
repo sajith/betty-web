@@ -1,0 +1,7 @@
+#profile-delete-panel {
+  .panel-heading { 
+    .fa { 
+      color: #d9534f;
+    }
+  }
+}

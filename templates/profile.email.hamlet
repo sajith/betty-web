@@ -1,0 +1,17 @@
+<div #email-panel .panel .panel-default>
+  <div .panel-heading>
+    <i .fa .fa-envelope-o .fa-fw>
+    Update email
+  <div .panel-body>
+    <div #email-update>
+      <form #email action="#" .form-horizontal role=form  method=post>
+        <div .form-group>
+          <label .col-sm-4 .control-label>
+            New email address
+          <div .col-sm-8>
+            <div .input-group>
+              <input #oldpassword .form-control type=email name=oldpassword>
+        <div .form-group>
+          <div .col-sm-offset-4 .col-sm-8>
+            <input type="reset" value="Reset" .btn .btn-default>
+            <input type="submit" value="Update" .btn .btn-default>
