@@ -33,15 +33,9 @@ import           Yesod.Default.Main
 import           Handler.AddBG
 import           Handler.HistoryBG
 import           Handler.Home
+import           Handler.Info
 import           Handler.Profile
 import           Handler.ProfileStart
-
-import           Handler.Info.About
-import           Handler.Info.Contact
-import           Handler.Info.Faq
-import           Handler.Info.Privacy
-import           Handler.Info.Security
-import           Handler.Info.Terms
 
 -- This line actually creates our YesodDispatch instance. It is the second half
 -- of the call to mkYesodData which occurs in Foundation.hs. Please see the
