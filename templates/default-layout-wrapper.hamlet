@@ -130,9 +130,6 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
                     <a href="@{ContactR}">
                       Contact
                   <li>
-                    <a href="@{FaqR}">
-                      FAQ
-                  <li>
                     <a href="@{TermsR}">
                       Terms of Use
                   <li>
