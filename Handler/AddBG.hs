@@ -9,6 +9,7 @@ import Data.Time.Clock     (getCurrentTime)
 import Data.Time.LocalTime (minutesToTimeZone, timeZoneOffsetString)
 
 import Betty.Model
+import Betty.Vendor
 
 ------------------------------------------------------------------------
 
@@ -42,9 +43,9 @@ getAddBGR = do
 
         -- TODO: We don't need of all the JQuery UI bells and whistles, just the
         -- datepicker.  Test a custom build: http://jqueryui.com/download/
-        addStylesheet $ StaticR vendor_jquery_ui_1_11_1_jquery_ui_min_css
+        addStylesheet $ StaticR jQueryUiCss
 
-        addStylesheet $ StaticR vendor_jquery_ui_timepicker_0_3_3_jquery_ui_timepicker_css
+        addStylesheet $ StaticR timepickerCss
 
         $(widgetFile "bg.entry")
 
