@@ -18,3 +18,4 @@ cabal.sandbox.config
 /config/postgresql.yml
 /config/settings.yml
 /Betty/SESCreds.hs
+/betty.keter
