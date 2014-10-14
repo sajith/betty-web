@@ -15,6 +15,29 @@ faCss = vendor_font_awesome_4_2_0_css_font_awesome_min_css
 
 ------------------------------------------------------------------------
 
+modernizrJs :: StaticRoute
+modernizrJs = js_modernizr_custom_03621_js
+
+------------------------------------------------------------------------
+
+jQueryJs :: StaticRoute
+jQueryJs = js_jquery_1_11_1_min_js
+
+------------------------------------------------------------------------
+
+bootstrapJs :: StaticRoute
+bootstrapJs = js_bootstrap_min_js
+
+bootstrapCss :: StaticRoute
+bootstrapCss = css_bootstrap_min_css
+
+------------------------------------------------------------------------
+
+respondJs :: StaticRoute
+respondJs = js_respond_min_js
+
+------------------------------------------------------------------------
+
 jQueryUiCss :: StaticRoute
 jQueryUiCss = vendor_jquery_ui_1_11_1_jquery_ui_min_css
 
