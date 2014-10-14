@@ -8,6 +8,8 @@ import Numeric              (showFFloat)
 import Yesod.Auth           (maybeAuth, requireAuth)
 import Yesod.Default.Config (appExtra)
 
+import Betty.Vendor
+
 ------------------------------------------------------------------------
 
 getHomeR :: Handler Html
@@ -46,13 +48,13 @@ loggedInPage = do
         $(widgetFile "homepage.signed-in")
 
         -- TODO: device a better way to handle paths like these.
-        addStylesheet $ StaticR vendor_jquery_ui_timepicker_0_3_3_include_ui_1_10_0_ui_lightness_jquery_ui_1_10_0_custom_min_css
-        addStylesheet $ StaticR vendor_jquery_ui_timepicker_0_3_3_jquery_ui_timepicker_css
+        addStylesheet $ StaticR timepickerThemeCss
+        addStylesheet $ StaticR timepickerCss
         $(widgetFile "bg.entry")
 
-        addStylesheet $ StaticR vendor_jqplot_1_0_8_jquery_jqplot_min_css
-        addScript $ StaticR vendor_jqplot_1_0_8_jquery_jqplot_min_js
-        addScript $ StaticR vendor_jqplot_1_0_8_plugins_jqplot_dateAxisRenderer_min_js
+        addStylesheet $ StaticR jqPlotCss
+        addScript $ StaticR jqPlotJs
+        addScript $ StaticR jqPlotDateAxisJs
 
         $(widgetFile "bg.trends")
         $(widgetFile "bg.history")
