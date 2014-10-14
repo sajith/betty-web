@@ -4,7 +4,7 @@
  * The rest of the code is kludge to justify that.
  */
 
-$.getScript("@{StaticR vendor_jquery_ui_1_11_1_jquery_ui_min_js}")
+$.getScript("@{StaticR jQueryUiJs}")
     .done ( function (script, textStatus) {
         console.log ("jquery ui: " + textStatus);
 
@@ -34,7 +34,7 @@ $.getScript("@{StaticR vendor_jquery_ui_1_11_1_jquery_ui_min_js}")
         console.log ( "error loading jquery ui" );
     });
 
-$.getScript("@{StaticR vendor_jquery_ui_timepicker_0_3_3_jquery_ui_timepicker_js}")
+$.getScript("@{StaticR timepickerJs}")
     .done ( function (script, textStatus) {
         console.log ("jquery ui timepicker: " + textStatus);
         $( '#timepicker' ).timepicker({defaultTime: 'now',

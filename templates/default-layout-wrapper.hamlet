@@ -10,12 +10,12 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
 
     ^{pageHead pc}
 
-    <script type="text/javascript" src=@{StaticR js_modernizr_custom_03621_js}>
-    <script type="text/javascript" src=@{StaticR js_jquery_1_11_1_min_js}>
-    <script type="text/javascript" src=@{StaticR js_bootstrap_js}>
+    <script type="text/javascript" src=@{StaticR modernizrJs}>
+    <script type="text/javascript" src=@{StaticR jQueryJs}>
+    <script type="text/javascript" src=@{StaticR bootstrapJs}>
 
     \<!--[if lt IE 9]>
-    \<script type="text/javascript" src=@{StaticR js_respond_min_js}></script>
+    \<script type="text/javascript" src=@{StaticR respondJs}></script>
     \<![endif]-->
 
   <body>
