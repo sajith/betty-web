@@ -28,6 +28,8 @@ import           Yesod.Default.Config
 import           Yesod.Default.Handlers
 import           Yesod.Default.Main
 
+import           Betty.Pid                            (writePidFile)
+
 -- Import all relevant handler modules here.
 -- Don't forget to add new modules to your cabal file!
 import           Handler.AddBG
@@ -58,6 +60,8 @@ makeApplication conf = do
                 else Apache FromSocket
         , destination = RequestLogger.Logger $ loggerSet $ appLogger foundation
         }
+
+    _ <- writePidFile
 
     -- Create the WAI application and apply middlewares
     app <- toWaiAppPlain foundation
