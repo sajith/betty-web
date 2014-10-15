@@ -29,3 +29,4 @@ entityUserEmail' eu = case eu of
     Just u  -> entityUserEmail u
     Nothing -> "email unknown"
 
+------------------------------------------------------------------------
