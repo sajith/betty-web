@@ -13,7 +13,7 @@ import System.Posix.Process      (getProcessID)
 
 ------------------------------------------------------------------------
 
--- | Write a PID file so that monitoring apps can monitor.
+-- Write a PID file so that monitoring apps can monitor.
 writePidFile :: IO ()
 writePidFile = do
     when production $
