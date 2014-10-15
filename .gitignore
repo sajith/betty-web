@@ -19,3 +19,4 @@ cabal.sandbox.config
 /config/settings.yml
 /Betty/SESCreds.hs
 /betty.keter
+/betty.pid
