@@ -3,18 +3,28 @@ module HomeTest
     ( homeSpecs
     ) where
 
-import TestImport
-import qualified Data.List as L
+import qualified Data.List  as L
+import           TestImport
 
 homeSpecs :: Spec
 homeSpecs =
-    ydescribe "These are some example tests" $ do
+    ydescribe "test homepage for unauthenticated user" $ do
 
         yit "loads the index and checks it looks right" $ do
             get HomeR
             statusIs 200
-            htmlAllContain "h1" "Hello"
+            htmlAllContain "h1" "Manage diabetes the smart way."
 
+            htmlAnyContain "a" "Betty"
+            htmlAnyContain "a" "Log in"
+            htmlAnyContain "a" "Sign up"
+
+            htmlAnyContain "a" "About"
+            htmlAnyContain "a" "Contact"
+            htmlAnyContain "a" "Terms of Use"
+            htmlAnyContain "a" "Privacy Policy"
+
+{--
             request $ do
                 setMethod "POST"
                 setUrl HomeR
@@ -28,6 +38,8 @@ homeSpecs =
             htmlAllContain ".message" "Some Content"
             htmlAllContain ".message" "text/plain"
 
+--}
+
         -- This is a simple example of using a database access in a test.  The
         -- test will succeed for a fresh scaffolded site with an empty database,
         -- but will fail on an existing database with a non-empty user table.
@@ -36,3 +48,4 @@ homeSpecs =
             statusIs 200
             users <- runDB $ selectList ([] :: [Filter User]) []
             assertEqual "user table empty" 0 $ L.length users
+
