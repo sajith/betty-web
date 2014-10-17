@@ -69,7 +69,7 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
         <div .row>
 
           <!-- sidebar -->
-          $maybe u <- ma
+          $maybe _ <- ma
             <div .col-xs-6 .col-sm-4 .col-md-3>
               <div #sidebar .panel .sidebar-offcanvas>
                 <ul #affix .nav .nav-stacked>
