@@ -1,30 +1,46 @@
 To get started, you need GHC, haskell-platform, cabal-install,
-postgresql, and yesod-bin.  Please see the appropriate documentation
-for how to install these.
+PostgreSQL, yesod-bin, GNU m4, and GNU make.  Please see the
+appropriate documentation for how to install these.
 
 The Yesod quickstart guide is particularly helpful:
 
     http://www.yesodweb.com/page/quickstart
 
-To build this project:
+To get started, we need (at least) two PostgreSQL databases: one for
+development, and one for testing.  To quickly set up these databases:
+
+    sudo -u postgres createuser betty
+    sudo -u postgres createdb betty_devel
+    sudo -u postgres createdb betty_test
+
+    sudo -u postgres psql
+    postgres=# alter user betty with encrypted password 'secret'; 
+    postgres=# grant all privileges on database betty_devel to betty;
+    postgres=# grant all privileges on database betty_test to betty;
+
+We don't want to push passwords and other sensitive configuration
+strings to a public repository by mistake.  These strings are saved in
+a file named secrets.m4, and this secrets.m4 file is in .gitignore so
+it isn't added to the git repository.  The top-level Makefile should
+help to create the actual configuration files when you run 'make'.  It
+is a little kludgey, but it works, for now anyway.
+
+Create secrets.m4:
+
+     cp secrets.m4.example secrets.m4
+
+Edit secrets.m4 to set appropriate usernames and passwords you might
+want to use, and then run:
+
+     make
+
+This will create the right configuration, and you should be mostly
+ready to build and run the web app:
 
     cabal sandbox init
     cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j
-
-We also need a PostgreSQL database.  To quickly set up database:
-
-    sudo -u postgres createuser betty_devel
-    sudo -u postgres createdb betty_devel
-
-    sudo -u postgres psql
-    postgres=# alter user betty_devel with encrypted password 'secret'; 
-    postgres=# grant all privileges on database betty_devel to betty_devel;
-
-Now edit secrets.m4 to set appropriate usernames and passwords you
-might want to use, and then run 'make'.  This will create the right
-configuration, and you should be mostly ready to start the web app:
-
     yesod devel
 
-(I suppose I should be sorry about using m4 this way.)
+(I suppose I should be sorry about using m4 this way.  If you have
+better ideas, please let me know!)
 
