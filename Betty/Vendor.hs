@@ -1,7 +1,8 @@
 module Betty.Vendor where
 
-import Settings.StaticFiles
-import Yesod.Static         (StaticRoute)
+import Data.Text    (Text)
+
+import Yesod.Static
 
 ------------------------------------------------------------------------
 
@@ -10,60 +11,74 @@ import Yesod.Static         (StaticRoute)
 
 ------------------------------------------------------------------------
 
-faCss :: StaticRoute
-faCss = vendor_font_awesome_4_2_0_css_font_awesome_min_css
+staticPath :: [Text] -> Route Static
+staticPath xs = StaticRoute xs []
+
+vendorPath :: [Text] -> Route Static
+vendorPath xs = staticPath ("vendor":xs)
+
+------------------------------------------------------------------------
+
+-- faCss :: StaticRoute
+faCss :: Route Static
+faCss = vendorPath ["font-awesome-4.2.0", "css", "font-awesome.min.css"]
 
 ------------------------------------------------------------------------
 
 modernizrJs :: StaticRoute
-modernizrJs = js_modernizr_custom_03621_js
+modernizrJs = staticPath ["js", "modernizr.custom.03621.js"]
 
 ------------------------------------------------------------------------
 
 jQueryJs :: StaticRoute
-jQueryJs = js_jquery_1_11_1_min_js
+jQueryJs = staticPath ["js", "jquery-1.11.1.min.js"]
 
 ------------------------------------------------------------------------
 
 bootstrapJs :: StaticRoute
-bootstrapJs = js_bootstrap_min_js
+bootstrapJs = staticPath ["js", "bootstrap.min.js"]
 
 bootstrapCss :: StaticRoute
-bootstrapCss = css_bootstrap_min_css
+bootstrapCss = staticPath ["css", "bootstrap.min.css"]
 
 ------------------------------------------------------------------------
 
 respondJs :: StaticRoute
-respondJs = js_respond_min_js
+respondJs = staticPath ["js", "respond.min.js"]
 
 ------------------------------------------------------------------------
 
 jQueryUiCss :: StaticRoute
-jQueryUiCss = vendor_jquery_ui_1_11_1_jquery_ui_min_css
+jQueryUiCss = vendorPath ["jquery-ui-1.11.1", "jquery-ui.min.css"]
 
 jQueryUiJs :: StaticRoute
-jQueryUiJs = vendor_jquery_ui_1_11_1_jquery_ui_min_js
+jQueryUiJs = vendorPath ["jquery-ui-1.11.1", "jquery-ui.min.js"]
 
 ------------------------------------------------------------------------
 
 timepickerCss :: StaticRoute
-timepickerCss = vendor_jquery_ui_timepicker_0_3_3_jquery_ui_timepicker_css
+timepickerCss = vendorPath ["jquery-ui-timepicker-0.3.3",
+                            "jquery.ui.timepicker.css"]
 
 timepickerJs :: StaticRoute
-timepickerJs = vendor_jquery_ui_timepicker_0_3_3_jquery_ui_timepicker_js
+timepickerJs = vendorPath ["jquery-ui-timepicker-0.3.3",
+                           "jquery.ui.timepicker.js"]
 
 timepickerThemeCss :: StaticRoute
-timepickerThemeCss = vendor_jquery_ui_timepicker_0_3_3_include_ui_1_10_0_ui_lightness_jquery_ui_1_10_0_custom_min_css
+timepickerThemeCss = vendorPath ["jquery-ui-timepicker-0.3.3",
+                                 "include", "ui-1.10.0", "ui-lightness",
+                                 "jquery-ui-1.10.0.custom.min.css"]
 
 ------------------------------------------------------------------------
 
 jqPlotCss :: StaticRoute
-jqPlotCss = vendor_jqplot_1_0_8_jquery_jqplot_min_css
+jqPlotCss = vendorPath ["jqplot-1.0.8", "jquery.jqplot.min.css"]
 
 jqPlotJs :: StaticRoute
-jqPlotJs = vendor_jqplot_1_0_8_jquery_jqplot_min_js
+jqPlotJs = vendorPath ["jqplot-1.0.8", "jquery.jqplot.min.js"]
 
 jqPlotDateAxisJs :: StaticRoute
-jqPlotDateAxisJs = vendor_jqplot_1_0_8_plugins_jqplot_dateAxisRenderer_min_js
+jqPlotDateAxisJs = vendorPath ["jqplot-1.0.8", "plugins",
+                               "jqplot.dateAxisRenderer.min.js"]
 
 ------------------------------------------------------------------------
