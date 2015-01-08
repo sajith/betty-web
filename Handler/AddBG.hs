@@ -61,7 +61,7 @@ postAddBGR = do
              <*> ireq doubleField "value"
              <*> iopt textField "notes"
 
-    Entity uid u <- requireAuth
+    Entity uid _ <- requireAuth
 
     utctime <- liftIO getCurrentTime
 
