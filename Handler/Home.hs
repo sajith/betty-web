@@ -31,7 +31,7 @@ loggedOutPage = defaultLayout $ do
 
 loggedInPage :: Handler Html
 loggedInPage = do
-    Entity uid u <- requireAuth
+    Entity uid _ <- requireAuth
 
     -- TODO: Get the past week's story, not just the past 10 entries
     sugars <- fmap (map entityVal) $
