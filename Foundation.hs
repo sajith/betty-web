@@ -162,6 +162,8 @@ instance YesodAuth App where
 
     authHttpManager = httpManager
 
+instance YesodAuthPersist App
+
 -- Yesod.Auth.Email customizations here.
 instance YesodAuthEmail App where
   type AuthEmailId App = UserId
