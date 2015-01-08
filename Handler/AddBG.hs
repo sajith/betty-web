@@ -56,7 +56,7 @@ postAddBGR = do
 
     bgdata <- runInputPost $ BGData
              <$> ireq dayField "date"
-             <*> ireq timeField "time"
+             <*> ireq timeFieldTypeTime "time"
              <*> iopt intField "timezone"
              <*> ireq doubleField "value"
              <*> iopt textField "notes"
