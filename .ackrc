@@ -2,4 +2,6 @@
 --color
 --ignore-dir=.cabal-sandbox
 --ignore-dir=dist
+--ignore-dir=yesod-devel
+
 
