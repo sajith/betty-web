@@ -7,7 +7,7 @@ import Yesod.Auth (requireAuth)
 
 getHistoryBGR :: Handler Html
 getHistoryBGR = do
-    Entity uid u <- requireAuth
+    Entity uid _ <- requireAuth
 
     -- TODO: pagination
     sugars <- fmap (map entityVal) $
