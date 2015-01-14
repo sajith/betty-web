@@ -56,12 +56,12 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
 
               <div #navbar-user-status>
                 <ul .nav .navbar-nav .navbar-right>
+                  <li .hidden-xs>
+                    <a href=@{AuthR registerR}>
+                      Register
                   <li>
                     <a href=@{AuthR LoginR}>
                       Log in
-                  <li .hidden-xs>
-                    <a href=@{AuthR registerR}>
-                      Sign up
 
       <!-- end top navbar -->
 
@@ -104,7 +104,7 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
                 <ul #affix .nav .nav-stacked>
                   <li>
                     <a href=@{AuthR registerR}>
-                      Sign up
+                      Register
                   <li>
                     <a href=@{AuthR LoginR}>
                       Log in
