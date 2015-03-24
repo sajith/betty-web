@@ -26,8 +26,8 @@ $(document).ready(function() {
 
     var xAxis = d3.svg.axis()
         .scale(x)
-        .orient("bottom");
-        // .tickFormat(d3.time.format("%Y-%m-%d %H:%M%p"));
+        .orient("bottom")
+        .tickFormat(d3.time.format("%Y-%m-%dT%H:%M:%SZ").parse);
 
     var yAxis = d3.svg.axis()
         .scale(y)
