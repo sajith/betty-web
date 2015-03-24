@@ -18,3 +18,34 @@
   margin: 0px 10px;
 }
 
+#chart {
+    rect {
+        fill: darkred;
+    }
+
+    text {
+        fill: white;
+        font: 10px sans-serif;
+        text-anchor: end;
+    }
+
+    .bar {
+        fill: steelblue;
+    }
+}
+
+.axis {
+    text {
+        font: 10x sans-serif;
+    }
+
+    path, line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+}
+
+x.axis path {
+    /* display: none; */
+}

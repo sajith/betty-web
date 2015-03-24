@@ -1,58 +1,68 @@
 // jqplot stuff
 
-$( document ).ready( function() {
+$(document).ready(function() {
 
     // TODO: this is dummy data; actual data will have to be pulled
     // using site API.
     var sugars = [
-        ['2014-09-01 8:00AM', 91],
-        ['2014-09-02 8:00AM', 122],
-        ['2014-09-03 8:00AM', 98],
-        ['2014-09-04 8:00AM', 123],
-        ['2014-09-05 8:00AM', 134],
-        ['2014-09-06 8:00AM', 121],
-        ['2014-09-07 8:00AM', 89]
+        { date: "2014-09-01T08:00:00.000Z", value: 91},
+        { date: "2014-09-02T08:00:00.000Z", value: 122},
+        { date: "2014-09-03T08:00:00.000Z", value: 98},
+        { date: "2014-09-04T08:00:00.000Z", value: 123},
+        { date: "2014-09-05T08:00:00.000Z", value: 134},
+        { date: "2014-09-06T08:00:00.000Z", value: 121},
+        { date: "2014-09-07T08:00:00.000Z", value: 89}
     ];
+    
+    var margin = {top: 10, right: 10, bottom: 10, left: 10};
+    var width  = $('#chart').width() - margin.left - margin.right;
+    var height = $('#chart').height() - margin.top - margin.bottom;
 
-    var plot1 = $.jqplot ('chart', [sugars], {
+    var x = d3.scale.ordinal()
+        .rangeRoundBands([0, width], .1);
 
-        series: [{ color: '#7e7e7e',
-                   lineWidth: 2,
-                   shadow: false,
-                   showMarker: false }],
+    var y = d3.scale.linear()
+        .range([height, 0]);
 
-        grid: {
-            background: '#fff',
-            shadow: false,
-            borderColor: '#efefef',
-            borderWidth: 1
-        },
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom");
+        // .tickFormat(d3.time.format("%Y-%m-%d %H:%M%p"));
 
-        axes: {
-            xaxis: {
-                renderer: $.jqplot.DateAxisRenderer,
-                tickOptions: {formatString: '%b %#d, %y'},
-                min: 'Sep 1, 2014',
-                tickInterval: '1 day',
-                // label:'Time'
-            },
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left");
 
-            yaxis: {
-                // label:'Blood sugar',
-            },
+    var chart = d3.select("#chart")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate(" + margin.left +
+              "," + margin.top + ")");
 
-            series: [ 
-                { 
-                    // color: '#ff4466',
-                    lineWidth: 4, 
-                    markerOptions: {style:'square'}
-                }
-            ]
-        }
-    });
+    x.domain(sugars.map(function (d) { return d.date; }));
+    y.domain([0, d3.max(sugars, function (d) { return d.value; })]);
+    
+    chart.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    chart.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+    // chart.selectAll(".bar")
+    //     .data(sugars)
+    //     .enter().append("rect")
+    //     .attr("class", "bar")
+    //     .attr("x", function(d) { return d.date; })
+    //     .attr("y", function(d) { return d.value; })
+    //     .attr("height", function(d) { return height - y(d.value); })
+    //     .attr("width", x.rangeBand());
 
     window.onresize = function(event) {
         plot1.replot();
     }
-
 });
+
