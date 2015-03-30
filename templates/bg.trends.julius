@@ -1,5 +1,3 @@
-// jqplot stuff
-
 $(document).ready(function() {
 
     // TODO: this is dummy data; actual data will have to be pulled
@@ -62,7 +60,7 @@ $(document).ready(function() {
     //     .attr("width", x.rangeBand());
 
     window.onresize = function(event) {
-        plot1.replot();
+        // plot1.replot();
     }
 });
 
