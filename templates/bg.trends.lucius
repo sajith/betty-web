@@ -1,51 +1,42 @@
 
 #bgchart {  
-  table {
-    th {
-      width:33%; 
-      text-align: center;
+    table {
+        th {
+            width:33%; 
+            text-align: center;
+        }
+        td {
+            text-align: center;
+        }
     }
-    td {
-      text-align: center;
+  
+    .panel-footer {
+        background-color: #fff;
     }
-  }
-  .panel-footer {
-    background-color: #fff;
-  }
 }
 
 #chart-area {
-  margin: 0px 10px;
+    margin: 0px 10px;
 }
 
 #chart {
-    rect {
-        fill: darkred;
-    }
-
     text {
-        fill: white;
         font: 10px sans-serif;
         text-anchor: end;
     }
 
-    .bar {
-        fill: steelblue;
-    }
-}
-
-.axis {
-    text {
-        font: 10x sans-serif;
-    }
-
-    path, line {
+    path {
+        stroke: #5899ff; /* TODO: pick better colors */
+        stroke-width: 2;
         fill: none;
-        stroke: #000;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: grey;
+        stroke-width: 1;
         shape-rendering: crispEdges;
     }
 }
 
-x.axis path {
-    /* display: none; */
-}

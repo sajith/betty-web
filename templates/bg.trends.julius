@@ -1,7 +1,10 @@
+function getDate (d) {
+    return new Date(d);
+} 
+
 $(document).ready(function() {
 
-    // TODO: this is dummy data; actual data will have to be pulled
-    // using site API.
+    // TODO: this is dummy test data; pull actual data using API.
     var sugars = [
         { date: "2014-09-01T08:00:00.000Z", value: 91},
         { date: "2014-09-02T08:00:00.000Z", value: 122},
@@ -11,56 +14,59 @@ $(document).ready(function() {
         { date: "2014-09-06T08:00:00.000Z", value: 121},
         { date: "2014-09-07T08:00:00.000Z", value: 89}
     ];
-    
-    var margin = {top: 10, right: 10, bottom: 10, left: 10};
-    var width  = $('#chart').width() - margin.left - margin.right;
-    var height = $('#chart').height() - margin.top - margin.bottom;
 
-    var x = d3.scale.ordinal()
-        .rangeRoundBands([0, width], .1);
+    var margin = {top: 5, right: 5, bottom: 25, left: 25};
+    var width  = $('#chart-area').width() - margin.left - margin.right;
+    var height = $('#chart-area').height() - margin.top - margin.bottom;
 
-    var y = d3.scale.linear()
-        .range([height, 0]);
+    var x = d3.time.scale().range([0, width]);
+    var y = d3.scale.linear().range([height, 0]);
 
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom")
-        .tickFormat(d3.time.format("%Y-%m-%dT%H:%M:%SZ").parse);
+        // .tickFormat(d3.time.format("%Y-%m-%dT%H:%M:%SZ"))
+        .ticks(7); // TODO: fix hardcoding.
 
     var yAxis = d3.svg.axis()
         .scale(y)
-        .orient("left");
+        .orient("left")
+        .ticks(10); // TODO: fix hardcoding.
 
     var chart = d3.select("#chart")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left +
-              "," + margin.top + ")");
+          .attr("width", width + margin.left + margin.right)
+          .attr("height", height + margin.top + margin.bottom)
+        .append("svg:g")
+          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    x.domain(sugars.map(function (d) { return d.date; }));
-    y.domain([0, d3.max(sugars, function (d) { return d.value; })]);
+    sugars.forEach(function(d) {
+        d.date  = getDate(d.date);
+        d.value = +d.value;
+    });
+
+    x.domain(d3.extent(sugars, function(d) { return d.date; }));
+    y.domain([0, d3.max(sugars, function(d) { return d.value; })]);
+
+    var valueline = d3.svg.line()
+        .x(function(d) { return x(d.date); })
+        .y(function(d) { return y(d.value); });
     
+    chart.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(sugars));
+
     chart.append("g")
-        .attr("class", "x axis")
+        .attr("class", "axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
     chart.append("g")
-        .attr("class", "y axis")
+        .attr("class", "axis")
         .call(yAxis);
 
-    // chart.selectAll(".bar")
-    //     .data(sugars)
-    //     .enter().append("rect")
-    //     .attr("class", "bar")
-    //     .attr("x", function(d) { return d.date; })
-    //     .attr("y", function(d) { return d.value; })
-    //     .attr("height", function(d) { return height - y(d.value); })
-    //     .attr("width", x.rangeBand());
-
     window.onresize = function(event) {
-        // plot1.replot();
+        // TODO: redraw plot on resize.
+        // chart.replot(); 
     }
 });
 
