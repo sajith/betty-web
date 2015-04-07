@@ -51,16 +51,16 @@ $(document).ready(function() {
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.value); });
     
-    chart.append("path")
+    chart.append("svg:path")
         .attr("class", "line")
         .attr("d", valueline(sugars));
 
-    chart.append("g")
+    chart.append("svg:g")
         .attr("class", "axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
-    chart.append("g")
+    chart.append("svg:g")
         .attr("class", "axis")
         .call(yAxis);
 
