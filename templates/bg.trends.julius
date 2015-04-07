@@ -1,9 +1,8 @@
-function getDate (d) {
+function getDate(d) {
     return new Date(d);
 } 
 
-$(document).ready(function() {
-
+function drawChart() {
     // TODO: this is dummy test data; pull actual data using API.
     var sugars = [
         { date: "2014-09-01T08:00:00.000Z", value: 91},
@@ -63,10 +62,13 @@ $(document).ready(function() {
     chart.append("svg:g")
         .attr("class", "axis")
         .call(yAxis);
+} 
 
+$(document).ready(function() {
+    drawChart();
+    
     window.onresize = function(event) {
-        // TODO: redraw plot on resize.
-        // chart.replot(); 
+        // TODO: replot chart.
     }
 });
 
