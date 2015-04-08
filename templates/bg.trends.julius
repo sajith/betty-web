@@ -14,12 +14,14 @@ function drawChart() {
         { date: "2014-09-07T08:00:00.000Z", value: 89}
     ];
 
-    var margin = {top: 5, right: 5, bottom: 25, left: 25};
-    var width  = $('#chart-area').width() - margin.left - margin.right;
-    var height = $('#chart-area').height() - margin.top - margin.bottom;
+    var margin      = {top: 10, right: 10, bottom: 25, left: 25},
+        areaWidth   = $('#chart-area').width(),
+        chartWidth  = areaWidth - margin.left - margin.right,
+        aspectRatio = 2*1.6180,
+        chartHeight = (chartWidth / aspectRatio);
 
-    var x = d3.time.scale().range([0, width]);
-    var y = d3.scale.linear().range([height, 0]);
+    var x = d3.time.scale().range([0, chartWidth]),
+        y = d3.scale.linear().range([chartHeight, 0]);
 
     var xAxis = d3.svg.axis()
         .scale(x)
@@ -32,11 +34,13 @@ function drawChart() {
         .orient("left")
         .ticks(10); // TODO: fix hardcoding.
 
-    var chart = d3.select("#chart")
-          .attr("width", width + margin.left + margin.right)
-          .attr("height", height + margin.top + margin.bottom)
-        .append("svg:g")
-          .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var chart = d3.select("#chart-area")
+      .append("svg")
+        .attr("id", "chart")
+        .attr("width", areaWidth)
+        .attr("height", chartHeight)
+      .append("svg:g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     sugars.forEach(function(d) {
         d.date  = getDate(d.date);
@@ -49,26 +53,22 @@ function drawChart() {
     var valueline = d3.svg.line()
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.value); });
-    
+
     chart.append("svg:path")
         .attr("class", "line")
         .attr("d", valueline(sugars));
 
     chart.append("svg:g")
         .attr("class", "axis")
-        .attr("transform", "translate(0," + height + ")")
+        .attr("transform", "translate(0," + chartHeight + ")")
         .call(xAxis);
 
     chart.append("svg:g")
         .attr("class", "axis")
         .call(yAxis);
-} 
+}
 
 $(document).ready(function() {
     drawChart();
-    
-    window.onresize = function(event) {
-        // TODO: replot chart.
-    }
 });
 
