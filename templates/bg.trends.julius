@@ -27,7 +27,7 @@ function drawChart() {
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom")
-        .ticks(7); // TODO: fix hardcoding.
+        .ticks(sugars.length);
 
     var yAxis = d3.svg.axis()
         .scale(y)
