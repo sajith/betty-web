@@ -34,6 +34,9 @@ function drawChart() {
         .orient("left")
         .ticks(10); // TODO: fix hardcoding.
 
+    // TODO: this is hackish; fix.
+    d3.select("#chart").remove();
+
     var chart = d3.select("#chart-area")
       .append("svg")
         .attr("id", "chart")
@@ -72,3 +75,6 @@ $(document).ready(function() {
     drawChart();
 });
 
+$(window).on("resize", function() {
+    drawChart();
+});
