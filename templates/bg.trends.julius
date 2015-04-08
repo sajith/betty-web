@@ -62,12 +62,12 @@ function drawChart() {
         .attr("d", valueline(sugars));
 
     chart.append("svg:g")
-        .attr("class", "axis")
+        .attr("class", "x axis")
         .attr("transform", "translate(0," + chartHeight + ")")
         .call(xAxis);
 
     chart.append("svg:g")
-        .attr("class", "axis")
+        .attr("class", "y axis")
         .call(yAxis);
 }
 
