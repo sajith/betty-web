@@ -27,7 +27,6 @@ function drawChart() {
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom")
-        // .tickFormat(d3.time.format("%Y-%m-%dT%H:%M:%SZ"))    
         .ticks(7); // TODO: fix hardcoding.
 
     var yAxis = d3.svg.axis()
