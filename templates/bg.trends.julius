@@ -17,8 +17,9 @@ function drawChart() {
     var margin      = {top: 10, right: 10, bottom: 25, left: 25},
         areaWidth   = $('#chart-area').width(),
         chartWidth  = areaWidth - margin.left - margin.right,
-        aspectRatio = 2*1.6180,
-        chartHeight = (chartWidth / aspectRatio);
+        aspectRatio = 3.14, // because, why not.
+        chartHeight = areaWidth / aspectRatio,
+        areaHeight  = chartHeight + margin.top + margin.left;
 
     var x = d3.time.scale().range([0, chartWidth]),
         y = d3.scale.linear().range([chartHeight, 0]);
@@ -26,7 +27,7 @@ function drawChart() {
     var xAxis = d3.svg.axis()
         .scale(x)
         .orient("bottom")
-        // .tickFormat(d3.time.format("%Y-%m-%dT%H:%M:%SZ"))
+        // .tickFormat(d3.time.format("%Y-%m-%dT%H:%M:%SZ"))    
         .ticks(7); // TODO: fix hardcoding.
 
     var yAxis = d3.svg.axis()
@@ -41,7 +42,7 @@ function drawChart() {
       .append("svg")
         .attr("id", "chart")
         .attr("width", areaWidth)
-        .attr("height", chartHeight)
+        .attr("height", areaHeight)
       .append("svg:g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
