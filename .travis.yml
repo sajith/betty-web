@@ -16,5 +16,8 @@ install:
   - cp secrets.m4.example secrets.m4
   - make
   - cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j || cat /home/travis/.cabal/logs/language-javascript-0.5.13.log
+  - cabal install yesod-bin
   - export PATH=$HOME/.cabal/bin:$PATH
+  - ls $HOME/.cabal/bin
+  - yesod build
   - yesod test
