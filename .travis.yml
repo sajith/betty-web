@@ -1,1 +1,16 @@
 language: haskell
+
+env:
+  - CABALVER=1.22 GHCVER=7.8.4
+
+before_install:
+  - travis_retry sudo apt-add repository -y ppa:hvr/ghc
+  - travis_retry sudo apt-get update
+  - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER
+  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
+
+install:
+  - cabal --version
+  - travis_retry cabal update
+  - make
+  - cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j
