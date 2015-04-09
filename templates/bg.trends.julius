@@ -1,58 +1,84 @@
-// jqplot stuff
+function getDate(d) {
+    return new Date(d);
+} 
 
-$( document ).ready( function() {
 
-    // TODO: this is dummy data; actual data will have to be pulled
-    // using site API.
+function drawChart() {
+    // TODO: this is dummy test data; pull actual data using API.
     var sugars = [
-        ['2014-09-01 8:00AM', 91],
-        ['2014-09-02 8:00AM', 122],
-        ['2014-09-03 8:00AM', 98],
-        ['2014-09-04 8:00AM', 123],
-        ['2014-09-05 8:00AM', 134],
-        ['2014-09-06 8:00AM', 121],
-        ['2014-09-07 8:00AM', 89]
+        { date: "2014-09-01T08:00:00.000Z", value: 91},
+        { date: "2014-09-02T08:00:00.000Z", value: 122},
+        { date: "2014-09-03T08:00:00.000Z", value: 98},
+        { date: "2014-09-04T08:00:00.000Z", value: 123},
+        { date: "2014-09-05T08:00:00.000Z", value: 134},
+        { date: "2014-09-06T08:00:00.000Z", value: 121},
+        { date: "2014-09-07T08:00:00.000Z", value: 89}
     ];
 
-    var plot1 = $.jqplot ('chart', [sugars], {
+    var margin      = {top: 10, right: 10, bottom: 25, left: 25},
+        areaWidth   = $('#chart-area').width(),
+        chartWidth  = areaWidth - margin.left - margin.right,
+        aspectRatio = 3.14, // because, why not.
+        chartHeight = areaWidth / aspectRatio,
+        areaHeight  = chartHeight + margin.top + margin.left;
 
-        series: [{ color: '#7e7e7e',
-                   lineWidth: 2,
-                   shadow: false,
-                   showMarker: false }],
+    var x = d3.time.scale().range([0, chartWidth]),
+        y = d3.scale.linear().range([chartHeight, 0]);
 
-        grid: {
-            background: '#fff',
-            shadow: false,
-            borderColor: '#efefef',
-            borderWidth: 1
-        },
+    var xAxis = d3.svg.axis()
+        .scale(x)
+        .orient("bottom")
+        .ticks(sugars.length);
 
-        axes: {
-            xaxis: {
-                renderer: $.jqplot.DateAxisRenderer,
-                tickOptions: {formatString: '%b %#d, %y'},
-                min: 'Sep 1, 2014',
-                tickInterval: '1 day',
-                // label:'Time'
-            },
+    var yAxis = d3.svg.axis()
+        .scale(y)
+        .orient("left")
+        .ticks(10); // TODO: fix hardcoding.
 
-            yaxis: {
-                // label:'Blood sugar',
-            },
+    // TODO: this is hackish; fix.
+    d3.select("#chart").remove();
 
-            series: [ 
-                { 
-                    // color: '#ff4466',
-                    lineWidth: 4, 
-                    markerOptions: {style:'square'}
-                }
-            ]
-        }
+    var chart = d3.select("#chart-area")
+      .append("svg")
+        .attr("id", "chart")
+        .attr("width", areaWidth)
+        .attr("height", areaHeight)
+      .append("svg:g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    sugars.forEach(function(d) {
+        d.date  = getDate(d.date);
+        d.value = +d.value;
     });
 
-    window.onresize = function(event) {
-        plot1.replot();
-    }
+    x.domain(d3.extent(sugars, function(d) { return d.date; }));
+    y.domain([0, d3.max(sugars, function(d) { return d.value; })]);
 
+    // TODO: the 'line.interpolate()' call creates a smooth curve,
+    // instead of the default jaggy one.  But is that the right one?
+    var valueline = d3.svg.line()
+        .interpolate("monotone") 
+        .x(function(d) { return x(d.date); })
+        .y(function(d) { return y(d.value); });
+
+    chart.append("svg:path")
+        .attr("class", "line")
+        .attr("d", valueline(sugars));
+
+    chart.append("svg:g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + chartHeight + ")")
+        .call(xAxis);
+
+    chart.append("svg:g")
+        .attr("class", "y axis")
+        .call(yAxis);
+}
+
+$(document).ready(function() {
+    drawChart();
+});
+
+$(window).on("resize", function() {
+    drawChart();
 });

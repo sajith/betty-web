@@ -82,3 +82,8 @@ jqPlotDateAxisJs = vendorPath ["jqplot-1.0.8", "plugins",
                                "jqplot.dateAxisRenderer.min.js"]
 
 ------------------------------------------------------------------------
+
+d3Js :: StaticRoute
+d3Js = vendorPath ["d3-3.5.5", "d3.min.js"]
+
+------------------------------------------------------------------------
