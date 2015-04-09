@@ -1,13 +1,11 @@
-language: haskell
-
 env:
-  - CABALVER=1.22 GHCVER=7.8.4
+  - CABALVER=1.22 GHCVER=7.8.4 HAPPYVER=1.19.5
 
 before_install:
   - travis_retry sudo apt-add-repository -y ppa:hvr/ghc
   - travis_retry sudo apt-get update
-  - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER
-  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$PATH
+  - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER happy
+  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/happy/$HAPPYVER/bin:$PATH
 
 install:
   - cabal --version
