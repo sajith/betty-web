@@ -2,6 +2,7 @@ function getDate(d) {
     return new Date(d);
 } 
 
+
 function drawChart() {
     // TODO: this is dummy test data; pull actual data using API.
     var sugars = [
@@ -53,7 +54,10 @@ function drawChart() {
     x.domain(d3.extent(sugars, function(d) { return d.date; }));
     y.domain([0, d3.max(sugars, function(d) { return d.value; })]);
 
+    // TODO: the 'line.interpolate()' call creates a smooth curve,
+    // instead of the default jaggy one.  But is that the right one?
     var valueline = d3.svg.line()
+        .interpolate("monotone") 
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.value); });
 
