@@ -9,6 +9,9 @@ before_install:
 
 install:
   - cabal --version
+  - ghc --version
+  - happy --version
+  - alex --version
   - travis_retry cabal update
   - cp secrets.m4.example secrets.m4
   - make
