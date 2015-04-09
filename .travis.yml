@@ -4,7 +4,7 @@ env:
 before_install:
   - travis_retry sudo apt-add-repository -y ppa:hvr/ghc
   - travis_retry sudo apt-get update
-  - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER happy-$HAPPYVER alex-$ALEXVER
+  - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER happy-$HAPPYVER alex-$ALEXVER libpq-dev
   - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/happy/$HAPPYVER/bin:/opt/alex/$ALEXVER/bin:$PATH
 
 install:
