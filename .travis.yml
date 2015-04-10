@@ -20,9 +20,10 @@ install:
   - make
   - cabal update
   - cabal sandbox init
+  - cabal configure -fdev 
   - cabal install yesod-bin
   - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
-  - cabal install --enable-tests --reorder-goals --max-backjumps=-1 -fdev -j
+  - cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j
   - ls $(pwd)/.cabal-sandbox/bin
 
 before_script:
