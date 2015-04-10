@@ -1,6 +1,9 @@
 env:
   - CABALVER=1.20 GHCVER=7.8.4 HAPPYVER=1.19.5 ALEXVER=3.1.4
 
+addons:
+  postgresql: "9.3"
+
 before_install:
   - travis_retry sudo apt-add-repository -y ppa:hvr/ghc
   - travis_retry sudo apt-get update
