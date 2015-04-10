@@ -10,9 +10,6 @@ before_install:
   - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER happy-$HAPPYVER alex-$ALEXVER
   - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/happy/$HAPPYVER/bin:/opt/alex/$ALEXVER/bin:$PATH
 
-before_script:
-  - psql -c 'create database betty_test;' -U postgres
-
 install:
   - cabal --version
   - ghc --version
@@ -27,4 +24,9 @@ install:
   - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
   - cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j
   - ls $(pwd)/.cabal-sandbox/bin
+
+before_script:
+  - psql -c 'create database betty_test;' -U postgres
+
+script:
   - yesod test
