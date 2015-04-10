@@ -1,3 +1,16 @@
+#
+# TODO: Use a newer Cabal version.  I would like to use Cabal-1.22 on
+# travis-ci.org, but using that version of Cabal produces this error:
+#
+#     cabal: You need to re-run the 'configure' command. The version
+#     of Cabal being used has changed (was Cabal-1.18.1.5, now
+#     Cabal-1.22.2.0). Additionally the compiler is different (was
+#     ghc-7.8, now ghc-7.10) which is probably the cause of the
+#     problem.
+#
+# Cabal 1.20 seems to work OK, so I'll just use that for now.
+#
+
 env:
   - CABALVER=1.20 GHCVER=7.8.4 HAPPYVER=1.19.5 ALEXVER=3.1.4
 
