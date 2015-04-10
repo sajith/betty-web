@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP                       #-}
 {-# LANGUAGE NoMonomorphismRestriction #-}
 {-# LANGUAGE OverloadedStrings         #-}
 {-# OPTIONS_GHC -fno-warn-orphans      #-}
@@ -11,7 +12,9 @@ import Yesod.Default.Config
 import Yesod.Test
 
 import HomeTest
+#if USE_AWS_SES
 import SESTest
+#endif
 
 main :: IO ()
 main = do
@@ -22,4 +25,6 @@ main = do
     hspec $ do
         yesodSpec foundation $ do
             homeSpecs
+#if USE_AWS_SES
             sesMailSpecs
+#endif
