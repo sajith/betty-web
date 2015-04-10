@@ -9,7 +9,7 @@ before_install:
 
 before_script:
   - psql -c 'create database betty_test;' -U postgres
-  
+
 install:
   - cabal --version
   - ghc --version
@@ -22,6 +22,6 @@ install:
   - cabal sandbox init
   - cabal install yesod-bin
   - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
-  - cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j || cat $(pwd)/.cabal-sandbox/logs/tar-0.4.0.1.log
+  - cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j
   - ls $(pwd)/.cabal-sandbox/bin
   - yesod test
