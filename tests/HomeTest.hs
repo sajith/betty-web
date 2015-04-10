@@ -17,7 +17,7 @@ homeSpecs =
 
             htmlAnyContain "a" "Betty"
             htmlAnyContain "a" "Log in"
-            htmlAnyContain "a" "Sign up"
+            htmlAnyContain "a" "Register"
 
             htmlAnyContain "a" "About"
             htmlAnyContain "a" "Contact"
