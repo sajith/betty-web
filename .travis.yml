@@ -20,7 +20,6 @@ install:
   - make
   - cabal update
   - cabal sandbox init
-  - cabal configure -fdev 
   - cabal install yesod-bin
   - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
   - cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j
@@ -30,4 +29,5 @@ before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
+  - cabal configure -fdev
   - yesod test
