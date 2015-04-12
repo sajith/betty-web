@@ -28,10 +28,10 @@ install:
   - ghc --version
   - happy --version
   - alex --version
-  - travis_retry cabal update
   - cp secrets.m4.example secrets.m4
   - make
   - cabal sandbox init
+  - travis_retry cabal update  
   - cabal install yesod-bin
   - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
   - cabal install --only-dependencies --enable-tests --reorder-goals --max-backjumps=-1 -j
