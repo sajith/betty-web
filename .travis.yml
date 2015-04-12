@@ -35,7 +35,9 @@ install:
   - cabal sandbox init
   - cabal install yesod-bin
   - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
-  - cabal install -fdev --enable-tests --reorder-goals --max-backjumps=-1 -j
+  - cabal install --only-dependencies --reorder-goals --max-backjumps=-1 -j
+  - cabal configure -fdev --enable-tests
+  - cabal build
   - ls $(pwd)/.cabal-sandbox/bin
 
 before_script:
