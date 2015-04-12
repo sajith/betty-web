@@ -31,7 +31,6 @@ install:
   - travis_retry cabal update
   - cp secrets.m4.example secrets.m4
   - make
-  - cabal update
   - cabal sandbox init
   - cabal install yesod-bin
   - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
