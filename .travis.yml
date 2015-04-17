@@ -32,7 +32,7 @@ install:
   - make
   - cabal sandbox init
   - travis_retry cabal update  
-  - cabal install yesod-bin
+  - travis_wait cabal install yesod-bin
   - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
   - cabal install --only-dependencies --enable-tests --reorder-goals --max-backjumps=-1 -j
   - ls $(pwd)/.cabal-sandbox/bin
