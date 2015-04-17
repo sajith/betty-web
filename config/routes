@@ -23,3 +23,4 @@
 /api/v0/sugar/add ApiV0SugarAddR GET POST
 /api/v0/sugar/get ApiV0SugarGetR GET POST
 /api/v0/sugar/edit ApiV0SugarEditR GET POST
+/api/v0/sugar/delete ApiV0SugarDeleteR GET POST
