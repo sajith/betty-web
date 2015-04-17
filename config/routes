@@ -21,3 +21,4 @@
 /history/bg     HistoryBGR      GET
 
 /api/v0/sugar/add ApiV0SugarAddR GET POST
+/api/v0/sugar/get ApiV0SugarGetR GET POST
