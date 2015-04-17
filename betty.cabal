@@ -34,6 +34,7 @@ library
                    Handler.HistoryBG
                    Handler.ApiV0SugarAdd
                    Handler.ApiV0SugarGet
+                   Handler.ApiV0SugarEdit
                    Betty.Version
                    Betty.Signup
                    Betty.Signup.MailText
