@@ -32,6 +32,7 @@ library
                    Handler.ProfileStart
                    Handler.AddBG
                    Handler.HistoryBG
+                   Handler.ApiV0SugarAdd
                    Betty.Version
                    Betty.Signup
                    Betty.Signup.MailText
