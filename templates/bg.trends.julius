@@ -2,19 +2,21 @@ function getDate(d) {
     return new Date(d);
 } 
 
+// TODO: refactor; get rid of the global variable.
+var sugars = [];
+
+// Test data; don't uncomment.
+// var sugars = [
+//     { date: "2015-04-01T08:00:00.000Z", value: 91},
+//     { date: "2015-04-02T08:00:00.000Z", value: 122},
+//     { date: "2015-04-03T08:00:00.000Z", value: 98},
+//     { date: "2015-04-04T08:00:00.000Z", value: 123},
+//     { date: "2015-04-05T08:00:00.000Z", value: 134},
+//     { date: "2015-04-06T08:00:00.000Z", value: 121},
+//     { date: "2015-04-07T08:00:00.000Z", value: 89}
+// ];
 
 function drawChart() {
-    // TODO: this is dummy test data; pull actual data using API.
-    var sugars = [
-        { date: "2014-09-01T08:00:00.000Z", value: 91},
-        { date: "2014-09-02T08:00:00.000Z", value: 122},
-        { date: "2014-09-03T08:00:00.000Z", value: 98},
-        { date: "2014-09-04T08:00:00.000Z", value: 123},
-        { date: "2014-09-05T08:00:00.000Z", value: 134},
-        { date: "2014-09-06T08:00:00.000Z", value: 121},
-        { date: "2014-09-07T08:00:00.000Z", value: 89}
-    ];
-
     var margin      = {top: 10, right: 10, bottom: 25, left: 25},
         areaWidth   = $('#chart-area').width(),
         chartWidth  = areaWidth - margin.left - margin.right,
@@ -47,18 +49,18 @@ function drawChart() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     sugars.forEach(function(d) {
-        d.date  = getDate(d.date);
+        d.ts  = getDate(d.utctime);
         d.value = +d.value;
     });
 
-    x.domain(d3.extent(sugars, function(d) { return d.date; }));
+    x.domain(d3.extent(sugars, function(d) { return d.ts; }));
     y.domain([0, d3.max(sugars, function(d) { return d.value; })]);
 
     // TODO: the 'line.interpolate()' call creates a smooth curve,
     // instead of the default jaggy one.  But is that the right one?
     var valueline = d3.svg.line()
         .interpolate("monotone") 
-        .x(function(d) { return x(d.date); })
+        .x(function(d) { return x(d.ts); })
         .y(function(d) { return y(d.value); });
 
     chart.append("svg:path")
@@ -76,7 +78,19 @@ function drawChart() {
 }
 
 $(document).ready(function() {
-    drawChart();
+
+    d3.json("/api/v0/sugar/get", function(error, json) {
+        if (error) {
+            return console.warn(error);
+        }
+
+        // console.log("data: " + JSON.stringify(json));
+
+        sugars = json["sugars"];
+
+        console.log("json sugars:" + JSON.stringify(sugars));
+        drawChart();    
+    });
 });
 
 $(window).on("resize", function() {
