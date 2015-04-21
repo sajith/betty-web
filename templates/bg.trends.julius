@@ -41,7 +41,10 @@ function drawChart() {
         .orient("left")
         .ticks(10); // TODO: fix hardcoding.
 
-    // TODO: this is hackish; fix.
+    // TODO: this is hackish; fix.  We call drawChart() on window
+    // resizing, and this line makes sure that SVG elements are not
+    // simply piled upon again into the chart area.  That gets really
+    // awkward.
     d3.select("#chart").remove();
 
     var chart = d3.select("#chart-area")
