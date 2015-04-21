@@ -3,9 +3,10 @@ function getDate(d) {
 } 
 
 // TODO: refactor; get rid of the global variable.
-var sugars = [];
+var userData;
 
-// Test data; don't uncomment.
+// Test data; keep this around... for testing.
+
 // var sugars = [
 //     { date: "2015-04-01T08:00:00.000Z", value: 91},
 //     { date: "2015-04-02T08:00:00.000Z", value: 122},
@@ -17,6 +18,9 @@ var sugars = [];
 // ];
 
 function drawChart() {
+
+    var sugars = userData["sugars"];
+    
     var margin      = {top: 10, right: 10, bottom: 25, left: 25},
         areaWidth   = $('#chart-area').width(),
         chartWidth  = areaWidth - margin.left - margin.right,
@@ -85,10 +89,9 @@ $(document).ready(function() {
         }
 
         // console.log("data: " + JSON.stringify(json));
-
-        sugars = json["sugars"];
-
-        console.log("json sugars:" + JSON.stringify(sugars));
+        userData = json;
+        // console.log("json sugars:" + JSON.stringify(sugars));
+        
         drawChart();    
     });
 });
