@@ -8,16 +8,22 @@
 --
 
 import Control.Monad                   (liftM)
-import Data.Time.Clock                 (getCurrentTime)
+import Data.Time.Clock                 (UTCTime (..), getCurrentTime)
 import Distribution.PackageDescription (emptyHookedBuildInfo)
 import Distribution.PackageDescription (HookedBuildInfo)
 import Distribution.Simple
 import Prelude
 import System.Process                  (readProcess)
 
+import Data.Time.Format                (formatTime)
+import System.Locale                   (defaultTimeLocale)
+
 main :: IO ()
 main = defaultMainWithHooks myHooks
     where myHooks = simpleUserHooks { preConf = bettyPreConf }
+
+format :: UTCTime -> String
+format = formatTime defaultTimeLocale "%F %T %Z"
 
 bettyPreConf :: t -> t1 -> IO HookedBuildInfo
 bettyPreConf _ _ = do
@@ -25,7 +31,7 @@ bettyPreConf _ _ = do
 
     desc <- liftM (filter (/= '\'') . filter (/= '\n')) $
             readProcess "git" ["show", "HEAD", "-s", "--format='%h'"] ""
-    now  <- return . show =<< getCurrentTime
+    now  <- fmap format getCurrentTime
 
     writeFile "Betty/Version.hs" $ unlines
         [ "module Betty.Version where"
