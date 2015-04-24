@@ -140,7 +140,7 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
                       Privacy Policy
               <div #version-info .text-muted>
                 <p>
-                  Rev #{gitCommitHash} <!-- buit at #{buildTime} -->
+                  Rev #{gitCommitHash} buit at #{buildTime}
       <!-- end footer -->
 
     \ <script>
