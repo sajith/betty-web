@@ -9,8 +9,7 @@
 
 import Control.Monad                   (liftM)
 import Data.Time.Clock                 (UTCTime (..), getCurrentTime)
-import Distribution.PackageDescription (emptyHookedBuildInfo)
-import Distribution.PackageDescription (HookedBuildInfo)
+import Distribution.PackageDescription (HookedBuildInfo, emptyHookedBuildInfo)
 import Distribution.Simple
 import Prelude
 import System.Process                  (readProcess)
