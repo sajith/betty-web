@@ -10,8 +10,12 @@ module Handler.ApiV0SugarGet where
 import Import
 import Yesod.Auth
 
-import Betty.Model (BGUnit (..))
-import Data.Text   (pack)
+import Control.Monad      (when)
+import Data.Maybe         (fromJust)
+import Network.HTTP.Types (status401)
+
+import Betty.Model        (BGUnit (..))
+import Data.Text          (pack)
 
 instance ToJSON BloodGlucoseHistory where
     toJSON (BloodGlucoseHistory uid utctime date time tz value unit notes)
@@ -33,7 +37,11 @@ instance ToJSON BloodGlucoseHistory where
 
 getApiV0SugarGetR :: Handler Value
 getApiV0SugarGetR = do
-    uid <- requireAuthId
+    mid <- maybeAuthId
+
+    when (mid == Nothing) $ sendResponseStatus status401 ()
+
+    let uid = fromJust mid
 
     $(logDebug) $ pack $ "uid: " ++ show uid
 
