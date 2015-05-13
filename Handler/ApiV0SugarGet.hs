@@ -49,5 +49,3 @@ getApiV0SugarGetR = do
                     , "sugars" .= sugars
                     ]
 
-postApiV0SugarGetR :: Handler Html
-postApiV0SugarGetR = error "Not yet implemented: postApiV0SugarGetR"
