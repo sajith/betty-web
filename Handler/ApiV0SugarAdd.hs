@@ -71,9 +71,3 @@ postApiV0SugarAddR = do
 
     -- TODO: return a useful value.
     return "OK."
-
-
-{--
-getApiV0SugarAddR :: Handler Html
-getApiV0SugarAddR = error "Not yet implemented: getApiV0SugarAddR"
---}
