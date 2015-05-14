@@ -43,6 +43,8 @@ getApiV0SugarGetR = do
 
     let uid = fromJust mid
 
+    -- uid <- checkUid
+
     $(logDebug) $ pack $ "uid: " ++ show uid
 
     sugars <- fmap (map entityVal) $
@@ -56,4 +58,15 @@ getApiV0SugarGetR = do
     return $ object [ "count"  .= length sugars
                     , "sugars" .= sugars
                     ]
+
+
+-- TODO: test this later.
+
+checkUid :: -- forall master.
+            (YesodAuth master, Eq (AuthId master)) =>
+            HandlerT master IO (AuthId master)
+checkUid = do
+    mid <- maybeAuthId
+    when (mid == Nothing) $ sendResponseStatus status401 ()
+    return $ fromJust mid
 
