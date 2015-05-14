@@ -1,18 +1,26 @@
 module Handler.ApiV0SugarAdd where
 
 import Import
-import Yesod.Auth          (requireAuthId)
+import Yesod.Auth          (maybeAuthId)
 
 import Data.Text           as T
 import Data.Time.Clock     (getCurrentTime, utctDay, utctDayTime)
 import Data.Time.LocalTime (timeToTimeOfDay)
+
+import Control.Monad       (when)
+import Data.Maybe          (fromJust)
+import Network.HTTP.Types  (status401)
 
 import Betty.Model         (BGUnit (..))
 
 postApiV0SugarAddR :: Handler Value
 postApiV0SugarAddR = do
 
-    uid   <- requireAuthId
+    mid <- maybeAuthId
+
+    when (mid == Nothing) $ sendResponseStatus status401 ()
+
+    let uid = fromJust mid
 
     -- value <- lookupPostParam "value"
 
