@@ -11,7 +11,7 @@ import Import
 import Yesod.Auth
 
 import Control.Monad      (when)
-import Data.Maybe         (fromJust)
+import Data.Maybe         (fromJust, isNothing)
 import Network.HTTP.Types (status401)
 
 import Betty.Model        (BGUnit (..))
@@ -39,7 +39,7 @@ getApiV0SugarGetR :: Handler Value
 getApiV0SugarGetR = do
     mid <- maybeAuthId
 
-    when (mid == Nothing) $ sendResponseStatus status401 ()
+    when (isNothing mid) $ sendResponseStatus status401 ()
 
     let uid = fromJust mid
 
@@ -67,6 +67,6 @@ checkUid :: -- forall master.
             HandlerT master IO (AuthId master)
 checkUid = do
     mid <- maybeAuthId
-    when (mid == Nothing) $ sendResponseStatus status401 ()
+    when (isNothing mid) $ sendResponseStatus status401 ()
     return $ fromJust mid
 
