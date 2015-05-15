@@ -7,6 +7,8 @@ import Data.Text           as T
 import Data.Time.Clock     (getCurrentTime, utctDay, utctDayTime)
 import Data.Time.LocalTime (timeToTimeOfDay)
 
+import Database.Persist.Sql (fromSqlKey)
+
 import Control.Monad       (when)
 import Data.Maybe          (fromJust)
 import Network.HTTP.Types  (status401)
@@ -77,5 +79,11 @@ postApiV0SugarAddR = do
 
     result <- runDB $ insert record
 
+    let key = fromSqlKey result
+
+    $(logDebug) $ pack $ "Result key: " ++ show key
+
     -- TODO: return a useful value.
+    -- return $ show key
+    
     return "OK."
