@@ -32,10 +32,11 @@ library
                    Handler.ProfileStart
                    Handler.AddBG
                    Handler.HistoryBG
-                   Handler.ApiV0SugarAdd
-                   Handler.ApiV0SugarGet
-                   Handler.ApiV0SugarEdit
-                   Handler.ApiV0SugarDelete
+                   Handler.Api
+                   Handler.Api.V0.SugarAdd
+                   Handler.Api.V0.SugarGet
+                   Handler.Api.V0.SugarEdit
+                   Handler.Api.V0.SugarDelete
                    Betty.Version
                    Betty.Signup
                    Betty.Signup.MailText
