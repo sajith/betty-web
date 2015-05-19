@@ -1,4 +1,4 @@
-module Handler.ApiV0SugarEdit where
+module Handler.Api.V0.SugarEdit where
 
 import Import
 

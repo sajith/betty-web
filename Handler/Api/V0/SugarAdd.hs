@@ -1,4 +1,4 @@
-module Handler.ApiV0SugarAdd where
+module Handler.Api.V0.SugarAdd where
 
 import Import
 import Yesod.Auth          (maybeAuthId)

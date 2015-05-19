@@ -1,4 +1,4 @@
-module Handler.ApiV0SugarDelete where
+module Handler.Api.V0.SugarDelete where
 
 import Import
 

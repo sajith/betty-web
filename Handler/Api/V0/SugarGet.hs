@@ -5,7 +5,7 @@
 
 -- TODO: handle (range etc) parameters.
 
-module Handler.ApiV0SugarGet where
+module Handler.Api.V0.SugarGet where
 
 import Import
 import Yesod.Auth
