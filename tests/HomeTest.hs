@@ -5,6 +5,9 @@ module HomeTest
 
 import qualified Data.List  as L
 import           TestImport
+import           TestTools
+
+import           Data.Text  (Text)
 
 homeSpecs :: Spec
 homeSpecs =
@@ -23,6 +26,9 @@ homeSpecs =
             htmlAnyContain "a" "Contact"
             htmlAnyContain "a" "Terms of Use"
             htmlAnyContain "a" "Privacy Policy"
+
+        yit "Requires login" $ do
+            needsLogin GET ("/history/bg" :: Text)
 
 {--
             request $ do
