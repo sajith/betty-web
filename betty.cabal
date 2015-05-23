@@ -140,3 +140,8 @@ test-suite test
                  , mime-mail
                  , mime-mail-ses
                  , http-conduit
+                 , http-types                 
+                 , network-uri
+                 , wai-extra
+                 , bytestring
+                 , text
