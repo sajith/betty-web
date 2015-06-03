@@ -1,6 +1,6 @@
-To get started, you need GHC, haskell-platform, cabal-install,
-PostgreSQL, yesod-bin, GNU m4, and GNU make.  Please see the
-appropriate documentation for how to install these.
+To get started, you need GHC, cabal-install, PostgreSQL, libpq-dev,
+yesod-bin, GNU m4, and GNU make.  Please see the appropriate
+documentation for how to install these.
 
 The Yesod quickstart guide is particularly helpful:
 
