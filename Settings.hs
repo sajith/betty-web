@@ -13,7 +13,11 @@ import Yesod.Default.Config
 import Yesod.Default.Util
 import Data.Text (Text)
 import Data.Yaml
+
+#if __GLASGOW_HASKELL__ < 710
 import Control.Applicative
+#endif
+
 import Settings.Development
 import Data.Default (def)
 import Text.Hamlet
