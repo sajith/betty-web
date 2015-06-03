@@ -13,7 +13,7 @@
 
 env:
   - CABALVER=1.20 GHCVER=7.8.4 HAPPYVER=1.19.5 ALEXVER=3.1.4
-  - CABALVER=1.22 GHCVER=7.10.2 HAPPYVER=1.19.5 ALEXVER=3.1.4  
+  - CABALVER=1.22 GHCVER=7.10.1 HAPPYVER=1.19.5 ALEXVER=3.1.4  
 
 addons:
   postgresql: "9.3"
@@ -32,7 +32,7 @@ install:
   - cp secrets.m4.example secrets.m4
   - make
   - cabal sandbox init
-  - if [ "$GHCVER" == "7.10.2" ] ; then wget http://www.stackage.org/nightly/cabal.config -O cabal.config ; fi
+  - if [ "$GHCVER" == "7.10.1" ] ; then wget http://www.stackage.org/nightly/cabal.config -O cabal.config ; fi
   - travis_retry cabal update  
   - travis_wait cabal install yesod-bin
   - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
