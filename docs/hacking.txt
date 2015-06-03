@@ -41,6 +41,8 @@ ready to build and run the web app:
     cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j
     yesod devel
 
+You might also need to run 'cabal update' sometimes.
+
 (I suppose I should be sorry about using m4 this way.  If you have
 better ideas, please let me know!)
 
