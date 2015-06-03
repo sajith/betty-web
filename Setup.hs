@@ -7,13 +7,16 @@
 -- Surely enough, 'buildTime' timestamps are approximations at best.
 --
 
-import Control.Monad                   (liftM)
-import Data.Time.Clock                 (UTCTime (..), getCurrentTime)
-import Distribution.PackageDescription (HookedBuildInfo, emptyHookedBuildInfo)
-import Distribution.Simple
 import Prelude
+
+import Control.Monad                   (liftM)
 import System.Process                  (readProcess)
 
+import Distribution.PackageDescription (HookedBuildInfo, emptyHookedBuildInfo)
+import Distribution.Simple             (defaultMainWithHooks, preConf,
+                                        simpleUserHooks)
+
+import Data.Time.Clock                 (UTCTime (..), getCurrentTime)
 import Data.Time.Format                (formatTime)
 
 -- TODO: Support ghc-7.10.2
