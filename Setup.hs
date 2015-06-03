@@ -1,10 +1,15 @@
 --
--- Running Setup.hs (like so: "runhaskell Setup.hs build") creates
--- Betty/Version.hs, which has functions to show version and time
--- stamp of the build.  These strings are displayed at the footer of
--- the site.
+-- Running Setup.hs (like "runhaskell Setup.hs build", or indirectly
+-- by cabal) creates Betty/Version.hs, which has a function that
+-- returns the abbreviated git commit hash.
 --
--- Surely enough, 'buildTime' timestamps are approximations at best.
+-- The commit hash string is displayed at the footer of the site.
+--
+-- (Version.hs also used to return a time stamp of the build
+-- previously, but this was only approximate at best, and turned out
+-- to be rather complicated to make work with both ghc-7.10.x and
+-- ghc-7.8.x.  Might revisit this later, but it is no big deal.  Might
+-- as well not.)
 --
 
 import Prelude
@@ -19,20 +24,9 @@ import Distribution.Simple             (defaultMainWithHooks, preConf,
 import Data.Time.Clock                 (UTCTime (..), getCurrentTime)
 import Data.Time.Format                (formatTime)
 
--- TODO: Support ghc-7.10.2
-
--- #if __GLASGOW_HASKELL__ > 710
--- import Data.Time.Format                (defaultTimeLocale)
--- #else
-import System.Locale                   (defaultTimeLocale)
--- #endif
-
 main :: IO ()
-main = defaultMainWithHooks myHooks
-    where myHooks = simpleUserHooks { preConf = bettyPreConf }
-
-format :: UTCTime -> String
-format = formatTime defaultTimeLocale "%F %T %Z"
+main = defaultMainWithHooks hooks
+    where hooks = simpleUserHooks { preConf = bettyPreConf }
 
 bettyPreConf :: t -> t1 -> IO HookedBuildInfo
 bettyPreConf _ _ = do
@@ -40,7 +34,6 @@ bettyPreConf _ _ = do
 
     desc <- liftM (filter (/= '\'') . filter (/= '\n')) $
             readProcess "git" ["show", "HEAD", "-s", "--format='%h'"] ""
-    now  <- fmap format getCurrentTime
 
     writeFile "Betty/Version.hs" $ unlines
         [ "module Betty.Version where"
@@ -51,9 +44,7 @@ bettyPreConf _ _ = do
         , ""
         , "gitCommitHash :: String"
         , "gitCommitHash = " ++ show (init desc)
-        , ""
-        , "buildTime :: String"
-        , "buildTime = " ++ show now
         ]
+
     return emptyHookedBuildInfo
 
