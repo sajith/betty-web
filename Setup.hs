@@ -15,7 +15,14 @@ import Prelude
 import System.Process                  (readProcess)
 
 import Data.Time.Format                (formatTime)
+
+-- TODO: Support ghc-7.10.2
+
+-- #if __GLASGOW_HASKELL__ > 710
+-- import Data.Time.Format                (defaultTimeLocale)
+-- #else
 import System.Locale                   (defaultTimeLocale)
+-- #endif
 
 main :: IO ()
 main = defaultMainWithHooks myHooks
