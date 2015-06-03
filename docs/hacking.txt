@@ -39,9 +39,16 @@ ready to build and run the web app:
 
     cabal sandbox init
     cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j
-    yesod devel
+    yesod test
 
 You might also need to run 'cabal update' sometimes.
+
+If everything went well, test cases run by 'yesod test' should pass.
+Now you can run:
+
+    yesod devel
+
+and start hacking!
 
 (I suppose I should be sorry about using m4 this way.  If you have
 better ideas, please let me know!)
