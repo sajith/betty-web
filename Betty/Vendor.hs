@@ -87,3 +87,8 @@ d3Js :: StaticRoute
 d3Js = vendorPath ["d3-3.5.5", "d3.min.js"]
 
 ------------------------------------------------------------------------
+
+dimpleJs :: StaticRoute
+dimpleJs = vendorPath ["dimplejs-2.1.2", "dimple.v2.1.2.min.js" ]
+
+------------------------------------------------------------------------
