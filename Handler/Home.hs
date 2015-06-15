@@ -52,9 +52,9 @@ loggedInPage = do
         addStylesheet $ StaticR timepickerCss
         $(widgetFile "bg.entry")
 
-        addStylesheet $ StaticR jqPlotCss
-        addScript $ StaticR jqPlotJs
-        addScript $ StaticR jqPlotDateAxisJs
+        -- addStylesheet $ StaticR jqPlotCss
+        -- addScript $ StaticR jqPlotJs
+        -- addScript $ StaticR jqPlotDateAxisJs
 
         addScript $ StaticR d3Js
         addScript $ StaticR dimpleJs
