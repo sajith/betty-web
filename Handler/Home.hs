@@ -57,6 +57,7 @@ loggedInPage = do
         addScript $ StaticR jqPlotDateAxisJs
 
         addScript $ StaticR d3Js
+        addScript $ StaticR dimpleJs
 
         $(widgetFile "bg.trends")
         $(widgetFile "bg.history")
