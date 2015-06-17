@@ -3,7 +3,7 @@ function drawChart(data) {
     if (data == null) {
         return console.error("no data to display");
     }
-    
+
     var margin      = {top: 30, right: 30, bottom: 30, left: 30},
         areaWidth   = $('#chart-area').width(),
         chartWidth  = areaWidth - margin.left - margin.right,
@@ -17,37 +17,37 @@ function drawChart(data) {
     $("#chart-area > svg").remove();
 
     var svg = dimple.newSvg("#chart-area", chartWidth, chartHeight);
-        
+
     var myChart = new dimple.chart(svg, data.sugars);
     myChart.setBounds("10%", "10%", "90%", "80%");
 
     var x = myChart.addTimeAxis("x", "Date");
     x.addOrderRule("Date");
-    
+
     myChart.addMeasureAxis("y", "Value");
 
     // myChart.addSeries(null, dimple.plot.bubble);
-    
+
     var s = myChart.addSeries(null, dimple.plot.line);
     s.interpolation = "cardinal";
     s.lineMarkers = true;
 
     // TODO: fix axis label.
     // TODO: fix margins, so that labels are visible.
-    
-    myChart.draw();        
+
+    myChart.draw();
 }
 
 $(document).ready(function() {
-    
+
     var sugarData;
 
     // TODO: pull data for the last seven days.
     d3.json("/api/v0/sugar/get", function(error, data) {
-        
+
         if (error) {
             return console.warn(error);
-        }      
+        }
 
         data.sugars.forEach( function(d) {
             d.Date = new Date(d.utctime);
@@ -65,4 +65,3 @@ $(document).ready(function() {
         drawChart(sugarData);
     };
 });
-
