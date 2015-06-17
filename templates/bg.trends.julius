@@ -144,6 +144,7 @@ $(document).ready(function() {
         myChart.draw();        
     });
 
+    // TODO: test more.
     window.onresize = function() {
         myChart.draw(0, true);
     };
