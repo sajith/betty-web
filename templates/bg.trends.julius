@@ -1,9 +1,9 @@
-function getDate(d) {
-    return new Date(d);
-} 
+// function getDate(d) {
+//     return new Date(d);
+// } 
 
 // TODO: refactor; get rid of the global variable.
-var userData;
+// var userData;
 
 // Test data; keep this around... for testing.
 
@@ -17,88 +17,138 @@ var userData;
 //     { date: "2015-04-07T08:00:00.000Z", value: 89}
 // ];
 
-function drawChart() {
+// function drawChart() {
 
-    var sugars = userData["sugars"];
+//     var sugars = userData["sugars"];
     
-    var margin      = {top: 10, right: 10, bottom: 25, left: 25},
+//     var margin      = {top: 10, right: 10, bottom: 25, left: 25},
+//         areaWidth   = $('#chart-area').width(),
+//         chartWidth  = areaWidth - margin.left - margin.right,
+//         aspectRatio = 3.14, // because, why not.
+//         chartHeight = areaWidth / aspectRatio,
+//         areaHeight  = chartHeight + margin.top + margin.left;
+
+//     var x = d3.time.scale().range([0, chartWidth]),
+//         y = d3.scale.linear().range([chartHeight, 0]);
+
+//     var xAxis = d3.svg.axis()
+//         .scale(x)
+//         .orient("bottom")
+//         .ticks(sugars.length);
+
+//     var yAxis = d3.svg.axis()
+//         .scale(y)
+//         .orient("left")
+//         .ticks(10); // TODO: fix hardcoding.
+
+//     // TODO: this is hackish; fix.  We call drawChart() on window
+//     // resizing, and this line makes sure that SVG elements are not
+//     // simply piled upon again into the chart area.  That gets really
+//     // awkward.
+//     d3.select("#chart").remove();
+
+//     var chart = d3.select("#chart-area")
+//       .append("svg")
+//         .attr("id", "chart")
+//         .attr("width", areaWidth)
+//         .attr("height", areaHeight)
+//       .append("svg:g")
+//         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+//     sugars.forEach(function(d) {
+//         d.ts  = getDate(d.utctime);
+//         d.value = +d.value;
+//     });
+
+//     x.domain(d3.extent(sugars, function(d) { return d.ts; }));
+//     y.domain([0, d3.max(sugars, function(d) { return d.value; })]);
+
+//     // TODO: the 'line.interpolate()' call creates a smooth curve,
+//     // instead of the default jaggy one.  But is that the right one?
+//     var valueline = d3.svg.line()
+//         .interpolate("monotone") 
+//         .x(function(d) { return x(d.ts); })
+//         .y(function(d) { return y(d.value); });
+
+//     chart.append("svg:path")
+//         .attr("class", "line")
+//         .attr("d", valueline(sugars));
+
+//     chart.append("svg:g")
+//         .attr("class", "x axis")
+//         .attr("transform", "translate(0," + chartHeight + ")")
+//         .call(xAxis);
+
+//     chart.append("svg:g")
+//         .attr("class", "y axis")
+//         .call(yAxis);
+// }
+
+$(document).ready(function() {
+
+    // $.getScript("@{StaticR d3Js}")
+    //     .done(function(script, textStatus) {
+    //         console.log("d3: " + textStatus);
+    //     });
+    
+    // $.getScript("@{StaticR dimpleJs}")
+    //     .done(function(script, textStatus) {
+    //         console.log("dimplejs: " + textStatus);
+    //     });
+
+    var margin      = {top: 30, right: 30, bottom: 30, left: 30},
         areaWidth   = $('#chart-area').width(),
         chartWidth  = areaWidth - margin.left - margin.right,
         aspectRatio = 3.14, // because, why not.
         chartHeight = areaWidth / aspectRatio,
         areaHeight  = chartHeight + margin.top + margin.left;
 
-    var x = d3.time.scale().range([0, chartWidth]),
-        y = d3.scale.linear().range([chartHeight, 0]);
+    var myChart;
+    var svg = dimple.newSvg("#chart-area", areaWidth, areaHeight);
 
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient("bottom")
-        .ticks(sugars.length);
-
-    var yAxis = d3.svg.axis()
-        .scale(y)
-        .orient("left")
-        .ticks(10); // TODO: fix hardcoding.
-
-    // TODO: this is hackish; fix.  We call drawChart() on window
-    // resizing, and this line makes sure that SVG elements are not
-    // simply piled upon again into the chart area.  That gets really
-    // awkward.
-    d3.select("#chart").remove();
-
-    var chart = d3.select("#chart-area")
-      .append("svg")
-        .attr("id", "chart")
-        .attr("width", areaWidth)
-        .attr("height", areaHeight)
-      .append("svg:g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    sugars.forEach(function(d) {
-        d.ts  = getDate(d.utctime);
-        d.value = +d.value;
-    });
-
-    x.domain(d3.extent(sugars, function(d) { return d.ts; }));
-    y.domain([0, d3.max(sugars, function(d) { return d.value; })]);
-
-    // TODO: the 'line.interpolate()' call creates a smooth curve,
-    // instead of the default jaggy one.  But is that the right one?
-    var valueline = d3.svg.line()
-        .interpolate("monotone") 
-        .x(function(d) { return x(d.ts); })
-        .y(function(d) { return y(d.value); });
-
-    chart.append("svg:path")
-        .attr("class", "line")
-        .attr("d", valueline(sugars));
-
-    chart.append("svg:g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + chartHeight + ")")
-        .call(xAxis);
-
-    chart.append("svg:g")
-        .attr("class", "y axis")
-        .call(yAxis);
-}
-
-$(document).ready(function() {
-
-    d3.json("/api/v0/sugar/get", function(error, json) {
+    d3.json("/api/v0/sugar/get", function(error, data) {
+        
         if (error) {
             return console.warn(error);
         }
 
-        // console.log("data: " + JSON.stringify(json));
-        userData = json;
-        // console.log("json sugars:" + JSON.stringify(sugars));
+        // var sugars = data.sugars;
+
+        data.sugars.forEach( function(d) {
+            d.Date = new Date(d.utctime);
+            d.Value = +d.value;
+        });
         
-        drawChart();    
+        // userData = json;
+        // drawChart();
+
+        myChart = new dimple.chart(svg, data.sugars);
+        myChart.setBounds(margin.top, margin.left, chartWidth, chartHeight);
+
+        var x = myChart.addTimeAxis("x", "Date");
+        x.addOrderRule("Date");
+        // x.timePeriod = d3.time.days;
+        // x.timeInterval = 1;
+    
+        myChart.addMeasureAxis("y", "Value");
+
+        // myChart.addSeries(null, dimple.plot.bubble);
+    
+        var s = myChart.addSeries(null, dimple.plot.line);
+        s.interpolation = "cardinal";
+        s.lineMarkers = true;
+
+        // TODO: fix axis label.
+        // TODO: fix margins, so that labels are visible.
+    
+        myChart.draw();        
     });
+
+    window.onresize = function() {
+        myChart.draw(0, true);
+    };
 });
 
-$(window).on("resize", function() {
-    drawChart();
-});
+// $(window).on("resize", function() {
+//     drawChart();
+// });

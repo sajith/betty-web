@@ -7,7 +7,7 @@
       Recent Trends
     <div .panel-body>
       <div #chart-area>
-        <svg #chart>
+        <!-- <svg #chart> -->
     <div .table-responsive>
       <table .table .table-bordered>
         <thead>
