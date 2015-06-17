@@ -1,6 +1,3 @@
-var sugarData;
-var myChart;
-
 function drawChart(data) {
 
     if (data == null) {
@@ -21,7 +18,7 @@ function drawChart(data) {
 
     var svg = dimple.newSvg("#chart-area", chartWidth, chartHeight);
         
-    myChart = new dimple.chart(svg, data.sugars);
+    var myChart = new dimple.chart(svg, data.sugars);
     myChart.setBounds("10%", "10%", "90%", "80%");
 
     var x = myChart.addTimeAxis("x", "Date");
@@ -42,7 +39,10 @@ function drawChart(data) {
 }
 
 $(document).ready(function() {
+    
+    var sugarData;
 
+    // TODO: pull data for the last seven days.
     d3.json("/api/v0/sugar/get", function(error, data) {
         
         if (error) {
