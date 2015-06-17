@@ -4,7 +4,7 @@ $(document).ready(function() {
         areaWidth   = $('#chart-area').width(),
         chartWidth  = areaWidth - margin.left - margin.right,
         aspectRatio = 3.14, // because, why not.
-        chartHeight = areaWidth / aspectRatio,
+        chartHeight = chartWidth / aspectRatio,
         areaHeight  = chartHeight + margin.top + margin.left;
 
     var myChart;
