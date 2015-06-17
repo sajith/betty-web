@@ -4,8 +4,7 @@ var myChart;
 function drawChart(data) {
 
     if (data == null) {
-        console.error("no data to display");
-        return;
+        return console.error("no data to display");
     }
     
     var margin      = {top: 30, right: 30, bottom: 30, left: 30},
