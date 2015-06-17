@@ -1,100 +1,4 @@
-// function getDate(d) {
-//     return new Date(d);
-// } 
-
-// TODO: refactor; get rid of the global variable.
-// var userData;
-
-// Test data; keep this around... for testing.
-
-// var sugars = [
-//     { date: "2015-04-01T08:00:00.000Z", value: 91},
-//     { date: "2015-04-02T08:00:00.000Z", value: 122},
-//     { date: "2015-04-03T08:00:00.000Z", value: 98},
-//     { date: "2015-04-04T08:00:00.000Z", value: 123},
-//     { date: "2015-04-05T08:00:00.000Z", value: 134},
-//     { date: "2015-04-06T08:00:00.000Z", value: 121},
-//     { date: "2015-04-07T08:00:00.000Z", value: 89}
-// ];
-
-// function drawChart() {
-
-//     var sugars = userData["sugars"];
-    
-//     var margin      = {top: 10, right: 10, bottom: 25, left: 25},
-//         areaWidth   = $('#chart-area').width(),
-//         chartWidth  = areaWidth - margin.left - margin.right,
-//         aspectRatio = 3.14, // because, why not.
-//         chartHeight = areaWidth / aspectRatio,
-//         areaHeight  = chartHeight + margin.top + margin.left;
-
-//     var x = d3.time.scale().range([0, chartWidth]),
-//         y = d3.scale.linear().range([chartHeight, 0]);
-
-//     var xAxis = d3.svg.axis()
-//         .scale(x)
-//         .orient("bottom")
-//         .ticks(sugars.length);
-
-//     var yAxis = d3.svg.axis()
-//         .scale(y)
-//         .orient("left")
-//         .ticks(10); // TODO: fix hardcoding.
-
-//     // TODO: this is hackish; fix.  We call drawChart() on window
-//     // resizing, and this line makes sure that SVG elements are not
-//     // simply piled upon again into the chart area.  That gets really
-//     // awkward.
-//     d3.select("#chart").remove();
-
-//     var chart = d3.select("#chart-area")
-//       .append("svg")
-//         .attr("id", "chart")
-//         .attr("width", areaWidth)
-//         .attr("height", areaHeight)
-//       .append("svg:g")
-//         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-//     sugars.forEach(function(d) {
-//         d.ts  = getDate(d.utctime);
-//         d.value = +d.value;
-//     });
-
-//     x.domain(d3.extent(sugars, function(d) { return d.ts; }));
-//     y.domain([0, d3.max(sugars, function(d) { return d.value; })]);
-
-//     // TODO: the 'line.interpolate()' call creates a smooth curve,
-//     // instead of the default jaggy one.  But is that the right one?
-//     var valueline = d3.svg.line()
-//         .interpolate("monotone") 
-//         .x(function(d) { return x(d.ts); })
-//         .y(function(d) { return y(d.value); });
-
-//     chart.append("svg:path")
-//         .attr("class", "line")
-//         .attr("d", valueline(sugars));
-
-//     chart.append("svg:g")
-//         .attr("class", "x axis")
-//         .attr("transform", "translate(0," + chartHeight + ")")
-//         .call(xAxis);
-
-//     chart.append("svg:g")
-//         .attr("class", "y axis")
-//         .call(yAxis);
-// }
-
 $(document).ready(function() {
-
-    // $.getScript("@{StaticR d3Js}")
-    //     .done(function(script, textStatus) {
-    //         console.log("d3: " + textStatus);
-    //     });
-    
-    // $.getScript("@{StaticR dimpleJs}")
-    //     .done(function(script, textStatus) {
-    //         console.log("dimplejs: " + textStatus);
-    //     });
 
     var margin      = {top: 30, right: 30, bottom: 30, left: 30},
         areaWidth   = $('#chart-area').width(),
@@ -112,23 +16,16 @@ $(document).ready(function() {
             return console.warn(error);
         }
 
-        // var sugars = data.sugars;
-
         data.sugars.forEach( function(d) {
             d.Date = new Date(d.utctime);
             d.Value = +d.value;
         });
         
-        // userData = json;
-        // drawChart();
-
         myChart = new dimple.chart(svg, data.sugars);
         myChart.setBounds(margin.top, margin.left, chartWidth, chartHeight);
 
         var x = myChart.addTimeAxis("x", "Date");
         x.addOrderRule("Date");
-        // x.timePeriod = d3.time.days;
-        // x.timeInterval = 1;
     
         myChart.addMeasureAxis("y", "Value");
 
@@ -150,6 +47,3 @@ $(document).ready(function() {
     };
 });
 
-// $(window).on("resize", function() {
-//     drawChart();
-// });
