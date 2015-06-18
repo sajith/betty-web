@@ -54,6 +54,11 @@ $(document).ready(function() {
             d.Value = +d.value;
         });
 
+        // sort data by date, newest first.
+        data.sugars.sort( function(a, b) {
+            return b.Date - a.Date;
+        });
+
         sugarData = data;
 
         drawChart(sugarData);
