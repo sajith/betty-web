@@ -28,7 +28,7 @@ function drawChart(data) {
 
     // myChart.addSeries(null, dimple.plot.bubble);
 
-    var s = myChart.addSeries(null, dimple.plot.line);
+    var s = myChart.addSeries(null, dimple.plot.bar);
     s.interpolation = "cardinal";
     s.lineMarkers = true;
 
