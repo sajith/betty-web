@@ -1,9 +1,13 @@
 function drawChart(data) {
 
-    if (data == null) {
-        return console.error("no data to display");
+    if (data == null || data.sugars == null) {
+        return console.error("drawChart: null input");
     }
 
+    if (data.sugars.length < 1) {
+        return console.log("drawChart: not enough data.");
+    }
+        
     var margin      = {top: 30, right: 30, bottom: 30, left: 30},
         areaWidth   = $('#chart-area').width(),
         chartWidth  = areaWidth - margin.left - margin.right,
