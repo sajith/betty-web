@@ -49,10 +49,21 @@ $(document).ready(function() {
             return console.warn(error);
         }
 
+        // console.table(data.sugars);
+
         data.sugars.forEach(function(d) {
             d.utctime = new Date(d.utctime);
             d.value   = +d.value;
         });
+
+        var then = new Date();
+        then.setDate(then.getDate() - 7); // go 7 days back
+
+        data.sugars = data.sugars.filter(function(d) {
+            return d.utctime >= then;
+        });
+
+        // console.table(data.sugars);
 
         // sort data by date, newest first.
         data.sugars.sort(function(a, b) {
