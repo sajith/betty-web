@@ -25,7 +25,10 @@ function drawChart(data) {
     var myChart = new dimple.chart(svg, data.sugars);
     myChart.setBounds("10%", "10%", "90%", "80%");
 
-    var x = myChart.addTimeAxis("x", "utctime");
+    var isoFormat = "%Y-%m-%dT%H:%M:%S.%LZ";
+
+    // parameters: position, field, input format, output format
+    var x = myChart.addTimeAxis("x", "utctime", isoFormat, "%b %e");
     x.addOrderRule("Date");
 
     myChart.addMeasureAxis("y", "value");
@@ -56,15 +59,16 @@ $(document).ready(function() {
         // console.table(data.sugars);
 
         data.sugars.forEach(function(d) {
-            d.utctime = new Date(d.utctime);
-            d.value   = +d.value;
+            // Need date type to filter by timestamp.
+            d.utcts = new Date(d.utctime); 
+            d.value = +d.value;
         });
 
         var then = new Date();
         then.setDate(then.getDate() - 7); // go 7 days back
 
         data.sugars = data.sugars.filter(function(d) {
-            return d.utctime >= then;
+            return d.utcts >= then;
         });
 
         // console.table(data.sugars);
