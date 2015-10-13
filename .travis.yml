@@ -8,7 +8,7 @@ addons:
   apt:
     packages:
     - libgmp-dev
-  postgresql: "9.1"
+  # postgresql: "9.1"
 
 env:
   - ARGS=""
