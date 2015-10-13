@@ -21,6 +21,7 @@ addons:
   apt:
     packages:
     - libgmp-dev
+  postgresql: "9.1"
 
 env:
   # - CABALVER=1.20 GHCVER=7.8.4 HAPPYVER=1.19.5 ALEXVER=3.1.4
@@ -29,9 +30,6 @@ env:
   - ARGS="--resolver lts-3"
   - ARGS="--resolver lts"
   - ARGS="--resolver nightly"
-
-addons:
-  postgresql: "9.1"
 
 before_install:
   # - travis_retry sudo apt-add-repository -y ppa:hvr/ghc
