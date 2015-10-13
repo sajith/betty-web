@@ -41,6 +41,7 @@ before_install:
   - mkdir -p $HOME/.local/bin
   - export PATH=$HOME/.local/bin:$PATH
   - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v0.1.5.0/stack-0.1.5.0-x86_64-linux.tar.gz | tar xz -C ~/.local/bin
+  - stack $ARGS --no-terminal --install-ghc test --haddock
 
 install:
   # - cabal --version
@@ -60,7 +61,6 @@ before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
-  - stack $ARGS --no-terminal --install-ghc test --haddock
   - yesod test
 
 # Speed up subsequent builds using Stack caching.  
