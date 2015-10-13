@@ -31,7 +31,7 @@ env:
   - ARGS="--resolver nightly"
 
 addons:
-  postgresql: "9.3"
+  postgresql: "9.1"
 
 before_install:
   # - travis_retry sudo apt-add-repository -y ppa:hvr/ghc
