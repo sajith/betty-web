@@ -57,15 +57,15 @@ install:
   # - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
   # - cabal install --only-dependencies --enable-tests --reorder-goals --max-backjumps=-1 -j
   # - ls $(pwd)/.cabal-sandbox/bin
-  - dpkg -L libgmp-dev
-  - gcc -lgmp
-  - stack build  
+  # - dpkg -L libgmp-dev
+  # - gcc -lgmp
+  # - stack build  
 
 before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
-  - stack test
+  - stack $ARGS --no-terminal --install-ghc test --haddock  
 
 # Speed up subsequent builds using Stack caching.  
 cache:
