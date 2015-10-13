@@ -20,8 +20,6 @@ language: c
 addons:
   apt:
     packages:
-    - cmake
-    - time
     - libgmp-dev
 
 env:
@@ -53,22 +51,23 @@ install:
   # - ghc --version
   # - happy --version
   # - alex --version
-  # - cp secrets.m4.example secrets.m4
-  # - make
+  - cp secrets.m4.example secrets.m4
+  - make
   # - cabal sandbox init
   # - travis_retry cabal update  
   # - travis_wait cabal install yesod-bin
   # - export PATH=$(pwd)/.cabal-sandbox/bin:$PATH
   # - cabal install --only-dependencies --enable-tests --reorder-goals --max-backjumps=-1 -j
   # - ls $(pwd)/.cabal-sandbox/bin
+  - dpkg -L libgmp-dev
+  - gcc -lgmp
+  - stack build  
 
 before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
-  - ls -l /usr/share/doc/libgmp-dev
-  - gcc -lgmp
-  - yesod test
+  - stack test
 
 # Speed up subsequent builds using Stack caching.  
 cache:
