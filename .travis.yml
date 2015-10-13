@@ -46,7 +46,7 @@ before_install:
   - echo $PATH
   - ls $HOME/.local/bin
   # - sudo apt-get install -y libgmp-dev
-  - dpkg -l | grep libgmp-dev
+  - ls -l /usr/share/doc/libgmp-dev
   - gcc -lgmp
   - stack $ARGS --no-terminal --install-ghc test --haddock
 
