@@ -20,7 +20,7 @@ language: c
 addons:
   apt:
     packages:
-      - libgmp-dev
+    - libgmp-dev
 
 env:
   # - CABALVER=1.20 GHCVER=7.8.4 HAPPYVER=1.19.5 ALEXVER=3.1.4
