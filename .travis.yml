@@ -11,17 +11,36 @@
 # Cabal 1.20 seems to work OK, so I'll just use that for now.
 #
 
+# Use Travis CI's container infrastructure to enable caching.
+sudo: false
+
+# "haskell" will set up the whole haskell-platform.  We don't need that.
+language: c
+
+addons:
+  apt:
+    packages:
+      -libgmp-dev
+
 env:
-  - CABALVER=1.20 GHCVER=7.8.4 HAPPYVER=1.19.5 ALEXVER=3.1.4
+  # - CABALVER=1.20 GHCVER=7.8.4 HAPPYVER=1.19.5 ALEXVER=3.1.4
+  - ARGS=""
+  - ARGS="--resolver lts-2"
+  - ARGS="--resolver lts-3"
+  - ARGS="--resolver lts"
+  - ARGS="--resolver nightly"
 
 addons:
   postgresql: "9.3"
 
 before_install:
-  - travis_retry sudo apt-add-repository -y ppa:hvr/ghc
-  - travis_retry sudo apt-get update
-  - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER happy-$HAPPYVER alex-$ALEXVER
-  - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/happy/$HAPPYVER/bin:/opt/alex/$ALEXVER/bin:$PATH
+  # - travis_retry sudo apt-add-repository -y ppa:hvr/ghc
+  # - travis_retry sudo apt-get update
+  # - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER happy-$HAPPYVER alex-$ALEXVER
+  # - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/happy/$HAPPYVER/bin:/opt/alex/$ALEXVER/bin:$PATH
+  - mkdir -p $HOME/local/bin
+  - export PATH=$HOME/.local/bin:$PATH
+  - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v0.1.4.0/stack-0.1.5.0-x86_64-linux.tar.gz | tar xz -C ~/.local/bin
 
 install:
   - cabal --version
@@ -41,4 +60,10 @@ before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
+  - stack $ARGS --no-terminal --install-ghc test --haddock
   - yesod test
+
+# Speed up subsequent builds using Stack caching.  
+cache:
+  directories:
+    - $HOME/.stack
