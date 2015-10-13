@@ -38,7 +38,7 @@ before_install:
   # - travis_retry sudo apt-get update
   # - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER happy-$HAPPYVER alex-$ALEXVER
   # - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:/opt/happy/$HAPPYVER/bin:/opt/alex/$ALEXVER/bin:$PATH
-  - mkdir -p $HOME/local/bin
+  - mkdir -p $HOME/.local/bin
   - export PATH=$HOME/.local/bin:$PATH
   - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v0.1.5.0/stack-0.1.5.0-x86_64-linux.tar.gz | tar xz -C ~/.local/bin
 
