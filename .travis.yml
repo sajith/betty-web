@@ -65,7 +65,7 @@ before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
-  - stack $ARGS --no-terminal --install-ghc test --haddock  
+  - stack $ARGS --no-terminal --install-ghc test
 
 # Speed up subsequent builds using Stack caching.  
 cache:
