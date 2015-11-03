@@ -3,5 +3,4 @@
 --ignore-dir=.cabal-sandbox
 --ignore-dir=dist
 --ignore-dir=yesod-devel
-
-
+--ignore-dir=.stack-work
