@@ -11,11 +11,12 @@ import Network.Mail.Mime
 import Network.Mail.Mime.SES
 import Yesod.Auth.Email
 
-import Data.Text.Encoding    (encodeUtf8)
-import Network.HTTP.Conduit  (withManager)
+import Control.Monad.Trans.Resource (runResourceT)
+import Data.Text.Encoding           (encodeUtf8)
+import Network.HTTP.Conduit         (newManager, tlsManagerSettings)
 
-import Betty.SESCreds        (access, secret, sender)
-import Betty.Signup.MailText (verHeaders, verHtml, verText)
+import Betty.SESCreds               (access, secret, sender)
+import Betty.Signup.MailText        (verHeaders, verHtml, verText)
 
 ses :: Email -> SES
 ses email = SES { sesFrom       = sender
@@ -25,13 +26,15 @@ ses email = SES { sesFrom       = sender
                 , sesRegion     = "us-east-1"
                 }
 
--- TODO: catch exception when withManager fails.
+-- TODO: catch exception when renderSendMailSES fails.
 sendVerificationEmail :: Email -> VerKey -> VerUrl -> HandlerT site IO ()
 sendVerificationEmail email _ verurl = do
   let ses' = ses email
       mail = formMail email verurl
-  withManager $ \manager ->
-    renderSendMailSES manager ses' mail
+
+  runResourceT $ do
+      manager <- liftIO $ newManager tlsManagerSettings
+      renderSendMailSES manager ses' mail
 
 formMail :: Email -> VerUrl -> Mail
 formMail email verurl = Mail

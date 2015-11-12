@@ -102,6 +102,7 @@ library
                  , system-filepath
                  , system-fileio
                  , http-types
+                 , resourcet
 
     -- see https://github.com/yesodweb/yesod/issues/814
     if !os(windows)
