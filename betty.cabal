@@ -126,6 +126,10 @@ test-suite test
     hs-source-dirs:    tests
     ghc-options:       -Wall
 
+    other-modules:      HomeTest
+                      , TestImport
+                      , TestTools
+
     build-depends: base       >= 4          && < 5
                  , betty
                  , yesod-test
