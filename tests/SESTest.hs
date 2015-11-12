@@ -8,7 +8,8 @@ module SESTest (sesMailSpecs) where
 import Yesod
 
 import Betty.SESCreds                (access, ender, secret, sender)
-import Network.HTTP.Conduit          (withManager)
+import Control.Monad.Trans.Resource  (runResourceT)
+import Network.HTTP.Conduit          (newManager, tlsManagerSettings)
 import Network.Mail.Mime
 import Network.Mail.Mime.SES
 import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
@@ -23,8 +24,10 @@ sesMailSpecs = ydescribe "SES Email test" $ do
     assertEqual "Nothing" True $ not False
 
   yit "Try SES" $ do
-    withManager $ \manager ->
-      renderSendMailSES manager ses mail
+      runResourceT $ do
+          manager <- liftIO $ newManager tlsManagerSettings
+          renderSendMailSES manager ses mail
+
     assertEqual "Nothing" True $ not False
 
 ses :: SES
