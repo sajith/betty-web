@@ -15,12 +15,14 @@ import System.Posix.Process (getProcessID)
 -- Write a PID file so that monitoring apps can monitor.
 writePidFile :: IO ()
 writePidFile = do
-    when production $
-        createDirectory "/opt/keter/var/"
+    let pidDir = if production
+                  then "/opt/keter/var/"
+                  else "./"
 
-    let pidFile = if production
-                  then "/opt/keter/var/betty.pid"
-                  else "betty.pid"
+    when production $
+        createDirectory pidDir
+
+    let pidFile = pidDir ++ "betty.pid"
 
     pid <- getProcessID
 
