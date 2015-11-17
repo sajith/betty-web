@@ -99,8 +99,7 @@ library
                  , mime-mail
                  , mime-mail-ses
                  , time
-                 , system-filepath
-                 , system-fileio
+                 , directory
                  , http-types
                  , resourcet
 

@@ -5,11 +5,10 @@ module Betty.Pid
 
 import Import
 
-import Control.Monad             (when)
-import Filesystem                (createTree)
-import Filesystem.Path.CurrentOS (directory)
-import System.IO                 (IOMode (WriteMode), hPrint, withFile)
-import System.Posix.Process      (getProcessID)
+import Control.Monad        (when)
+import System.Directory     (createDirectory)
+import System.IO            (IOMode (WriteMode), hPrint, withFile)
+import System.Posix.Process (getProcessID)
 
 ------------------------------------------------------------------------
 
@@ -17,7 +16,7 @@ import System.Posix.Process      (getProcessID)
 writePidFile :: IO ()
 writePidFile = do
     when production $
-        createTree $ directory "/opt/keter/var/"
+        createDirectory "/opt/keter/var/"
 
     let pidFile = if production
                   then "/opt/keter/var/betty.pid"
