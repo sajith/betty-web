@@ -6,7 +6,7 @@ module Betty.Pid
 import Import
 
 import Control.Monad        (when)
-import System.Directory     (createDirectory)
+import System.Directory     (createDirectoryIfMissing)
 import System.IO            (IOMode (WriteMode), hPrint, withFile)
 import System.Posix.Process (getProcessID)
 
@@ -20,7 +20,7 @@ writePidFile = do
                   else "./"
 
     when production $
-        createDirectory pidDir
+        createDirectoryIfMissing True pidDir
 
     let pidFile = pidDir ++ "betty.pid"
 
