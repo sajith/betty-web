@@ -138,9 +138,9 @@ getApiV0SugarGetR = do
               runDB $ selectList [BloodGlucoseHistoryUid ==. uid][LimitTo 10]
 
     $(logDebug) $ T.pack $ "Returning " ++
-        show object [ "count"  .= length sugars
-                    , "sugars" .= sugars
-                    ]
+        show (object [ "count"  .= length sugars
+                     , "sugars" .= sugars
+                     ])
 
     return $ object [ "count"  .= length sugars
                     , "sugars" .= sugars
