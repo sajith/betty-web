@@ -1,10 +1,8 @@
 module Handler.Api
        ( postApiV0SugarAddR
        , getApiV0SugarGetR
-       , getApiV0SugarEditR
-       , postApiV0SugarEditR
-       , getApiV0SugarDeleteR
-       , postApiV0SugarDeleteR
+       , putApiV0SugarEditR
+       , deleteApiV0SugarDeleteR
        , getApiV0UserGetR
        ) where
 
