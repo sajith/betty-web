@@ -3,7 +3,7 @@ module Handler.Api
        , getApiV0SugarGetR
        , putApiV0SugarEditR
        , deleteApiV0SugarDeleteR
-       , getApiV0UserGetR
+       , getApiV0UserR
        ) where
 
 import Handler.Api.V0.SugarAdd
