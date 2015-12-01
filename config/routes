@@ -20,6 +20,7 @@
 /add/bg         AddBGR          GET POST
 /history/bg     HistoryBGR      GET
 
+/api/v0/user/get        ApiV0UserGetR       GET
 /api/v0/sugar/add       ApiV0SugarAddR      POST
 /api/v0/sugar/get       ApiV0SugarGetR      GET
 /api/v0/sugar/edit      ApiV0SugarEditR     GET POST
