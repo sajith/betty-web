@@ -29,7 +29,7 @@ postApiV0SugarAddR = do
 
     mid <- maybeAuthId
 
-    when (mid == Nothing) $ sendResponseStatus status401 ()
+    when (isNothing mid) $ sendResponseStatus status401 ()
 
     let uid = fromJust mid
 
