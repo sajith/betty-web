@@ -1,3 +1,4 @@
+{-# LANGUAGE RankNTypes           #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 -- TODO: It would be nice to not to have an orphan instance here.
@@ -24,15 +25,24 @@ import Betty.Model          (BGUnit (..))
 
 ------------------------------------------------------------------------
 
+getUid :: forall master. 
+          YesodAuth master =>
+          HandlerT master IO (AuthId master)
+getUid = do
+    mid <- maybeAuthId
+    
+    when (isNothing mid) $
+        sendResponseStatus status401 ("Unauthorized" :: Text)
+
+    return $ fromJust mid
+
+------------------------------------------------------------------------
+
 postApiV0SugarAddR :: Handler Value
 postApiV0SugarAddR = do
 
-    mid <- maybeAuthId
-
-    when (isNothing mid) $ sendResponseStatus status401 ()
-
-    let uid = fromJust mid
-
+    uid <- getUid
+    
     -- value <- lookupPostParam "value"
 
     -- -- TODO: use defaults for absent parameters.
@@ -119,13 +129,8 @@ instance ToJSON BloodGlucoseHistory where
 
 getApiV0SugarGetR :: Handler Value
 getApiV0SugarGetR = do
-    mid <- maybeAuthId
 
-    when (isNothing mid) $ sendResponseStatus status401 ()
-
-    let uid = fromJust mid
-
-    -- uid <- checkUid
+    uid <- getUid
 
     $(logDebug) $ T.pack $ "uid: " ++ show uid
 
