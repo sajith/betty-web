@@ -6,7 +6,7 @@ module Handler.Api
        , getApiV0UserR
        ) where
 
-import Handler.Api.V0.SugarAdd
+import Handler.Api.V0.Sugar
 import Handler.Api.V0.SugarDelete
 import Handler.Api.V0.SugarEdit
 import Handler.Api.V0.SugarGet

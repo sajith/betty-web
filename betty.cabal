@@ -33,7 +33,7 @@ library
                    Handler.AddBG
                    Handler.HistoryBG
                    Handler.Api
-                   Handler.Api.V0.SugarAdd
+                   Handler.Api.V0.Sugar
                    Handler.Api.V0.SugarGet
                    Handler.Api.V0.SugarEdit
                    Handler.Api.V0.SugarDelete

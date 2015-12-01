@@ -1,19 +1,19 @@
-module Handler.Api.V0.SugarAdd where
+module Handler.Api.V0.Sugar where
 
 import Import
-import Yesod.Auth          (maybeAuthId)
+import Yesod.Auth           (maybeAuthId)
 
-import Data.Text           as T
-import Data.Time.Clock     (getCurrentTime, utctDay, utctDayTime)
-import Data.Time.LocalTime (timeToTimeOfDay)
+import Data.Text            as T
+import Data.Time.Clock      (getCurrentTime, utctDay, utctDayTime)
+import Data.Time.LocalTime  (timeToTimeOfDay)
 
 import Database.Persist.Sql (fromSqlKey)
 
-import Control.Monad       (when)
-import Data.Maybe          (fromJust)
-import Network.HTTP.Types  (status401)
+import Control.Monad        (when)
+import Data.Maybe           (fromJust)
+import Network.HTTP.Types   (status401)
 
-import Betty.Model         (BGUnit (..))
+import Betty.Model          (BGUnit (..))
 
 postApiV0SugarAddR :: Handler Value
 postApiV0SugarAddR = do
@@ -85,5 +85,5 @@ postApiV0SugarAddR = do
 
     -- TODO: return a useful value.
     -- return $ show key
-    
+
     return "OK."
