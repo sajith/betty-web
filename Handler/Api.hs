@@ -10,5 +10,5 @@ import Handler.Api.V0.SugarAdd
 import Handler.Api.V0.SugarDelete
 import Handler.Api.V0.SugarEdit
 import Handler.Api.V0.SugarGet
-import Handler.Api.V0.UserGet
+import Handler.Api.V0.User
 

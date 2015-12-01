@@ -1,4 +1,4 @@
-module Handler.Api.V0.UserGet where
+module Handler.Api.V0.User where
 
 import Import
 
