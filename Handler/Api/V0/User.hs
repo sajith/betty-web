@@ -174,7 +174,7 @@ isTokenSet :: forall site.
               (YesodPersist site,
                YesodPersistBackend site ~ SqlBackend) =>
               Text -> HandlerT site IO Bool
-isTokenSet email = getToken email >>= (return . isJust)
+isTokenSet email = liftM isJust (getToken email)
 
 ------------------------------------------------------------------------
 
