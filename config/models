@@ -12,6 +12,7 @@ User
     verified Bool
     UniqueUser email
     deriving Typeable
+    deriving Show
 
 ------------------------------------------------------------------------
 
