@@ -4,7 +4,7 @@ module Handler.Api.V0.User where
 
 import           Import
 
-import           Data.Maybe                      (fromJust, isJust)
+import           Data.Maybe                      (isJust)
 import           Data.String                     (IsString)
 import qualified Data.Text                       as T
 import           Data.Text.Encoding              (decodeUtf8)
