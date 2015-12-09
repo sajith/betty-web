@@ -41,12 +41,10 @@ getApiV0UserR :: Handler Value
 getApiV0UserR = do
 
     request <- waiRequest
-
-    (email, token, user, profile) <- lookupAuth request
-                                     >>= decodeAuth
-                                     >>= verifyAuth
-                                     >>= getToken
-                                     >>= getUserInfo
+    email   <- lookupAuth request >>= decodeAuth >>= verifyAuth
+    token   <- getToken email
+    user    <- getUserInfo email
+    profile <- getUserProfile $ uid user
 
     let u = case user of
             Nothing -> undefined
@@ -75,6 +73,8 @@ getApiV0UserR = do
                       ]
 
         where
+
+            uid     = entityKey . fromJust
 
             unknown = ("unknown" :: Text)
 
@@ -106,7 +106,7 @@ getApiV0UserR = do
 
 ------------------------------------------------------------------------
 
-getUserInfo (email, token) = runDB $ do
+getUserInfo email = runDB $ do
 
     -- TODO: consider using Esqueleto instead of bare-bone persistent
     -- for joins, such as:
@@ -118,10 +118,13 @@ getUserInfo (email, token) = runDB $ do
 
     user <- selectFirst [UserEmail ==. email] []
 
-    let user' = entityKey . fromJust $ user
-    profile <- selectFirst [UserProfileUid ==. user'] []
+    return user
 
-    return (email, token, user, profile)
+------------------------------------------------------------------------
+
+getUserProfile uid = runDB $ do
+    profile <- selectFirst [UserProfileUid ==. uid] []
+    return profile
 
 ------------------------------------------------------------------------
 
@@ -133,7 +136,6 @@ lookupAuth request =
 ------------------------------------------------------------------------
 
 --  returns (email, pass) pair
-
 decodeAuth enc =
     case extractBasicAuth enc of
         Just auth -> return auth
@@ -177,11 +179,11 @@ makeToken =  saltPass $ scramble $ T.pack $ concat [p1, p2, p3]
 getToken :: forall site.
             (YesodPersist site,
              YesodPersistBackend site ~ SqlBackend) =>
-            Text -> HandlerT site IO (Text, Maybe Text)
+            Text -> HandlerT site IO (Maybe Text)
 getToken email = runDB $ do
     $(logDebug) $ T.pack $ "at getToken" ++ show email ++ "\n"
     v <- getBy404 $ UniqueAuthTokens email
-    return (email, authTokensToken $ entityVal v)
+    return $ authTokensToken $ entityVal v
 
 ------------------------------------------------------------------------
 
@@ -190,7 +192,7 @@ isTokenSet :: forall site.
                YesodPersistBackend site ~ SqlBackend) =>
               Text -> HandlerT site IO Bool
 isTokenSet email = do
-    (_, token) <- getToken email
+    token <- getToken email
     return $ isJust token
 
 ------------------------------------------------------------------------
