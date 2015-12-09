@@ -1,5 +1,7 @@
 -- -*- haskell -*-
 
+-- TODO: Consider unifying 'User', 'UserProfile', and 'AuthTokens'
+
 ------------------------------------------------------------------------
 
 -- "user" table has just enough details to support email auth, and
