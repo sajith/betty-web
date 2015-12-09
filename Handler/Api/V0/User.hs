@@ -69,7 +69,7 @@ getApiV0UserR = do
 
         where
 
-            unknown = ("unknown" :: Text)
+            unknown = "unknown" :: Text
 
             -- TODO: replace with something better.
             txt     = T.pack . show
