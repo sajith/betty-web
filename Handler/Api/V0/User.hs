@@ -99,11 +99,15 @@ getApiV0UserR = do
 
 ------------------------------------------------------------------------
 
-getUserInfo email = runDB $ getBy404 $ UniqueUser email
+getUserInfo email = runDB $ do
+    $(logDebug) $ T.pack $ "getUserInfo: " ++ show email ++ "\n"
+    getBy404 $ UniqueUser email
 
 ------------------------------------------------------------------------
 
-getUserProfile uid = runDB $ getBy404 $ UniqueUserProfile uid
+getUserProfile uid = runDB $ do
+    $(logDebug) $ T.pack $ "getUserProfile: " ++ show uid ++ "\n"
+    getBy404 $ UniqueUserProfile uid
 
 ------------------------------------------------------------------------
 
