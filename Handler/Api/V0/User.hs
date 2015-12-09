@@ -44,15 +44,10 @@ getApiV0UserR = do
     email   <- lookupAuth request >>= decodeAuth >>= verifyAuth
     token   <- getToken email
     user    <- getUserInfo email
-    profile <- getUserProfile $ uid user
+    profile <- getUserProfile $ entityKey user
 
-    let u = case user of
-            Nothing -> undefined
-            Just u' -> entityVal u'
-
-    let p = case profile of
-            Nothing -> undefined
-            Just p' -> entityVal p'
+    let u = entityVal user
+        p = entityVal profile
 
     $(logDebug) $ T.pack $ "User" ++ show u
     $(logDebug) $ T.pack $ "Profile" ++ show p
@@ -73,8 +68,6 @@ getApiV0UserR = do
                       ]
 
         where
-
-            uid     = entityKey . fromJust
 
             unknown = ("unknown" :: Text)
 
@@ -106,11 +99,11 @@ getApiV0UserR = do
 
 ------------------------------------------------------------------------
 
-getUserInfo email = runDB $ selectFirst [UserEmail ==. email] []
+getUserInfo email = runDB $ getBy404 $ UniqueUser email
 
 ------------------------------------------------------------------------
 
-getUserProfile uid = runDB $ selectFirst [UserProfileUid ==. uid] []
+getUserProfile uid = runDB $ getBy404 $ UniqueUserProfile uid
 
 ------------------------------------------------------------------------
 
