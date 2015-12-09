@@ -42,12 +42,11 @@ UserProfile
 BloodGlucoseHistory
     uid UserId
     -- email Text           -- TODO: handle this.    
-    utctime UTCTime      -- TODO: remove duplicate time/date fields.   
-    -- localtime ZonedTime Maybe -- TODO: enable and use this field.
+    utctime UTCTime         -- TODO: remove duplicate time/date fields.   
     date Day
     time TimeOfDay
-    timezone Text Maybe  -- TODO: use TimeZone data type, or
-                         -- PostgreSQL timestamp with timezone field.
+    timezone Text Maybe     -- TODO: use TimeZone data type, or
+                            -- PostgreSQL timestamp with timezone field.
     value Double
     unit BGUnit Maybe
     notes Text Maybe
