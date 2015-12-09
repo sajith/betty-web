@@ -110,9 +110,7 @@ getUserInfo email = runDB $ selectFirst [UserEmail ==. email] []
 
 ------------------------------------------------------------------------
 
-getUserProfile uid = runDB $ do
-    profile <- selectFirst [UserProfileUid ==. uid] []
-    return profile
+getUserProfile uid = runDB $ selectFirst [UserProfileUid ==. uid] []
 
 ------------------------------------------------------------------------
 
