@@ -13,6 +13,8 @@ import           Network.HTTP.Types              (hAuthorization)
 import           Network.Wai                     (requestHeaders)
 import           Network.Wai.Middleware.HttpAuth
 
+import           Database.Persist.Sql            (unSqlBackendKey)
+
 import           Yesod.Auth.Email                (isValidPass, saltPass)
 
 import           System.IO.Unsafe                (unsafePerformIO)
@@ -46,8 +48,9 @@ getApiV0UserR = do
     user    <- getUserInfo email
     profile <- getUserProfile $ entityKey user
 
-    let u = entityVal user
-        p = entityVal profile
+    let u   = entityVal user
+        uid = unSqlBackendKey $ unUserKey $ entityKey user
+        p   = entityVal profile
 
     $(logDebug) $ T.pack $ "User" ++ show u
     $(logDebug) $ T.pack $ "Profile" ++ show p
@@ -55,7 +58,7 @@ getApiV0UserR = do
     let todo    = ("TODO" :: Text)
         unknown = ("unknown" :: Text)
 
-    return $ object $ [ "uid"                .= todo -- TODO
+    return $ object $ [ "uid"                .= show uid
                       , "email"              .= userEmail u
                       , "auth_token"         .= token
                       , "verified"           .= userVerified u
