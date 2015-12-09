@@ -55,17 +55,17 @@ getApiV0UserR = do
     $(logDebug) $ T.pack $ "User" ++ show u
     $(logDebug) $ T.pack $ "Profile" ++ show p
 
-    return $ object $ [ "uid"                .= show uid
-                      , "email"              .= userEmail u
-                      , "auth_token"         .= token
-                      , "verified"           .= userVerified u
-                      , "timezone"           .= formatTZ p
-                      , "diabetes_type"      .= userProfileDtype p
-                      , "blood_glucose_unit" .= formatBg p
-                      , "weight_unit"        .= formatWt p
-                      , "birth_year"         .= formatBY p
-                      , "diagnosed_year"     .= formatDY p
-                      ]
+    return $ object [ "uid"                .= show uid
+                    , "email"              .= userEmail u
+                    , "auth_token"         .= token
+                    , "verified"           .= userVerified u
+                    , "timezone"           .= formatTZ p
+                    , "diabetes_type"      .= userProfileDtype p
+                    , "blood_glucose_unit" .= formatBg p
+                    , "weight_unit"        .= formatWt p
+                    , "birth_year"         .= formatBY p
+                    , "diagnosed_year"     .= formatDY p
+                    ]
 
         where
 
