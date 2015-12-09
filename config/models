@@ -25,13 +25,13 @@ UserProfile
     -- email Text               -- TODO: handle this.
     -- signupdate UTCTime Maybe -- default: TODO
     -- verifydate UTCTime Maybe -- default: TODO
-    timezone Text Maybe     -- default: GMT
-    dtype Text Maybe        -- default: unknown (diabetes type)
-    bgunits BGUnit Maybe    -- default: mg/dL
-    wtunits WtUnit Maybe      -- default: kg
-    insunits Text Maybe     -- default: unknown (insulin units)
-    birthYear Int Maybe     -- default: nil
-    diagnosedYear Int Maybe -- default: nil
+    timezone Text Maybe      -- default: GMT
+    dtype Text Maybe         -- default: unknown (diabetes type)
+    bgunits BGUnit Maybe     -- default: mg/dL
+    wtunits WtUnit Maybe     -- default: kg
+    insunits Text Maybe      -- default: unknown (insulin units)
+    birthYear Int Maybe      -- default: nil
+    diagnosedYear Int Maybe  -- default: nil
     UniqueUserProfile uid
     deriving Show
 
