@@ -100,6 +100,10 @@ library
                  , directory
                  , http-types
                  , resourcet
+                 , wai
+                 , base64-bytestring
+                 , persistent
+                 , random
 
     -- see https://github.com/yesodweb/yesod/issues/814
     if !os(windows)
