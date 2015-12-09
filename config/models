@@ -41,6 +41,7 @@ UserProfile
 
 BloodGlucoseHistory
     uid UserId
+    -- email Text           -- TODO: handle this.    
     utctime UTCTime      -- TODO: remove duplicate time/date fields.   
     -- localtime ZonedTime Maybe -- TODO: enable and use this field.
     date Day
