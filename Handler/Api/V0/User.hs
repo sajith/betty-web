@@ -106,19 +106,7 @@ getApiV0UserR = do
 
 ------------------------------------------------------------------------
 
-getUserInfo email = runDB $ do
-
-    -- TODO: consider using Esqueleto instead of bare-bone persistent
-    -- for joins, such as:
-    --
-    -- SELECT "user".id, email, verified, timezone, dtype, bgunits,
-    -- wtunits, insunits, birth_year, diagnosed_year FROM "user",
-    -- user_profile WHERE "user".email = 'email' AND "user".id =
-    -- user_profile.uid;
-
-    user <- selectFirst [UserEmail ==. email] []
-
-    return user
+getUserInfo email = runDB $ selectFirst [UserEmail ==. email] []
 
 ------------------------------------------------------------------------
 
