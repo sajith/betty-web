@@ -4,16 +4,16 @@ module Handler.Api.V0.User where
 
 import           Import
 
+import           Control.Monad                   (liftM)
 import           Data.Maybe                      (isJust)
 import           Data.String                     (IsString)
 import qualified Data.Text                       as T
 import           Data.Text.Encoding              (decodeUtf8)
-import           Database.Persist.Sql            (SqlBackend (..))
+import           Database.Persist.Sql            (SqlBackend (..),
+                                                  unSqlBackendKey)
 import           Network.HTTP.Types              (hAuthorization)
 import           Network.Wai                     (requestHeaders)
 import           Network.Wai.Middleware.HttpAuth
-
-import           Database.Persist.Sql            (unSqlBackendKey)
 
 import           Yesod.Auth.Email                (isValidPass, saltPass)
 
