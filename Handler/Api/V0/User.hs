@@ -55,9 +55,6 @@ getApiV0UserR = do
     $(logDebug) $ T.pack $ "User" ++ show u
     $(logDebug) $ T.pack $ "Profile" ++ show p
 
-    let todo    = ("TODO" :: Text)
-        unknown = ("unknown" :: Text)
-
     return $ object $ [ "uid"                .= show uid
                       , "email"              .= userEmail u
                       , "auth_token"         .= token
