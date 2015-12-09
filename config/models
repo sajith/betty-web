@@ -47,3 +47,11 @@ BloodGlucoseHistory
 
 ------------------------------------------------------------------------
 
+-- auth tokens
+AuthTokens
+    uid UserId
+    email Text
+    token Text Maybe
+    UniqueAuthTokens email
+
+------------------------------------------------------------------------
