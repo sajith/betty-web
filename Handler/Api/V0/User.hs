@@ -73,15 +73,14 @@ getApiV0UserR = do
 
             getUid = unSqlBackendKey . unUserKey
 
-            fmtUid = show . getUid
+            fmtUid = T.pack . show . getUid
 
             getUserInfo email = runDB $ do
-                $logInfo ("404 on getUserInfo: " <> email <> "\n")
+                $logInfo ("getUserInfo: " <> email <> "\n")
                 getBy404 $ UniqueUser email
 
             getUserProfile uid = runDB $ do
-                $logInfo $
-                    T.pack ("404 on getUserProfile: " ++ fmtUid uid ++ "\n")
+                $logInfo ("getUserProfile: " <> fmtUid uid <> "\n")
                 getBy404 $ UniqueUserProfile uid
 
             unknown = "unknown" :: Text
