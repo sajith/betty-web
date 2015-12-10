@@ -74,12 +74,12 @@ getApiV0UserR = do
             fmtUid = show . getUid
 
             getUserInfo email = runDB $ do
-                $logInfo ("getUserInfo: " <> email <> "\n")
+                $logInfo ("404 on getUserInfo: " <> email <> "\n")
                 getBy404 $ UniqueUser email
 
             getUserProfile uid = runDB $ do
                 $logInfo $
-                    T.pack ("getUserProfile: " ++ fmtUid uid ++ "\n")
+                    T.pack ("404 on getUserProfile: " ++ fmtUid uid ++ "\n")
                 getBy404 $ UniqueUserProfile uid
 
             unknown = "unknown" :: Text
