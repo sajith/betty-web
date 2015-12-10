@@ -165,7 +165,7 @@ getToken :: forall site.
              YesodPersistBackend site ~ SqlBackend) =>
             Text -> HandlerT site IO (Maybe Text)
 getToken email = runDB $ do
-    $(logDebug) $ T.pack $ "at getToken" ++ show email ++ "\n"
+    $logDebug ("at getToken" <> email <> "\n")
     v <- getBy404 $ UniqueAuthTokens email
     return $ authTokensToken $ entityVal v
 
