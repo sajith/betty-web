@@ -54,8 +54,8 @@ getApiV0UserR = do
         uid = getUid $ entityKey user
         p   = entityVal profile
 
-    $logDebug $ T.pack $ "User" ++ show u
-    $logDebug $ T.pack $ "Profile" ++ show p
+    $logDebug ("User: " <> txt u)
+    $logDebug ("Profile: " <> txt p)
 
     return $ object [ "uid"                .= show uid -- TODO: this has to be string?
                     , "email"              .= userEmail u
