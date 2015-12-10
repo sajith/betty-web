@@ -5,6 +5,7 @@ module Handler.Api.V0.User where
 import           Import
 
 import           Control.Monad                   (liftM)
+import           Data.ByteString                 (ByteString)
 import           Data.Maybe                      (isJust)
 import           Data.String                     (IsString)
 import qualified Data.Text                       as T
@@ -12,7 +13,8 @@ import           Data.Text.Encoding              (decodeUtf8)
 import           Database.Persist.Sql            (SqlBackend (..),
                                                   unSqlBackendKey)
 import           Network.HTTP.Types              (hAuthorization)
-import           Network.Wai                     (requestHeaders)
+import           Network.Wai                     (Request (..),
+                                                  requestHeaders)
 import           Network.Wai.Middleware.HttpAuth
 
 import           Yesod.Auth.Email                (isValidPass, saltPass)
@@ -112,6 +114,9 @@ getApiV0UserR = do
 
 ------------------------------------------------------------------------
 
+lookupAuth :: forall (m :: * -> *).
+              MonadHandler m =>
+              Request -> m ByteString
 lookupAuth request =
     case lookup hAuthorization $ requestHeaders request of
         Just enc -> return enc
@@ -119,7 +124,13 @@ lookupAuth request =
 
 ------------------------------------------------------------------------
 
+type Email      = ByteString
+type Passord    = ByteString
+
 --  returns (email, pass) pair
+decodeAuth :: forall (m :: * -> *).
+              MonadHandler m =>
+              ByteString -> m (Email, Passord)
 decodeAuth enc =
     case extractBasicAuth enc of
         Just auth -> return auth
@@ -127,12 +138,16 @@ decodeAuth enc =
 
 ------------------------------------------------------------------------
 
-verifyAuth (email, pass) = do
+verifyAuth :: forall site.
+              (YesodPersist site,
+               YesodPersistBackend site ~ SqlBackend) =>
+              (Email, Passord) -> HandlerT site IO Text
+verifyAuth (email, passwd) = do
     realpass <- getPassword (decodeUtf8 email)
     case realpass of
         Just p ->
-            if isValidPass (decodeUtf8 pass) p
-            then return $ decodeUtf8 email
+            if isValidPass (decodeUtf8 passwd) p
+            then return (decodeUtf8 email)
             else denyMessage realm "Wrong password."
         Nothing ->
             denyMessage realm "No password set."
