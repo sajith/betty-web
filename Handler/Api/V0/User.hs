@@ -212,8 +212,8 @@ getPassword :: forall site.
                 YesodPersistBackend site ~ SqlBackend)
                => Text -> HandlerT site IO (Maybe Text)
 getPassword email = runDB $ do
-    u <- getBy404 $ UniqueUser email
-    return $ userPassword $ entityVal u
+    $logDebug ("getPassword: " <> email <> "\n")
+    liftM (userPassword . entityVal) (getBy404 (UniqueUser email))
 
 ------------------------------------------------------------------------
 
