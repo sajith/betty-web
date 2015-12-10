@@ -143,11 +143,13 @@ verifyAuth :: forall site.
                YesodPersistBackend site ~ SqlBackend) =>
               (Email, Passord) -> HandlerT site IO Text
 verifyAuth (email, passwd) = do
-    realpass <- getPassword (decodeUtf8 email)
+    let emailBs  = decodeUtf8 email
+        passwdBs = decodeUtf8 passwd
+    realpass <- getPassword emailBs
     case realpass of
         Just p ->
-            if isValidPass (decodeUtf8 passwd) p
-            then return (decodeUtf8 email)
+            if isValidPass passwdBs p
+            then return emailBs
             else denyMessage realm "Wrong password."
         Nothing ->
             denyMessage realm "No password set."
