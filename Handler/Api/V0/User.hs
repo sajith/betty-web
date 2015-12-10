@@ -49,11 +49,11 @@ getApiV0UserR = do
     profile <- getUserProfile $ entityKey user
 
     let u   = entityVal user
-        uid = unSqlBackendKey $ unUserKey $ entityKey user
+        uid = getUid $ entityKey user
         p   = entityVal profile
 
-    $(logDebug) $ T.pack $ "User" ++ show u
-    $(logDebug) $ T.pack $ "Profile" ++ show p
+    $logDebug $ T.pack $ "User" ++ show u
+    $logDebug $ T.pack $ "Profile" ++ show p
 
     return $ object [ "uid"                .= show uid
                     , "email"              .= userEmail u
@@ -74,11 +74,11 @@ getApiV0UserR = do
             fmtUid = show . getUid
 
             getUserInfo email = runDB $ do
-                $(logDebug) ("getUserInfo: " <> email <> "\n")
+                $logInfo ("getUserInfo: " <> email <> "\n")
                 getBy404 $ UniqueUser email
 
             getUserProfile uid = runDB $ do
-                $(logDebug) $
+                $logInfo $
                     T.pack ("getUserProfile: " ++ fmtUid uid ++ "\n")
                 getBy404 $ UniqueUserProfile uid
 
