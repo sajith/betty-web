@@ -197,12 +197,14 @@ isTokenSet email = liftM isJust (getToken email)
 ------------------------------------------------------------------------
 
 -- TODO: handle the case when token is already set.
+-- TODO: handle the case when token param is Nothing.
 setToken :: forall site.
             (YesodPersist site,
              YesodPersistBackend site ~ SqlBackend)
             => Key User -> Text -> Maybe Text
             -> HandlerT site IO (Key AuthTokens)
-setToken uid email token = runDB $
+setToken uid email token = runDB $ do
+    -- $logDebug ("setToken: " <> email <> " " <> token <> "\n")
     insert $ AuthTokens uid email token
 
 ------------------------------------------------------------------------
