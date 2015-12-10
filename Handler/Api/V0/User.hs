@@ -69,6 +69,19 @@ getApiV0UserR = do
 
         where
 
+            getUid = unSqlBackendKey . unUserKey
+
+            fmtUid = show . getUid
+
+            getUserInfo email = runDB $ do
+                $(logDebug) ("getUserInfo: " <> email <> "\n")
+                getBy404 $ UniqueUser email
+
+            getUserProfile uid = runDB $ do
+                $(logDebug) $
+                    T.pack ("getUserProfile: " ++ fmtUid uid ++ "\n")
+                getBy404 $ UniqueUserProfile uid
+
             unknown = "unknown" :: Text
 
             -- TODO: replace with something better.
@@ -96,18 +109,6 @@ getApiV0UserR = do
             formatDY p = case userProfileDiagnosedYear p of
                 Just y  -> if y == 0 then unknown else txt y
                 Nothing -> unknown
-
-------------------------------------------------------------------------
-
-getUserInfo email = runDB $ do
-    $(logDebug) $ T.pack $ "getUserInfo: " ++ show email ++ "\n"
-    getBy404 $ UniqueUser email
-
-------------------------------------------------------------------------
-
-getUserProfile uid = runDB $ do
-    $(logDebug) $ T.pack $ "getUserProfile: " ++ show uid ++ "\n"
-    getBy404 $ UniqueUserProfile uid
 
 ------------------------------------------------------------------------
 
