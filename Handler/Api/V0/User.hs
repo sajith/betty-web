@@ -15,7 +15,7 @@ import           Database.Persist.Sql            (SqlBackend (..),
 import           Network.HTTP.Types              (hAuthorization)
 import           Network.Wai                     (Request (..),
                                                   requestHeaders)
-import           Network.Wai.Middleware.HttpAuth
+import           Network.Wai.Middleware.HttpAuth (extractBasicAuth)
 
 import           Yesod.Auth.Email                (isValidPass, saltPass)
 
