@@ -6,7 +6,6 @@ import           Import
 
 import           Control.Monad                   (liftM)
 import           Data.ByteString                 (ByteString)
-import           Data.Maybe                      (isJust)
 import           Data.String                     (IsString)
 import qualified Data.Text                       as T
 import           Data.Text.Encoding              (decodeUtf8)
@@ -17,21 +16,19 @@ import           Network.HTTP.Types              (hAuthorization)
 import           Network.Wai                     (Request (..),
                                                   requestHeaders)
 import           Network.Wai.Middleware.HttpAuth (extractBasicAuth)
-import           Yesod.Auth.Email                (isValidPass, saltPass)
-
-import           System.IO.Unsafe                (unsafePerformIO)
-import           System.Random                   (newStdGen, randomRs)
+import           Yesod.Auth.Email                (isValidPass)
 
 import           Betty.Model
+import           Betty.Token
 
 ------------------------------------------------------------------------
 
 -- TODO:
--- 1. Refactor to Betty/Token.hs + Betty/BasicAuth.hs
--- 2. Make sure regular auth flow continues to work
--- 3. Write tests
+-- 1. Move basic auth to Betty/BasicAuth.hs or some such.
+-- 2. Make sure regular auth flow continues to work.
+-- 3. Write tests.
 -- 4. Fix the TODO items.
--- 5. Carry on my wayward son
+-- 5. Carry on my wayward son.
 
 ------------------------------------------------------------------------
 
@@ -152,60 +149,6 @@ verifyAuth (email, passwd) = do
             else denyMessage realm "Wrong password."
         Nothing ->
             denyMessage realm "No password set."
-
-------------------------------------------------------------------------
-
-makeToken :: IO Text
-makeToken =  saltPass $ scramble $ T.pack $ concat [p1, p2, p3]
-    where
-        p1 = makeStr 4 ('A', 'Z')
-        p2 = makeStr 4 ('a', 'z')
-        p3 = makeStr 4 ('0', '9')
-
-        -- TODO: remove use of unsafePerformIO here, by using
-        -- mwc-random or some such, perhaps?
-        makeStr :: Int -> (Char, Char) -> String
-        makeStr len range = take len $
-                            randomRs range $
-                            unsafePerformIO newStdGen
-
-        -- TODO: write this.
-        scramble :: Text -> Text
-        scramble = id
-
-------------------------------------------------------------------------
-
--- TODO: return appropriate error string with 404.
-getToken :: forall site.
-            (YesodPersist site,
-             YesodPersistBackend site ~ SqlBackend) =>
-            Text -> HandlerT site IO (Maybe Text)
-getToken email = runDB $ do
-    $logDebug ("getToken: " <> email <> "\n")
-    -- v <- getBy404 $ UniqueAuthTokens email
-    -- return $ authTokensToken $ entityVal v
-    liftM (authTokensToken . entityVal) (getBy404 (UniqueAuthTokens email))
-
-------------------------------------------------------------------------
-
-isTokenSet :: forall site.
-              (YesodPersist site,
-               YesodPersistBackend site ~ SqlBackend) =>
-              Text -> HandlerT site IO Bool
-isTokenSet email = liftM isJust (getToken email)
-
-------------------------------------------------------------------------
-
--- TODO: handle the case when token is already set.
--- TODO: handle the case when token param is Nothing.
-setToken :: forall site.
-            (YesodPersist site,
-             YesodPersistBackend site ~ SqlBackend)
-            => Key User -> Text -> Maybe Text
-            -> HandlerT site IO (Key AuthTokens)
-setToken uid email token = runDB $ do
-    -- $logDebug ("setToken: " <> email <> " " <> token <> "\n")
-    insert $ AuthTokens uid email token
 
 ------------------------------------------------------------------------
 
