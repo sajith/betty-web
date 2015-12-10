@@ -10,13 +10,13 @@ import           Data.Maybe                      (isJust)
 import           Data.String                     (IsString)
 import qualified Data.Text                       as T
 import           Data.Text.Encoding              (decodeUtf8)
+
 import           Database.Persist.Sql            (SqlBackend (..),
                                                   unSqlBackendKey)
 import           Network.HTTP.Types              (hAuthorization)
 import           Network.Wai                     (Request (..),
                                                   requestHeaders)
 import           Network.Wai.Middleware.HttpAuth (extractBasicAuth)
-
 import           Yesod.Auth.Email                (isValidPass, saltPass)
 
 import           System.IO.Unsafe                (unsafePerformIO)
