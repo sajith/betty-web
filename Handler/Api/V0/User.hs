@@ -57,7 +57,7 @@ getApiV0UserR = do
     $logDebug $ T.pack $ "User" ++ show u
     $logDebug $ T.pack $ "Profile" ++ show p
 
-    return $ object [ "uid"                .= show uid
+    return $ object [ "uid"                .= show uid -- TODO: this has to be string?
                     , "email"              .= userEmail u
                     , "auth_token"         .= token
                     , "verified"           .= userVerified u
