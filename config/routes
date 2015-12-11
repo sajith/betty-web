@@ -16,6 +16,7 @@
 
 /profile        ProfileR        GET POST
 /profile/start  ProfileStartR   GET POST
+/profile/apikey ResetTokenR     POST
 
 /add/bg         AddBGR          GET POST
 /history/bg     HistoryBGR      GET
