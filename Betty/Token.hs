@@ -49,6 +49,23 @@ getToken email = runDB $ do
 
 ------------------------------------------------------------------------
 
+-- TODO: use a better name for this function.
+-- TODO: improve error messages.
+getToken' :: forall site.
+             (YesodPersist site,
+              YesodPersistBackend site ~ SqlBackend) =>
+             Text -> HandlerT site IO Text
+getToken' email = do
+    t <- runDB $ getBy $ UniqueAuthTokens email
+    let token = case t of
+            Nothing -> "no token (email not found)"
+            Just t' -> case authTokensToken $ entityVal t' of
+                Just t'' -> t''
+                Nothing  -> "no token"
+    return token
+
+------------------------------------------------------------------------
+
 isTokenSet :: forall site.
               (YesodPersist site,
                YesodPersistBackend site ~ SqlBackend) =>
