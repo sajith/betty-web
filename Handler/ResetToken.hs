@@ -3,7 +3,6 @@ module Handler.ResetToken where
 import Import
 
 import Betty.Token
-import Control.Monad (liftM)
 import System.Random (newStdGen)
 import Yesod.Auth    (requireAuth)
 
@@ -16,9 +15,9 @@ postResetTokenR = do
     let email = userEmail u
 
     -- generate new api key
-    -- g <- lift newStdGen
-    -- let token = makeToken g
-    token <- lift $ liftM makeToken newStdGen
+    g <- lift newStdGen
+    token <- lift $ makeToken g
+
     $(logDebug) ("postResetTokenR: email: " <> email
                  <> ",token:" <> token <> "\n")
 
