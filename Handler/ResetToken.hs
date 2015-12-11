@@ -11,6 +11,7 @@ import Yesod.Auth    (requireAuth)
 postResetTokenR :: Handler Html
 postResetTokenR = do
 
+    -- no representation without authorization
     Entity k u <- requireAuth
     let email = userEmail u
 
