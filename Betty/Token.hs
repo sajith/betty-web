@@ -6,7 +6,7 @@ import           Import
 
 import           Control.Monad        (liftM)
 import qualified Data.List            as L
-import           Data.Maybe           (isJust)
+import           Data.Maybe           (fromMaybe, isJust)
 import qualified Data.Text            as T
 
 import           System.Random        (StdGen, randomRIO, randomRs)
@@ -59,9 +59,8 @@ getToken' email = do
     t <- runDB $ getBy $ UniqueAuthTokens email
     let token = case t of
             Nothing -> "no token (email not found)"
-            Just t' -> case authTokensToken $ entityVal t' of
-                Just t'' -> t''
-                Nothing  -> "no token"
+            Just t' -> fromMaybe "no token set"
+                       (authTokensToken $ entityVal t')
     return token
 
 ------------------------------------------------------------------------
