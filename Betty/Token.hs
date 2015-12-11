@@ -16,6 +16,11 @@ import           Yesod.Auth.Email     (saltPass)
 
 ------------------------------------------------------------------------
 
+-- TODO: for salt+hash functions, use Crypto.PasswordStore from
+-- pwstore-fast, rather than Yesod.Auth.Email
+
+------------------------------------------------------------------------
+
 makeToken :: IO Text
 makeToken =  saltPass $ scramble $ T.pack $ concat [p1, p2, p3]
     where
