@@ -2,7 +2,7 @@ module Handler.Profile where
 
 import Import
 
-import Betty.Token (getToken')
+import Betty.Token (getToken)
 import Yesod.Auth  (requireAuth)
 
 ------------------------------------------------------------------------
@@ -10,7 +10,7 @@ import Yesod.Auth  (requireAuth)
 getProfileR :: Handler Html
 getProfileR = do
     Entity _ u <- requireAuth
-    token <- getToken' $ userEmail u
+    token <- getToken $ userEmail u
 
     defaultLayout $ do
         setTitle "Project D: Your Profile"

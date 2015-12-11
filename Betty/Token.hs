@@ -4,7 +4,6 @@ module Betty.Token where
 
 import           Import
 
-import           Control.Monad        (liftM)
 import qualified Data.List            as L
 import           Data.Maybe           (fromMaybe, isJust)
 import qualified Data.Text            as T
@@ -36,26 +35,13 @@ makeToken g = fmap T.pack $ scramble $ concat [p1, p2, p3]
 
 ------------------------------------------------------------------------
 
--- TODO: return appropriate error string with 404.
+-- TODO: use a better name for this function.
+-- TODO: improve error messages.
 getToken :: forall site.
             (YesodPersist site,
              YesodPersistBackend site ~ SqlBackend) =>
-            Text -> HandlerT site IO (Maybe Text)
-getToken email = runDB $ do
-    $logDebug ("getToken: " <> email <> "\n")
-    -- v <- getBy404 $ UniqueAuthTokens email
-    -- return $ authTokensToken $ entityVal v
-    liftM (authTokensToken . entityVal) (getBy404 (UniqueAuthTokens email))
-
-------------------------------------------------------------------------
-
--- TODO: use a better name for this function.
--- TODO: improve error messages.
-getToken' :: forall site.
-             (YesodPersist site,
-              YesodPersistBackend site ~ SqlBackend) =>
-             Text -> HandlerT site IO Text
-getToken' email = do
+            Text -> HandlerT site IO Text
+getToken email = do
     t <- runDB $ getBy $ UniqueAuthTokens email
     let token = case t of
             Nothing -> "no token (email not found)"
@@ -69,7 +55,7 @@ isTokenSet :: forall site.
               (YesodPersist site,
                YesodPersistBackend site ~ SqlBackend) =>
               Text -> HandlerT site IO Bool
-isTokenSet email = liftM isJust (getToken email)
+isTokenSet email = fmap isJust $ runDB $ getBy $ UniqueAuthTokens email
 
 ------------------------------------------------------------------------
 
