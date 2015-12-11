@@ -12,7 +12,6 @@ import           System.IO.Unsafe     (unsafePerformIO)
 import           System.Random        (newStdGen, randomRs)
 
 import           Database.Persist.Sql (SqlBackend (..))
-import           Yesod.Auth.Email     (saltPass)
 
 ------------------------------------------------------------------------
 
@@ -21,8 +20,9 @@ import           Yesod.Auth.Email     (saltPass)
 
 ------------------------------------------------------------------------
 
+-- TODO: reconsider 'return' here.
 makeToken :: IO Text
-makeToken =  saltPass $ scramble $ T.pack $ concat [p1, p2, p3]
+makeToken = return $ scramble $ T.pack $ concat [p1, p2, p3]
     where
         p1 = makeStr 4 ('A', 'Z')
         p2 = makeStr 4 ('a', 'z')
