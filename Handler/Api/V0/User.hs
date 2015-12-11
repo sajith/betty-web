@@ -80,6 +80,10 @@ getApiV0UserR = do
                 $logInfo ("getUserProfile: " <> fmtUid uid <> "\n")
                 getBy404 $ UniqueUserProfile uid
 
+            -- TODO: move the format helpers somewhere more general;
+            -- use a typeclass ('PPrint' or 'ToJSON' or some such?),
+            -- perhaps?
+
             unknown = "unknown" :: Text
 
             -- TODO: replace with something better.
