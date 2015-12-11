@@ -1,0 +1,13 @@
+<div #apikey-panel .panel .panel-default>
+  <div .panel-heading>
+    <i .fa .fa-key .fa-fw>
+    API Key
+  <div .panel-body>
+    <div #apikey-update>
+      <!-- TODO: use jquery to reset token -->
+      <form #apikey-form .form-horizontal role=form method=post action=@{ResetTokenR}>
+        <div .form-group>
+          <label .col-sm-4 .control-label>
+            #{token}
+          <div .col-sm-8>
+            <input type=submit value="Reset token" .btn .btn-default>  
