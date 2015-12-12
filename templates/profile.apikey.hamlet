@@ -1,11 +1,11 @@
-<div #apikey-panel .panel .panel-default>
+<div #token-panel .panel .panel-default>
   <div .panel-heading>
     <i .fa .fa-key .fa-fw>
-    API Key
+    API Token
   <div .panel-body>
-    <div #apikey-update>
+    <div #token-update>
       <!-- TODO: use jquery to reset token -->
-      <form #apikey-form .form-horizontal role=form method=post action=@{ResetTokenR}>
+      <form #token-form .form-horizontal role=form method=post action=@{ResetTokenR}>
         <div .form-group>
           <label .col-sm-4 .control-label>
             #{token}
