@@ -68,3 +68,14 @@ setToken uid email token = runDB $ do
     upsert (AuthTokens uid email (Just token)) []
 
 ------------------------------------------------------------------------
+
+-- TODO: is there a better way to do this?
+isTokenValid :: forall site.
+                (YesodPersist site,
+                 YesodPersistBackend site ~ SqlBackend) =>
+                Text -> Text -> HandlerT site IO Bool
+isTokenValid email token = do
+    realtoken <- getToken email
+    return (token == realtoken)
+
+------------------------------------------------------------------------
