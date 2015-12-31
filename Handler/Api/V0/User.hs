@@ -43,7 +43,7 @@ getApiV0UserR = do
 
     request <- waiRequest
     email   <- lookupAuth request >>= decodeAuth >>= verifyAuth
-    token   <- getToken email
+    token   <- getRealToken email
     user    <- getUserInfo email
     profile <- getUserProfile $ entityKey user
 
