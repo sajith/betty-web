@@ -54,7 +54,7 @@ getApiV0UserR = do
     $logDebug ("User: " <> txt u)
     $logDebug ("Profile: " <> txt p)
 
-    return $ object [ "uid"                .= show uid -- TODO: this has to be string?
+    return $ object [ "uid"                .= show uid
                     , "email"              .= userEmail u
                     , "auth_token"         .= token
                     , "verified"           .= userVerified u
