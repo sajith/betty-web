@@ -12,7 +12,7 @@ import           System.Random        (StdGen, randomRIO, randomRs)
 
 import           Database.Persist.Sql (SqlBackend (..))
 
-------------------------------------------------------------------------R
+------------------------------------------------------------------------
 
 makeToken :: StdGen -> IO Text
 makeToken g = fmap T.pack $ scramble $ concat [p1, p2, p3]
