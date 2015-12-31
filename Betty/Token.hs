@@ -35,18 +35,17 @@ makeToken g = fmap T.pack $ scramble $ concat [p1, p2, p3]
 
 ------------------------------------------------------------------------
 
--- TODO: use a better name for this function.
 -- TODO: improve error messages.
-getToken :: forall site.
+getRealToken :: forall site.
             (YesodPersist site,
              YesodPersistBackend site ~ SqlBackend) =>
             Text -> HandlerT site IO Text
-getToken email = do
+getRealToken email = do
     t <- runDB $ getBy $ UniqueAuthTokens email
     let token = case t of
             Nothing -> "no token (email not found)"
             Just t' -> fromMaybe "no token set"
-                       (authTokensToken $ entityVal t')
+                        (authTokensToken $ entityVal t')
     return token
 
 ------------------------------------------------------------------------
@@ -75,7 +74,7 @@ isTokenValid :: forall site.
                  YesodPersistBackend site ~ SqlBackend) =>
                 Text -> Text -> HandlerT site IO Bool
 isTokenValid email token = do
-    realtoken <- getToken email
+    realtoken <- getRealToken email
     return (token == realtoken)
 
 ------------------------------------------------------------------------
