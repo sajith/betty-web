@@ -41,6 +41,7 @@ getRealToken :: forall site.
              YesodPersistBackend site ~ SqlBackend) =>
             Text -> HandlerT site IO Text
 getRealToken email = do
+    $(logDebug) ("getRealToken email: " <> email)
     t <- runDB $ getBy $ UniqueAuthTokens email
     let token = case t of
             Nothing -> "no token (email not found)"
@@ -75,6 +76,7 @@ isTokenValid :: forall site.
                 Text -> Text -> HandlerT site IO Bool
 isTokenValid email token = do
     realtoken <- getRealToken email
+    $(logDebug) ("realToken: " <> realtoken <> ", given:" <> token)
     return (token == realtoken)
 
 ------------------------------------------------------------------------
