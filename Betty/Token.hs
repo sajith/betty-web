@@ -5,7 +5,7 @@ module Betty.Token where
 import           Import
 
 import qualified Data.List            as L
-import           Data.Maybe           (fromMaybe, isJust)
+import           Data.Maybe           (isJust)
 import qualified Data.Text            as T
 
 import           System.Random        (StdGen, randomRIO, randomRs)
@@ -35,19 +35,29 @@ makeToken g = fmap T.pack $ scramble $ concat [p1, p2, p3]
 
 ------------------------------------------------------------------------
 
--- TODO: improve error messages.
+-- TODO: move this somewhere else.
+txt :: forall a. Show a => a -> Text
+txt = T.pack . show
+
+------------------------------------------------------------------------
+
 getRealToken :: forall site.
-            (YesodPersist site,
-             YesodPersistBackend site ~ SqlBackend) =>
-            Text -> HandlerT site IO Text
+                (YesodPersist site,
+                 YesodPersistBackend site ~ SqlBackend) =>
+                Text -> HandlerT site IO (Maybe Text)
 getRealToken email = do
-    $(logDebug) ("getRealToken email: " <> email)
+    $(logDebug) ("getRealToken: " <> email)
     t <- runDB $ getBy $ UniqueAuthTokens email
-    let token = case t of
-            Nothing -> "no token (email not found)"
-            Just t' -> fromMaybe "no token set"
-                        (authTokensToken $ entityVal t')
-    return token
+    case t of
+        Nothing -> do
+            $(logDebug) ("getRealToken: no token found for " <> email)
+            return Nothing
+        Just t' -> do
+            let token = (authTokensToken . entityVal) t'
+            $(logDebug) ("getRealToken: Token "
+                         <> txt token <> " found for "
+                         <> email)
+            return token
 
 ------------------------------------------------------------------------
 
@@ -75,8 +85,14 @@ isTokenValid :: forall site.
                  YesodPersistBackend site ~ SqlBackend) =>
                 Text -> Text -> HandlerT site IO Bool
 isTokenValid email token = do
-    realtoken <- getRealToken email
-    $(logDebug) ("realToken: " <> realtoken <> ", given:" <> token)
-    return (token == realtoken)
+    t <- getRealToken email
+    case t of
+        Nothing -> do
+            $(logDebug) ("isTokenValid: no token for " <> email)
+            return False
+        Just realtoken -> do
+            $(logDebug) ("realToken: " <> realtoken
+                         <> ", given:" <> token)
+            return (token == realtoken)
 
 ------------------------------------------------------------------------
