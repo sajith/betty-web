@@ -2,6 +2,8 @@ module Handler.Profile where
 
 import Import
 
+import Data.Maybe  (fromMaybe)
+
 import Betty.Token (getRealToken)
 import Yesod.Auth  (requireAuth)
 
@@ -10,7 +12,9 @@ import Yesod.Auth  (requireAuth)
 getProfileR :: Handler Html
 getProfileR = do
     Entity _ u <- requireAuth
-    token <- getRealToken $ userEmail u
+
+    t <- getRealToken $ userEmail u
+    let token = fromMaybe "not set" t
 
     defaultLayout $ do
         setTitle "Project D: Your Profile"
