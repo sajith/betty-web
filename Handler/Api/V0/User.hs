@@ -87,7 +87,7 @@ getApiV0UserR = do
             unknown = "unknown" :: Text
 
             -- TODO: replace with something better.
-            txt     = T.pack . show
+            -- txt     = T.pack . show
 
             -- TODO: format to more useful timezone representation.
             formatTZ p = case userProfileTimezone p of
