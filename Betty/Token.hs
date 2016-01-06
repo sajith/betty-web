@@ -14,6 +14,23 @@ import           Database.Persist.Sql (SqlBackend (..))
 
 ------------------------------------------------------------------------
 
+-- custom header bearing email:token pair.
+hAuthToken :: forall a. IsString a => a
+hAuthToken = "X-Auth-Token"
+
+------------------------------------------------------------------------
+
+-- failure message when supplied auth token doesn't match the real
+-- auth token.
+msgTokenWrong :: Text
+msgTokenWrong = "incorrect auth token"
+
+-- error message when auth token header isn't present in the request.
+msgTokenNotFound :: Text
+msgTokenNotFound = "auth token not found"
+
+------------------------------------------------------------------------
+
 makeToken :: StdGen -> IO Text
 makeToken g = fmap T.pack $ scramble $ concat [p1, p2, p3]
     where
