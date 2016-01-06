@@ -31,6 +31,10 @@ msgTokenNotFound = "auth token not found"
 
 ------------------------------------------------------------------------
 
+-- TODO: replace this with something better thought out.
+
+-- generate a token (a random mix of uppercase and lowercase letters,
+-- and digits.)
 makeToken :: StdGen -> IO Text
 makeToken g = fmap T.pack $ scramble $ concat [p1, p2, p3]
     where
