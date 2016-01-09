@@ -6,6 +6,7 @@ import           Import
 
 import qualified Data.List            as L
 import           Data.Maybe           (isJust)
+import           Data.String          (IsString)
 import qualified Data.Text            as T
 
 import           System.Random        (StdGen, randomRIO, randomRs)
