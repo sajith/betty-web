@@ -2,6 +2,11 @@ module Handler.ResetToken where
 
 import Import
 
+-- TODO: we should not have to use this.
+#if __GLASGOW_HASKELL__ > 708
+import Data.Monoid   ((<>))
+#endif
+
 import Betty.Token
 import System.Random (newStdGen)
 import Yesod.Auth    (requireAuth)

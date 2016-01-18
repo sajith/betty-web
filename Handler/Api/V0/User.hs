@@ -4,6 +4,11 @@ module Handler.Api.V0.User where
 
 import           Import
 
+-- TODO: we should not have to use this.
+#if __GLASGOW_HASKELL__ > 708
+import           Data.Monoid                     ((<>))
+#endif
+
 import           Control.Monad                   (liftM)
 import           Data.ByteString                 (ByteString)
 import           Data.String                     (IsString)

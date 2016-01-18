@@ -4,6 +4,11 @@ module Betty.Token where
 
 import           Import
 
+-- TODO: we should not have to use this.
+#if __GLASGOW_HASKELL__ > 708
+import           Data.Monoid          ((<>))
+#endif
+
 import qualified Data.List            as L
 import           Data.Maybe           (isJust)
 import           Data.String          (IsString)

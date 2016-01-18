@@ -9,6 +9,12 @@
 module Handler.Api.V0.Sugar where
 
 import Import
+
+-- TODO: we should not have to use this.
+#if __GLASGOW_HASKELL__ > 708
+import Data.Monoid   ((<>))
+#endif
+
 import Yesod.Auth           (maybeAuthId, AuthId(..))
 
 import qualified Data.Text            as T
