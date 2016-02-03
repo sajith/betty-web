@@ -51,7 +51,7 @@ getUidFromParams = do
             let xs = split ':' hdr
             
             when (length xs /= 2) $ do 
-                $(logDebug) ("Can't find token in header")
+                $(logDebug) "Can't find token in header"
                 sendResponseStatus status401 msgTokenNotFound
 
             let email  = xs !! 0
