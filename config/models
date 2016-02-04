@@ -50,6 +50,7 @@ BloodGlucoseHistory
     value Double
     unit BGUnit Maybe
     notes Text Maybe
+    deriving Show
 
 ------------------------------------------------------------------------
 
