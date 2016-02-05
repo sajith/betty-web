@@ -1,4 +1,4 @@
-{-# LANGUAGE RankNTypes           #-}
+{-# LANGUAGE RankNTypes #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 -- TODO: It would be nice to not to have an orphan instance here.
@@ -8,71 +8,16 @@
 
 module Handler.Api.V0.Sugar where
 
-import Import
-
--- TODO: we should not have to use this.
-#if __GLASGOW_HASKELL__ > 708
-import Data.Monoid   ((<>))
-#endif
-
-import Yesod.Auth           (maybeAuthId, AuthId(..))
+import           Import
 
 import qualified Data.Text            as T
-import Data.Time.Clock      (getCurrentTime, utctDay, utctDayTime)
-import Data.Time.LocalTime  (timeToTimeOfDay)
-import Data.ByteString.Char8 (split)
-import Data.Text.Encoding   (decodeLatin1)
+import           Data.Time.Clock      (getCurrentTime, utctDay, utctDayTime)
+import           Data.Time.LocalTime  (timeToTimeOfDay)
 
-import Database.Persist.Sql (fromSqlKey, SqlBackend (..))
+import           Database.Persist.Sql (fromSqlKey)
 
-import Control.Monad        (when)
-import Data.Maybe           (fromJust, isNothing)
-import Network.HTTP.Types   (status401)
-import Network.Wai          (requestHeaders)
-
-import Betty.Model          (BGUnit (..))
-import Betty.Token          
-
-------------------------------------------------------------------------
-
-getUidFromParams :: forall site.
-                    (YesodPersist site,
-                     YesodPersistBackend site ~ SqlBackend) =>
-                    HandlerT site IO (Key User)
-getUidFromParams = do
-    
-    request <- waiRequest
-    
-    case lookup hAuthToken $ requestHeaders request of
-        Just hdr -> do
-            $(logDebug) ("tokenHeader: " <> txt hdr)
-            
-            -- TODO: this is silly; do real parsing here.
-            let xs = split ':' hdr
-            
-            when (length xs /= 2) $ do 
-                $(logDebug) "Can't find token in header"
-                sendResponseStatus status401 msgTokenNotFound
-
-            let email  = xs !! 0
-                token  = xs !! 1
-                email' = decodeLatin1 email
-                token' = decodeLatin1 token
-
-            $(logDebug) ("email: " <> email' <> ", token: " <> token')
-
-            valid <- isTokenValid email' token'
-            
-            if valid
-               then do
-                    u <- runDB $ getBy $ UniqueUser email'
-                    return $ fromJust $ fmap entityKey u
-               else
-                    sendResponseStatus status401 msgTokenWrong
-                    
-        Nothing  -> do
-            $(logDebug) ("tokenHeader not found" :: Text)
-            sendResponseStatus status401 msgTokenNotFound
+import           Betty.Model          (BGUnit (..))
+import           Betty.Token
 
 ------------------------------------------------------------------------
 
@@ -80,7 +25,7 @@ postApiV0SugarAddR :: Handler Value
 postApiV0SugarAddR = do
 
     uid <- getUidFromParams
-    
+
     utctime <- liftIO getCurrentTime
 
     params <- reqGetParams <$> getRequest
@@ -93,7 +38,7 @@ postApiV0SugarAddR = do
         notes = lookup "notes" params :: Maybe Text
 
     v' <- case value of
-        Nothing -> invalidArgs ["No value given."] -- 400 Error
+        Nothing -> invalidArgs ["No blood sugar value given."] -- 400 Error
         Just v  -> return v
 
     unit' <- case unit of
@@ -125,6 +70,8 @@ postApiV0SugarAddR = do
                  (read $ T.unpack v')   -- blood sugar value
                  (Just unit')           -- blood sugar unit
                  notes                  -- notes, if any
+
+    $(logDebug) $ T.pack $ "Record: " ++ show record
 
     result <- runDB $ insert record
 
@@ -161,7 +108,7 @@ getApiV0SugarGetR :: Handler Value
 getApiV0SugarGetR = do
 
     $(logDebug) "in getApiV0SugarGetR"
-    
+
     uid <- getUidFromParams
 
     $(logDebug) $ T.pack $ "uid: " ++ show uid
@@ -177,17 +124,6 @@ getApiV0SugarGetR = do
     return $ object [ "count"  .= length sugars
                     , "sugars" .= sugars
                     ]
-
-
--- TODO: test this later.
-
-checkUid :: -- forall master.
-            (YesodAuth master, Eq (AuthId master)) =>
-            HandlerT master IO (AuthId master)
-checkUid = do
-    mid <- maybeAuthId
-    when (isNothing mid) $ sendResponseStatus status401 ()
-    return $ fromJust mid
 
 ------------------------------------------------------------------------
 

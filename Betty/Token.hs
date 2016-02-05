@@ -9,14 +9,19 @@ import           Import
 import           Data.Monoid          ((<>))
 #endif
 
-import qualified Data.List            as L
-import           Data.Maybe           (isJust)
-import           Data.String          (IsString)
-import qualified Data.Text            as T
+import           Control.Monad         (when)
+import           Data.ByteString.Char8 (split)
+import           Data.Maybe            (isJust, fromJust, isNothing)
+import           Data.String           (IsString)
+import           Data.Text.Encoding    (decodeLatin1)
+import           System.Random         (StdGen, randomRIO, randomRs)
+import qualified Data.List             as L
+import qualified Data.Text             as T
 
-import           System.Random        (StdGen, randomRIO, randomRs)
-
-import           Database.Persist.Sql (SqlBackend (..))
+import           Database.Persist.Sql  (SqlBackend (..))
+import           Network.HTTP.Types    (status401)
+import           Network.Wai           (requestHeaders)
+import           Yesod.Auth            (maybeAuthId, AuthId(..))
 
 ------------------------------------------------------------------------
 
@@ -121,5 +126,46 @@ isTokenValid email token = do
             $(logDebug) ("realToken: " <> realtoken
                          <> ", given:" <> token)
             return (token == realtoken)
+
+------------------------------------------------------------------------
+
+getUidFromParams :: forall site.
+                    (YesodPersist site,
+                     YesodPersistBackend site ~ SqlBackend) =>
+                    HandlerT site IO (Key User)
+getUidFromParams = do
+
+    request <- waiRequest
+    
+    case lookup hAuthToken $ requestHeaders request of
+        Just hdr -> do
+            $(logDebug) ("tokenHeader: " <> txt hdr)
+            
+            -- TODO: this is silly; do real parsing here.
+            let xs = split ':' hdr
+            
+            when (length xs /= 2) $ do 
+                $(logDebug) "Can't find token in header"
+                sendResponseStatus status401 msgTokenNotFound
+
+            let email  = xs !! 0
+                token  = xs !! 1
+                email' = decodeLatin1 email
+                token' = decodeLatin1 token
+
+            $(logDebug) ("email: " <> email' <> ", token: " <> token')
+
+            valid <- isTokenValid email' token'
+            
+            if valid
+               then do
+                    u <- runDB $ getBy $ UniqueUser email'
+                    return $ fromJust $ fmap entityKey u
+               else
+                    sendResponseStatus status401 msgTokenWrong
+                    
+        Nothing  -> do
+            $(logDebug) "tokenHeader not found"
+            sendResponseStatus status401 msgTokenNotFound
 
 ------------------------------------------------------------------------
