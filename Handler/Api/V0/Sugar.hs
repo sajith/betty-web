@@ -104,6 +104,8 @@ instance ToJSON BloodGlucoseHistory where
             format (Just Mmol) = show Mmol
             format Nothing     = "unknown"
 
+------------------------------------------------------------------------
+
 getApiV0SugarGetR :: Handler Value
 getApiV0SugarGetR = do
 
