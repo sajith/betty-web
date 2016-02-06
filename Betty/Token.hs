@@ -11,7 +11,7 @@ import           Data.Monoid          ((<>))
 
 import           Control.Monad         (when)
 import           Data.ByteString.Char8 (split)
-import           Data.Maybe            (isJust, fromJust, isNothing)
+import           Data.Maybe            (isJust, fromJust)
 import           Data.String           (IsString)
 import           Data.Text.Encoding    (decodeLatin1)
 import           System.Random         (StdGen, randomRIO, randomRs)
@@ -21,7 +21,6 @@ import qualified Data.Text             as T
 import           Database.Persist.Sql  (SqlBackend (..))
 import           Network.HTTP.Types    (status401)
 import           Network.Wai           (requestHeaders)
-import           Yesod.Auth            (maybeAuthId, AuthId(..))
 
 ------------------------------------------------------------------------
 
