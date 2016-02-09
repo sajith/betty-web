@@ -17,14 +17,15 @@ import           Data.Time.LocalTime  (timeToTimeOfDay)
 import           Database.Persist.Sql (fromSqlKey)
 
 import           Betty.Model          (BGUnit (..))
-import           Betty.Token
+
+import           Yesod.Auth           (requireAuthId)
 
 ------------------------------------------------------------------------
 
 postApiV0SugarAddR :: Handler Value
 postApiV0SugarAddR = do
 
-    uid <- getUidFromParams
+    uid <- requireAuthId
 
     utctime <- liftIO getCurrentTime
 
@@ -111,7 +112,7 @@ getApiV0SugarGetR = do
 
     $(logDebug) "in getApiV0SugarGetR"
 
-    uid <- getUidFromParams
+    uid <- requireAuthId
 
     $(logDebug) $ T.pack $ "uid: " ++ show uid
 
