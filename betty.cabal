@@ -106,6 +106,7 @@ library
                  , base64-bytestring
                  , persistent
                  , random
+                 , yesod-persistent
 
     -- see https://github.com/yesodweb/yesod/issues/814
     if !os(windows)
