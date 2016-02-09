@@ -2,7 +2,8 @@
 
 module Betty.Token where
 
-import           Import
+-- TODO: we should not have to use this.
+import           Prelude               as P
 
 -- TODO: we should not have to use this.
 #if __GLASGOW_HASKELL__ > 708
@@ -10,17 +11,27 @@ import           Data.Monoid          ((<>))
 #endif
 
 import           Control.Monad         (when)
-import           Data.ByteString.Char8 (split)
+import           Data.ByteString.Char8 as B (split)
 import           Data.Maybe            (isJust, fromJust)
 import           Data.String           (IsString)
 import           Data.Text.Encoding    (decodeLatin1)
 import           System.Random         (StdGen, randomRIO, randomRs)
 import qualified Data.List             as L
-import qualified Data.Text             as T
+import           Data.Text             as T
 
 import           Database.Persist.Sql  (SqlBackend (..))
 import           Network.HTTP.Types    (status401)
 import           Network.Wai           (requestHeaders)
+
+import           Model
+
+import           Yesod.Core            (logDebug, HandlerT,
+                                        sendResponseStatus, waiRequest)
+import           Yesod.Persist.Core    (runDB, YesodPersist,
+                                        YesodPersistBackend)
+
+import           Database.Persist.Class (getBy, upsert)
+import           Database.Persist.Types (Key, Entity, entityVal, entityKey)
 
 ------------------------------------------------------------------------
 
@@ -46,20 +57,20 @@ msgTokenNotFound = "auth token not found"
 -- generate a token (a random mix of uppercase and lowercase letters,
 -- and digits.)
 makeToken :: StdGen -> IO Text
-makeToken g = fmap T.pack $ scramble $ concat [p1, p2, p3]
+makeToken g = fmap T.pack $ scramble $ P.concat [p1, p2, p3]
     where
         p1 = makeStr 4 ('A', 'Z')
         p2 = makeStr 4 ('a', 'z')
         p3 = makeStr 4 ('0', '9')
 
         makeStr :: Int -> (Char, Char) -> String
-        makeStr len range = take len $ randomRs range g
+        makeStr len range = P.take len $ randomRs range g
 
         -- TODO: benchmark this.
         scramble :: String -> IO String
         scramble [] = return []
         scramble xs = do
-            n <- randomRIO (0, length xs - 1)
+            n <- randomRIO (0, P.length xs - 1)
             let e = xs !! n
             result <- scramble (L.delete e xs)
             return (e:result)
@@ -128,6 +139,52 @@ isTokenValid email token = do
 
 ------------------------------------------------------------------------
 
+maybeUidFromHeader :: forall site.
+                      (YesodPersist site,
+                       YesodPersistBackend site ~ SqlBackend) =>
+                      HandlerT site IO (Maybe (Key User))
+maybeUidFromHeader = do
+
+    request <- waiRequest
+
+    case lookup hAuthToken $ requestHeaders request of
+        Just hdr -> do
+            $(logDebug) (hAuthToken <> ": " <> txt hdr)
+
+            -- TODO: this is silly; do real parsing here.
+            let xs = B.split ':' hdr
+
+            when (P.length xs /= 2) $ do
+                $(logDebug) ("Can't find " <> hAuthToken <> " in header")
+                sendResponseStatus status401 msgTokenNotFound
+
+            let email  = xs !! 0
+                token  = xs !! 1
+                email' = decodeLatin1 email
+                token' = decodeLatin1 token
+
+            $(logDebug) ("email: " <> email' <> ", token: " <> token')
+
+            valid <- isTokenValid email' token'
+
+            if valid
+               then do
+                    -- TODO: handle 'Nothing'
+                    u <- runDB $ getBy $ UniqueUser email'
+                    let user = fmap entityKey u
+                        u'   = T.pack $ show $ fromJust user
+                    $(logDebug) ("Found user from token: user " <> u')
+                    return user
+               else do
+                    $(logDebug) "invalid auth token"
+                    return Nothing
+
+        Nothing  -> do
+            $(logDebug) ("Header" <> hAuthToken <> " not found")
+            return Nothing
+
+------------------------------------------------------------------------
+
 getUidFromParams :: forall site.
                     (YesodPersist site,
                      YesodPersistBackend site ~ SqlBackend) =>
@@ -141,9 +198,9 @@ getUidFromParams = do
             $(logDebug) ("tokenHeader: " <> txt hdr)
             
             -- TODO: this is silly; do real parsing here.
-            let xs = split ':' hdr
+            let xs = B.split ':' hdr
             
-            when (length xs /= 2) $ do 
+            when (P.length xs /= 2) $ do 
                 $(logDebug) "Can't find token in header"
                 sendResponseStatus status401 msgTokenNotFound
 
