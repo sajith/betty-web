@@ -120,7 +120,7 @@ setToken :: forall site.
              YesodPersistBackend site ~ SqlBackend) =>
             Key User -> Text -> Text -> HandlerT site IO (Entity AuthTokens)
 setToken uid email token = runDB $ do
-    $logDebug ("setToken: " <> email <> " " <> token <> "\n")
+    $logDebug ("setToken: " <> email <> " " <> token)
     upsert (AuthTokens uid email (Just token)) []
 
 ------------------------------------------------------------------------
