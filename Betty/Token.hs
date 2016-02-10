@@ -143,6 +143,7 @@ isTokenValid email token = do
 
 ------------------------------------------------------------------------
 
+-- TODO: send JSON-encoded error codes + messages when appropriate.
 maybeUidFromHeader :: forall site.
                       (YesodPersist site,
                        YesodPersistBackend site ~ SqlBackend) =>
