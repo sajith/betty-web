@@ -189,7 +189,10 @@ maybeUidFromHeader = do
                     return Nothing
 
         Nothing  -> do
-            _ <- sendJson status401 msgTokenNotFound
+            -- NOTE: calling any 'sendStatus' (sendResponseStatus,
+            -- sendStatusJSON, sendJson etc) here will break the
+            -- regular web auth flow.  Would have been nice to return
+            -- actual error code, but meh.
             return Nothing
 
 ------------------------------------------------------------------------
