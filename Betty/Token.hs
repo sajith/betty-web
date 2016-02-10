@@ -3,35 +3,35 @@
 module Betty.Token where
 
 -- TODO: we should not have to use this.
-import           Prelude               as P
+import           Prelude                as P
 
 -- TODO: we should not have to use this.
-#if __GLASGOW_HASKELL__ > 708
+#if __GLASGOW_HASKELL__ >= 704
 import           Data.Monoid          ((<>))
 #endif
 
-import           Control.Monad         (when)
-import           Data.ByteString.Char8 as B (split)
-import           Data.Maybe            (isJust, fromJust)
-import           Data.String           (IsString)
-import           Data.Text.Encoding    (decodeLatin1)
-import           System.Random         (StdGen, randomRIO, randomRs)
-import qualified Data.List             as L
-import           Data.Text             as T
+import           Control.Monad          (when)
+import           Data.ByteString.Char8  as B (split)
+import qualified Data.List              as L
+import           Data.Maybe             (fromJust, isJust)
+import           Data.String            (IsString)
+import           Data.Text              as T
+import           Data.Text.Encoding     (decodeLatin1)
+import           System.Random          (StdGen, randomRIO, randomRs)
 
-import           Database.Persist.Sql  (SqlBackend (..))
-import           Network.HTTP.Types    (status401)
-import           Network.Wai           (requestHeaders)
+import           Database.Persist.Sql   (SqlBackend (..))
+import           Network.HTTP.Types     (status401)
+import           Network.Wai            (requestHeaders)
 
 import           Model
 
-import           Yesod.Core            (logDebug, HandlerT,
-                                        sendResponseStatus, waiRequest)
-import           Yesod.Persist.Core    (runDB, YesodPersist,
-                                        YesodPersistBackend)
+import           Yesod.Core             (HandlerT, logDebug,
+                                         sendResponseStatus, waiRequest)
+import           Yesod.Persist.Core     (YesodPersist, YesodPersistBackend,
+                                         runDB)
 
 import           Database.Persist.Class (getBy, upsert)
-import           Database.Persist.Types (Key, Entity, entityVal, entityKey)
+import           Database.Persist.Types (Entity, Key, entityKey, entityVal)
 
 ------------------------------------------------------------------------
 
@@ -143,7 +143,8 @@ isTokenValid email token = do
 
 ------------------------------------------------------------------------
 
--- TODO: send JSON-encoded error codes + messages when appropriate.
+-- TODO: send JSON-encoded error codes + messages when appropriate,
+-- with 'sendStatusJSON'
 maybeUidFromHeader :: forall site.
                       (YesodPersist site,
                        YesodPersistBackend site ~ SqlBackend) =>
@@ -187,6 +188,7 @@ maybeUidFromHeader = do
 
         Nothing  -> do
             $(logDebug) msgTokenNotFound
+            -- _ <- sendResponseStatus status401 msgTokenNotFound
             return Nothing
 
 ------------------------------------------------------------------------
