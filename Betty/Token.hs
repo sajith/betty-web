@@ -192,15 +192,15 @@ getUidFromParams :: forall site.
 getUidFromParams = do
 
     request <- waiRequest
-    
+
     case lookup hAuthToken $ requestHeaders request of
         Just hdr -> do
             $(logDebug) ("tokenHeader: " <> txt hdr)
-            
+
             -- TODO: this is silly; do real parsing here.
             let xs = B.split ':' hdr
-            
-            when (P.length xs /= 2) $ do 
+
+            when (P.length xs /= 2) $ do
                 $(logDebug) "Can't find token in header"
                 sendResponseStatus status401 msgTokenNotFound
 
@@ -212,14 +212,14 @@ getUidFromParams = do
             $(logDebug) ("email: " <> email' <> ", token: " <> token')
 
             valid <- isTokenValid email' token'
-            
+
             if valid
                then do
                     u <- runDB $ getBy $ UniqueUser email'
                     return $ fromJust $ fmap entityKey u
                else
                     sendResponseStatus status401 msgTokenWrong
-                    
+
         Nothing  -> do
             $(logDebug) "tokenHeader not found"
             sendResponseStatus status401 msgTokenNotFound
