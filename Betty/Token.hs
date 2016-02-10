@@ -48,7 +48,11 @@ msgTokenWrong = "incorrect auth token"
 
 -- error message when auth token header isn't present in the request.
 msgTokenNotFound :: Text
-msgTokenNotFound = "auth token not found"
+msgTokenNotFound = "auth token header not found"
+
+-- error when auth token header cannot be parsed.
+msgTokenCorrupt :: Text
+msgTokenCorrupt = "auth token appears to be corrupt"
 
 ------------------------------------------------------------------------
 
@@ -155,8 +159,8 @@ maybeUidFromHeader = do
             let xs = B.split ':' hdr
 
             when (P.length xs /= 2) $ do
-                $(logDebug) ("Can't find " <> hAuthToken <> " in header")
-                sendResponseStatus status401 msgTokenNotFound
+                $(logDebug) msgTokenCorrupt
+                sendResponseStatus status401 msgTokenCorrupt
 
             let email  = xs !! 0
                 token  = xs !! 1
@@ -176,11 +180,12 @@ maybeUidFromHeader = do
                     $(logDebug) ("Found user from token: user " <> u')
                     return user
                else do
-                    $(logDebug) "invalid auth token"
+                    $(logDebug) msgTokenWrong
+                    -- _ <- sendResponseStatus status401 msgTokenWrong
                     return Nothing
 
         Nothing  -> do
-            $(logDebug) ("Header" <> hAuthToken <> " not found")
+            $(logDebug) msgTokenNotFound
             return Nothing
 
 ------------------------------------------------------------------------
