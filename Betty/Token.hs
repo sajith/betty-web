@@ -20,18 +20,22 @@ import           Data.Text.Encoding     (decodeLatin1)
 import           System.Random          (StdGen, randomRIO, randomRs)
 
 import           Database.Persist.Sql   (SqlBackend (..))
-import           Network.HTTP.Types     (status401)
+import           Network.HTTP.Types     (Status, status401, statusCode,
+                                         statusMessage)
 import           Network.Wai            (requestHeaders)
 
 import           Model
 
-import           Yesod.Core             (HandlerT, logDebug,
-                                         sendResponseStatus, waiRequest)
+import           Yesod.Core             (HandlerT, logDebug, waiRequest)
+import           Yesod.Core.Handler     (sendStatusJSON)
+import           Yesod.Core.Json        (object, (.=))
 import           Yesod.Persist.Core     (YesodPersist, YesodPersistBackend,
                                          runDB)
 
 import           Database.Persist.Class (getBy, upsert)
 import           Database.Persist.Types (Entity, Key, entityKey, entityVal)
+
+import           Yesod.Core             (MonadHandler, MonadLogger, Value)
 
 ------------------------------------------------------------------------
 
@@ -143,8 +147,7 @@ isTokenValid email token = do
 
 ------------------------------------------------------------------------
 
--- TODO: send JSON-encoded error codes + messages when appropriate,
--- with 'sendStatusJSON'
+-- TODO: Handle "Accept:" header, before sending JSON, maybe?
 maybeUidFromHeader :: forall site.
                       (YesodPersist site,
                        YesodPersistBackend site ~ SqlBackend) =>
@@ -161,8 +164,8 @@ maybeUidFromHeader = do
             let xs = B.split ':' hdr
 
             when (P.length xs /= 2) $ do
-                $(logDebug) msgTokenCorrupt
-                sendResponseStatus status401 msgTokenCorrupt
+                _ <- sendJson status401 msgTokenCorrupt
+                return ()
 
             let email  = xs !! 0
                 token  = xs !! 1
@@ -182,14 +185,31 @@ maybeUidFromHeader = do
                     $(logDebug) ("Found user from token: user " <> u')
                     return user
                else do
-                    $(logDebug) msgTokenWrong
-                    -- _ <- sendResponseStatus status401 msgTokenWrong
+                    _ <- sendJson status401 msgTokenWrong
                     return Nothing
 
         Nothing  -> do
-            $(logDebug) msgTokenNotFound
-            -- _ <- sendResponseStatus status401 msgTokenNotFound
+            _ <- sendJson status401 msgTokenNotFound
             return Nothing
 
 ------------------------------------------------------------------------
 
+sendJson :: forall (m :: * -> *).
+            (MonadHandler m, MonadLogger m) =>
+            Status -> Text -> m Value
+sendJson status hint = do
+
+    $(logDebug) hint
+
+    -- _ <- sendResponseStatus status message
+
+    let code    = statusCode status
+        message = decodeLatin1 $ statusMessage status
+        json    = object [ "code"    .= code
+                         , "message" .= message
+                         , "hint"    .= hint
+                         ]
+
+    sendStatusJSON status json
+
+------------------------------------------------------------------------
