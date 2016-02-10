@@ -52,7 +52,7 @@ msgTokenWrong = "incorrect auth token"
 
 -- error message when auth token header isn't present in the request.
 msgTokenNotFound :: Text
-msgTokenNotFound = "auth token header not found"
+msgTokenNotFound = "auth token header (" <> hAuthToken <> ") not found"
 
 -- error when auth token header cannot be parsed.
 msgTokenCorrupt :: Text
@@ -193,6 +193,7 @@ maybeUidFromHeader = do
             -- sendStatusJSON, sendJson etc) here will break the
             -- regular web auth flow.  Would have been nice to return
             -- actual error code, but meh.
+            $(logDebug) msgTokenNotFound
             return Nothing
 
 ------------------------------------------------------------------------
