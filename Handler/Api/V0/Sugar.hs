@@ -19,11 +19,13 @@ import qualified Data.Text            as T
 import           Data.Time.Clock      (getCurrentTime, utctDay, utctDayTime)
 import           Data.Time.LocalTime  (timeToTimeOfDay)
 
+import           Network.HTTP.Types   (status200)
 import           Database.Persist.Sql (fromSqlKey)
 import           Yesod.Auth           (requireAuthId)
 
 import           Betty.Model          (BGUnit (..))
 import           Betty.Text           (txt)
+import           Betty.Helpers        (sendJson)
 
 ------------------------------------------------------------------------
 
@@ -85,10 +87,7 @@ postApiV0SugarAddR = do
 
     $(logDebug) ("Result key: " <> txt key)
 
-    -- TODO: return a useful value.
-    -- return $ show key
-
-    return "OK."
+    sendJson status200 "OK"
 
 ------------------------------------------------------------------------
 
