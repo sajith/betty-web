@@ -10,6 +10,10 @@ module Handler.Api.V0.Sugar where
 
 import           Import
 
+#if __GLASGOW_HASKELL__ > 704
+import           Data.Monoid                     ((<>))
+#endif
+
 import qualified Data.Text            as T
 import           Data.Time.Clock      (getCurrentTime, utctDay, utctDayTime)
 import           Data.Time.LocalTime  (timeToTimeOfDay)
