@@ -37,6 +37,8 @@ import           Database.Persist.Types (Entity, Key, entityKey, entityVal)
 
 import           Yesod.Core             (MonadHandler, MonadLogger, Value)
 
+import           Betty.Text             (txt)
+
 ------------------------------------------------------------------------
 
 -- custom header bearing email:token pair.
@@ -82,12 +84,6 @@ makeToken g = fmap T.pack $ scramble $ P.concat [p1, p2, p3]
             let e = xs !! n
             result <- scramble (L.delete e xs)
             return (e:result)
-
-------------------------------------------------------------------------
-
--- TODO: move this somewhere else.
-txt :: forall a. Show a => a -> Text
-txt = T.pack . show
 
 ------------------------------------------------------------------------
 

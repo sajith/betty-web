@@ -46,6 +46,7 @@ library
                    Betty.Vendor
                    Betty.Pid
                    Betty.Token
+                   Betty.Text
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT

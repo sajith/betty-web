@@ -23,6 +23,7 @@ import           Database.Persist.Sql (fromSqlKey)
 import           Yesod.Auth           (requireAuthId)
 
 import           Betty.Model          (BGUnit (..))
+import           Betty.Text           (txt)
 
 ------------------------------------------------------------------------
 
@@ -123,8 +124,7 @@ getApiV0SugarGetR = do
     sugars <- fmap (map entityVal) $
               runDB $ selectList [BloodGlucoseHistoryUid ==. uid][LimitTo 10]
 
-    $(logDebug) ("Returning " <> (T.pack . show) (length sugars)
-                 <> " values")
+    $(logDebug) ("Returning " <> txt (length sugars) <> " records")
 
     return $ object [ "count"  .= length sugars
                     , "sugars" .= sugars

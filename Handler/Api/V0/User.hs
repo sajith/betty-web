@@ -25,6 +25,7 @@ import           Yesod.Auth.Email                (isValidPass)
 
 import           Betty.Model
 import           Betty.Token
+import           Betty.Text                      (txt)
 
 ------------------------------------------------------------------------
 
