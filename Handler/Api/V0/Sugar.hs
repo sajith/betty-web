@@ -77,13 +77,13 @@ postApiV0SugarAddR = do
                  (Just unit')           -- blood sugar unit
                  notes                  -- notes, if any
 
-    $(logDebug) $ T.pack $ "Record: " ++ show record
+    $(logDebug) ("Record: " <> txt record)
 
     result <- runDB $ insert record
 
     let key = fromSqlKey result
 
-    $(logDebug) $ T.pack $ "Result key: " ++ show key
+    $(logDebug) ("Result key: " <> txt key)
 
     -- TODO: return a useful value.
     -- return $ show key
@@ -115,11 +115,9 @@ instance ToJSON BloodGlucoseHistory where
 getApiV0SugarGetR :: Handler Value
 getApiV0SugarGetR = do
 
-    $(logDebug) "in getApiV0SugarGetR"
-
     uid <- requireAuthId
 
-    $(logDebug) $ T.pack $ "uid: " ++ show uid
+    $(logDebug) ("uid: " <> txt uid)
 
     sugars <- fmap (map entityVal) $
               runDB $ selectList [BloodGlucoseHistoryUid ==. uid][LimitTo 10]
