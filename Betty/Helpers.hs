@@ -14,8 +14,6 @@ import Yesod
 
 import Data.Text.Encoding (decodeLatin1)
 import Network.HTTP.Types (Status, statusCode, statusMessage)
-import Yesod.Core         (MonadHandler, MonadLogger, Value)
-import Yesod.Core.Handler (sendStatusJSON)
 
 ------------------------------------------------------------------------
 
