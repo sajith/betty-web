@@ -10,19 +10,14 @@ module Handler.Api.V0.Sugar where
 
 import           Import
 
-#if __GLASGOW_HASKELL__ > 704
-import           Data.Monoid                     ((<>))
-#endif
-
 import qualified Data.Text            as T
 import           Data.Time.Clock      (getCurrentTime, utctDay, utctDayTime)
 import           Data.Time.LocalTime  (timeToTimeOfDay)
 
 import           Database.Persist.Sql (fromSqlKey)
+import           Yesod.Auth           (requireAuthId)
 
 import           Betty.Model          (BGUnit (..))
-
-import           Yesod.Auth           (requireAuthId)
 
 ------------------------------------------------------------------------
 
