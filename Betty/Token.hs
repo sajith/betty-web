@@ -20,24 +20,20 @@ import           Data.Text.Encoding     (decodeLatin1)
 import           System.Random          (StdGen, randomRIO, randomRs)
 
 import           Database.Persist.Sql   (SqlBackend (..))
-import           Network.HTTP.Types     (Status, status401, statusCode,
-                                         statusMessage)
+import           Network.HTTP.Types     (status401)
 import           Network.Wai            (requestHeaders)
 
 import           Model
 
 import           Yesod.Core             (HandlerT, logDebug, waiRequest)
-import           Yesod.Core.Handler     (sendStatusJSON)
-import           Yesod.Core.Json        (object, (.=))
 import           Yesod.Persist.Core     (YesodPersist, YesodPersistBackend,
                                          runDB)
 
 import           Database.Persist.Class (getBy, upsert)
 import           Database.Persist.Types (Entity, Key, entityKey, entityVal)
 
-import           Yesod.Core             (MonadHandler, MonadLogger, Value)
-
 import           Betty.Text             (txt)
+import           Betty.Helpers          (sendJson)
 
 ------------------------------------------------------------------------
 
@@ -194,22 +190,3 @@ maybeUidFromHeader = do
 
 ------------------------------------------------------------------------
 
-sendJson :: forall (m :: * -> *).
-            (MonadHandler m, MonadLogger m) =>
-            Status -> Text -> m Value
-sendJson status hint = do
-
-    $(logDebug) hint
-
-    -- _ <- sendResponseStatus status message
-
-    let code    = statusCode status
-        message = decodeLatin1 $ statusMessage status
-        json    = object [ "code"    .= code
-                         , "message" .= message
-                         , "hint"    .= hint
-                         ]
-
-    sendStatusJSON status json
-
-------------------------------------------------------------------------

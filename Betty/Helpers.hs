@@ -1,13 +1,21 @@
+{-# LANGUAGE RankNTypes #-}
+
 module Betty.Helpers
        ( entityUserEmail
        , entityUserEmail'
        , projectName
+       , sendJson
        ) where
 
-import Data.Text (Text)
+import Data.Text          (Text)
 import Model
 import Prelude
 import Yesod
+
+import Data.Text.Encoding (decodeLatin1)
+import Network.HTTP.Types (Status, statusCode, statusMessage)
+import Yesod.Core         (MonadHandler, MonadLogger, Value)
+import Yesod.Core.Handler (sendStatusJSON)
 
 ------------------------------------------------------------------------
 
@@ -28,5 +36,25 @@ entityUserEmail' :: Maybe (Entity User) -> Text
 entityUserEmail' eu = case eu of
     Just u  -> entityUserEmail u
     Nothing -> "email unknown"
+
+------------------------------------------------------------------------
+
+sendJson :: forall (m :: * -> *).
+            (MonadHandler m, MonadLogger m) =>
+            Status -> Text -> m Value
+sendJson status hint = do
+
+    $(logDebug) hint
+
+    -- _ <- sendResponseStatus status message
+
+    let code    = statusCode status
+        message = decodeLatin1 $ statusMessage status
+        json    = object [ "code"    .= code
+                         , "message" .= message
+                         , "hint"    .= hint
+                         ]
+
+    sendStatusJSON status json
 
 ------------------------------------------------------------------------
