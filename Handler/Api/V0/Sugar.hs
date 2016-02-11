@@ -10,6 +10,11 @@ module Handler.Api.V0.Sugar where
 
 import           Import
 
+-- TODO: we should not have to use this.
+#if __GLASGOW_HASKELL__ > 704
+import           Data.Monoid                     ((<>))
+#endif
+
 import qualified Data.Text            as T
 import           Data.Time.Clock      (getCurrentTime, utctDay, utctDayTime)
 import           Data.Time.LocalTime  (timeToTimeOfDay)
@@ -118,10 +123,8 @@ getApiV0SugarGetR = do
     sugars <- fmap (map entityVal) $
               runDB $ selectList [BloodGlucoseHistoryUid ==. uid][LimitTo 10]
 
-    $(logDebug) $ T.pack $ "Returning " ++
-        show (object [ "count"  .= length sugars
-                     , "sugars" .= sugars
-                     ])
+    $(logDebug) ("Returning " <> (T.pack . show) (length sugars)
+                 <> " values")
 
     return $ object [ "count"  .= length sugars
                     , "sugars" .= sugars
