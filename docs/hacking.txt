@@ -1,6 +1,17 @@
-To get started, you need GHC, cabal-install, alex, happy, PostgreSQL,
-libpq-dev, yesod-bin, GNU m4, and GNU make.  Please see the
-appropriate documentation for how to install these.
+To get started, you will need the following thigs:
+
+   - GHC 7.10.3
+   - the Haskell tool "stack"
+   - cabal-install
+   - alex
+   - happy
+   - PostgreSQL
+   - libpq-dev
+   - yesod-bin
+   - GNU m4
+   - GNU make
+
+Please see the appropriate documentation for how to install these.
 
 The Yesod quickstart guide is particularly helpful:
 
@@ -14,9 +25,15 @@ development, and one for testing.  To quickly set up these databases:
     sudo -u postgres createdb betty_test
 
     sudo -u postgres psql
-    postgres=# alter user betty with encrypted password 'secret'; 
+    postgres=# alter user betty with encrypted password 'secret';
+    ALTER ROLE
     postgres=# grant all privileges on database betty_devel to betty;
+    GRANT
     postgres=# grant all privileges on database betty_test to betty;
+    GRANT
+    postgres=# \q
+
+(Note: pgcli is a pretty sweet postgres client.)
 
 We don't want to push passwords and other sensitive configuration
 strings to a public repository by mistake.  These strings are saved in
@@ -37,16 +54,14 @@ want to use, and then run:
 This will create the right configuration, and you should be mostly
 ready to build and run the web app:
 
-    cabal sandbox init
-    cabal install --enable-tests --reorder-goals --max-backjumps=-1 -j
-    yesod test
+    stack install yesod-bin
+    stack build
+    stack test
 
-You might also need to run 'cabal update' sometimes.
-
-If everything went well, test cases run by 'yesod test' should pass.
+If everything went well, test cases run by 'stack test' should pass.
 Now you can run:
 
-    yesod devel
+    stack exec yesod devel
 
 and start hacking!
 
