@@ -1,4 +1,4 @@
-exec: ../dist/build/betty/betty
+exec: ../dist/bin/betty
 args:
     - production
 host: KETER_HOST
