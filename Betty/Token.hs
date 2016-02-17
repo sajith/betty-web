@@ -19,7 +19,6 @@ import           Data.Text              as T
 import           Data.Text.Encoding     (decodeLatin1)
 import           System.Random          (StdGen, randomRIO, randomRs)
 
-import           Database.Persist.Sql   (SqlBackend (..))
 import           Network.HTTP.Types     (status401)
 import           Network.Wai            (requestHeaders)
 
@@ -29,6 +28,7 @@ import           Yesod.Core             (HandlerT, logDebug, waiRequest)
 import           Yesod.Persist.Core     (YesodPersist, YesodPersistBackend,
                                          runDB)
 
+import           Database.Persist.Sql   (SqlBackend (..))
 import           Database.Persist.Class (getBy, upsert)
 import           Database.Persist.Types (Entity, Key, entityKey, entityVal)
 
