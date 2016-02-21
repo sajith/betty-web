@@ -140,20 +140,19 @@ isTokenValid email token = do
 
 ------------------------------------------------------------------------
 
-data AuthPair = AuthPair { authIdent :: Text
-                         , authToken :: Text
-                         } deriving (Ord, Eq, Show)
+type AuthIdent  = Text
+type AuthToken  = Text
 
-authParser :: Parser AuthPair
+authParser :: Parser (AuthIdent, AuthToken)
 authParser = do
 
     email <- takeWhile1 (/= ':')
     _     <- char8 ':'
     token <- many1 anyChar
 
-    return (AuthPair (decodeUtf8 email) (T.pack token))
+    return (decodeUtf8 email, T.pack token)
 
-str2auth :: ByteString -> Either String AuthPair
+str2auth :: ByteString -> Either String (AuthIdent, AuthToken)
 str2auth str = eitherResult $ feed (parse authParser str) B.empty
 
 ------------------------------------------------------------------------
@@ -180,7 +179,7 @@ maybeUidFromHeader = do
                     _ <- sendJson status401 msgTokenCorrupt
                     return Nothing
 
-                Right (AuthPair email token) -> do
+                Right (email, token) -> do
                     $(logDebug) ("Auth email: " <> email <>
                                  " token: " <> token)
 
