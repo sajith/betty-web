@@ -108,6 +108,7 @@ library
                  , persistent
                  , random
                  , yesod-persistent
+                 , attoparsec
 
     -- see https://github.com/yesodweb/yesod/issues/814
     if !os(windows)
