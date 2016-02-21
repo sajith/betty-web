@@ -10,14 +10,15 @@ import           Prelude                as P
 import           Data.Monoid          ((<>))
 #endif
 
-import           Control.Monad          (when)
-import           Data.ByteString.Char8  as B (split)
 import qualified Data.List              as L
 import           Data.Maybe             (fromJust, isJust)
 import           Data.String            (IsString)
 import           Data.Text              as T
-import           Data.Text.Encoding     (decodeLatin1)
+import           Data.Text.Encoding     (decodeUtf8)
 import           System.Random          (StdGen, randomRIO, randomRs)
+
+import           Data.ByteString.Char8   as B
+import           Data.Attoparsec.ByteString.Char8 as C
 
 import           Network.HTTP.Types     (status401)
 import           Network.Wai            (requestHeaders)
@@ -139,6 +140,24 @@ isTokenValid email token = do
 
 ------------------------------------------------------------------------
 
+data AuthPair = AuthPair { authIdent :: Text
+                         , authToken :: Text
+                         } deriving (Ord, Eq, Show)
+
+authParser :: Parser AuthPair
+authParser = do
+
+    email <- takeWhile1 (/= ':')
+    _     <- char8 ':'
+    token <- many1 anyChar
+
+    return (AuthPair (decodeUtf8 email) (T.pack token))
+
+str2auth :: ByteString -> Either String AuthPair
+str2auth str = eitherResult $ feed (parse authParser str) B.empty
+
+------------------------------------------------------------------------
+
 -- TODO: Handle "Accept:" header, before sending JSON, maybe?
 maybeUidFromHeader :: forall site.
                       (YesodPersist site,
@@ -149,36 +168,37 @@ maybeUidFromHeader = do
     request <- waiRequest
 
     case lookup hAuthToken $ requestHeaders request of
+
         Just hdr -> do
+
             $(logDebug) (hAuthToken <> ": " <> txt hdr)
 
-            -- TODO: this is silly; do real parsing here.
-            let xs = B.split ':' hdr
+            case str2auth hdr of
 
-            when (P.length xs /= 2) $ do
-                _ <- sendJson status401 msgTokenCorrupt
-                return ()
-
-            let email  = xs !! 0
-                token  = xs !! 1
-                email' = decodeLatin1 email
-                token' = decodeLatin1 token
-
-            $(logDebug) ("email: " <> email' <> ", token: " <> token')
-
-            valid <- isTokenValid email' token'
-
-            if valid
-               then do
-                    -- TODO: handle 'Nothing'
-                    u <- runDB $ getBy $ UniqueUser email'
-                    let user = fmap entityKey u
-                        u'   = T.pack $ show $ fromJust user
-                    $(logDebug) ("Found user from token: user " <> u')
-                    return user
-               else do
-                    _ <- sendJson status401 msgTokenWrong
+                Left err -> do
+                    $(logDebug) ("Error: " <> txt err)
+                    _ <- sendJson status401 msgTokenCorrupt
                     return Nothing
+
+                Right (AuthPair email token) -> do
+                    $(logDebug) ("Auth email: " <> email <>
+                                 " token: " <> token)
+
+                    valid <- isTokenValid email token
+
+                    if valid
+                        then do
+                            -- TODO: handle 'Nothing'
+                            u <- runDB $ getBy $ UniqueUser email
+                            let user = fmap entityKey u
+
+                            let u' = T.pack $ show $ fromJust user
+                            $(logDebug) ("Found token user: " <> u')
+
+                            return user
+                        else do
+                            _ <- sendJson status401 msgTokenWrong
+                            return Nothing
 
         Nothing  -> do
             -- NOTE: calling any 'sendStatus' (sendResponseStatus,
