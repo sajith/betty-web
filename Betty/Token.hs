@@ -44,21 +44,6 @@ hAuthToken = "X-Auth-Token"
 
 ------------------------------------------------------------------------
 
--- failure message when supplied auth token doesn't match the real
--- auth token.
-msgTokenWrong :: Text
-msgTokenWrong = "incorrect auth token"
-
--- error message when auth token header isn't present in the request.
-msgTokenNotFound :: Text
-msgTokenNotFound = "auth token header (" <> hAuthToken <> ") not found"
-
--- error when auth token header cannot be parsed.
-msgTokenCorrupt :: Text
-msgTokenCorrupt = "auth token appears to be corrupt"
-
-------------------------------------------------------------------------
-
 -- TODO: replace this with something better thought out.
 
 -- generate a token (a random mix of uppercase and lowercase letters,
@@ -206,6 +191,23 @@ maybeUidFromHeader = do
             -- actual error code, but meh.
             $(logDebug) msgTokenNotFound
             return Nothing
+
+    where
+
+        -- failure message when supplied auth token doesn't match the
+        -- real auth token.
+        msgTokenWrong :: Text
+        msgTokenWrong = "incorrect auth token"
+
+        -- error message when auth token header isn't present in the
+        -- request.
+        msgTokenNotFound :: Text
+        msgTokenNotFound =
+            "auth token header (" <> hAuthToken <> ") not found"
+
+        -- error when auth token header cannot be parsed.
+        msgTokenCorrupt :: Text
+        msgTokenCorrupt = "auth token appears to be corrupt"
 
 ------------------------------------------------------------------------
 
