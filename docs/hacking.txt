@@ -1,7 +1,7 @@
 To get started, you will need the following thigs:
 
-   - GHC 7.10.3
    - the Haskell tool "stack"
+   - GHC 7.10.3
    - cabal-install
    - alex
    - happy
@@ -12,6 +12,8 @@ To get started, you will need the following thigs:
    - GNU make
 
 Please see the appropriate documentation for how to install these.
+'Stack' should handle setting up some of the environment (such as GHC
+and cabal-install).  You should install the rest.
 
 The Yesod quickstart guide is particularly helpful:
 
