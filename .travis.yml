@@ -21,7 +21,7 @@ env:
 before_install:
   - mkdir -p $HOME/.local/bin
   - export PATH=$HOME/.local/bin:$PATH
-  - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v0.1.5.0/stack-0.1.5.0-x86_64-linux.tar.gz | tar xz --strip-components=1 -C ~/.local/bin
+  - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v1.0.4/stack-1.0.4-linux-x86_64.tar.gz | tar xz --strip-components=1 -C ~/.local/bin
 
 install:
   - cp secrets.m4.example secrets.m4
