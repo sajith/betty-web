@@ -12,10 +12,25 @@ M4	 = m4
 M4FLAGS	 = 
 M4MACROS = secrets.m4
 
-all: 	config/settings.yml \
+all: devel
+
+files:	config/settings.yml \
 	config/postgresql.yml \
 	config/keter.yml \
 	Betty/SESCreds.hs
+
+setup: files
+	@stack setup
+	@stack build
+
+devel: setup
+	@stack exec yesod devel -- -p 8000
+
+test: setup
+	@stack test
+
+secrets.m4: secrets.m4.example
+	cp $< $@
 
 config/settings.yml: config/settings.yml.in secrets.m4 
 	${M4} ${M4FLAGS} ${M4MACROS} $< > $@
