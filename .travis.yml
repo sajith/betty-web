@@ -25,7 +25,7 @@ before_install:
 
 install:
   - cp secrets.m4.example secrets.m4
-  - make
+  - make files
 
 before_script:
   - psql -c 'create database betty_test;' -U postgres
