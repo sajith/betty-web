@@ -1,6 +1,12 @@
 {-# LANGUAGE RankNTypes #-}
 
-module Betty.Token where
+module Betty.Token
+       ( makeToken
+       , makeToken'
+       , maybeUidFromHeader
+       , getRealToken
+       , setToken
+       ) where
 
 -- TODO: we should not have to use this.
 import           Prelude                as P
