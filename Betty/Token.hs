@@ -15,7 +15,8 @@ import           Data.Maybe             (fromJust, isJust)
 import           Data.String            (IsString)
 import           Data.Text              as T
 import           Data.Text.Encoding     (decodeUtf8)
-import           System.Random          (StdGen, randomRIO, randomRs)
+import           System.Random          (RandomGen, randomRIO, randomRs,
+                                         newStdGen)
 
 import           Data.ByteString.Char8   as B
 import           Data.Attoparsec.ByteString.Char8 as C
@@ -44,12 +45,19 @@ hAuthToken = "X-Auth-Token"
 
 ------------------------------------------------------------------------
 
--- TODO: replace this with something better thought out.
+-- TODO: replace makeToken (and makeToken') with something better
+-- thought out.
+--
+-- `makeToken` generates a token (a random mix of uppercase and
+-- lowercase letters, and digits.)
 
--- generate a token (a random mix of uppercase and lowercase letters,
--- and digits.)
-makeToken :: StdGen -> IO Text
-makeToken g = fmap T.pack $ scramble $ P.concat [p1, p2, p3]
+makeToken :: IO Text
+makeToken = do
+    g <- newStdGen
+    makeToken' g
+
+makeToken' :: RandomGen g => g -> IO Text
+makeToken' g = fmap T.pack $ scramble $ P.concat [p1, p2, p3]
     where
         p1 = makeStr 4 ('A', 'Z')
         p2 = makeStr 4 ('a', 'z')
