@@ -26,14 +26,14 @@ files:	config/settings.yml \
 	Betty/SESCreds.hs
 
 setup: files
-	@stack setup
-	@stack build
+	stack setup
+	stack build
 
 devel: setup
-	@stack exec yesod devel -- -p 8000
+	stack exec yesod devel -- -p 8000
 
 test: setup
-	@stack test
+	stack test
 
 secrets.m4: secrets.m4.example
 	cp $< $@
