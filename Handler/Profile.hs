@@ -4,7 +4,7 @@ import Import
 
 import Data.Maybe  (fromMaybe)
 
-import Betty.Token (getRealToken)
+import Betty.Token (getToken)
 import Yesod.Auth  (requireAuth)
 
 ------------------------------------------------------------------------
@@ -13,7 +13,7 @@ getProfileR :: Handler Html
 getProfileR = do
     Entity _ u <- requireAuth
 
-    t <- getRealToken $ userEmail u
+    t <- getToken $ userEmail u
     let token = fromMaybe "not set" t
 
     defaultLayout $ do
