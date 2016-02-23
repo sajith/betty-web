@@ -15,7 +15,7 @@
 #
 
 M4	 = m4
-M4FLAGS	 = 
+M4FLAGS	 =
 M4MACROS = secrets.m4
 
 all: devel
@@ -38,10 +38,10 @@ test: setup
 secrets.m4: secrets.m4.example
 	cp $< $@
 
-config/settings.yml: config/settings.yml.in secrets.m4 
+config/settings.yml: config/settings.yml.in secrets.m4
 	${M4} ${M4FLAGS} ${M4MACROS} $< > $@
 
-config/postgresql.yml: config/postgresql.yml.in secrets.m4 
+config/postgresql.yml: config/postgresql.yml.in secrets.m4
 	${M4} ${M4FLAGS} ${M4MACROS} $< > $@
 
 config/keter.yml: config/keter.yml.in secrets.m4
@@ -52,8 +52,8 @@ Betty/SESCreds.hs: Betty/SESCreds.hs.in secrets.m4
 
 .PHONY: clean
 clean:
-	rm -f config/settings.yml 
-	rm -f config/postgresql.yml 
+	rm -f config/settings.yml
+	rm -f config/postgresql.yml
 	rm -f config/keter.yml
 	rm -f Betty/SESCreds.hs
 	stack clean
