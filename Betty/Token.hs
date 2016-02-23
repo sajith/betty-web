@@ -4,7 +4,7 @@ module Betty.Token
        ( makeToken
        , makeToken'
        , maybeUidFromHeader
-       , getRealToken
+       , getToken
        , setToken
        ) where
 
@@ -83,20 +83,20 @@ makeToken' g = fmap T.pack $ scramble $ P.concat [p1, p2, p3]
 
 ------------------------------------------------------------------------
 
-getRealToken :: forall site.
-                (YesodPersist site,
-                 YesodPersistBackend site ~ SqlBackend) =>
-                Text -> HandlerT site IO (Maybe Text)
-getRealToken email = do
-    $(logDebug) ("getRealToken: " <> email)
+getToken :: forall site.
+            (YesodPersist site,
+             YesodPersistBackend site ~ SqlBackend) =>
+            Text -> HandlerT site IO (Maybe Text)
+getToken email = do
+    $(logDebug) ("getToken: " <> email)
     t <- runDB $ getBy $ UniqueAuthTokens email
     case t of
         Nothing -> do
-            $(logDebug) ("getRealToken: no token found for " <> email)
+            $(logDebug) ("getToken: no token found for " <> email)
             return Nothing
         Just t' -> do
             let token = (authTokensToken . entityVal) t'
-            $(logDebug) ("getRealToken: Token "
+            $(logDebug) ("getToken: Token "
                          <> txt token <> " found for "
                          <> email)
             return token
@@ -127,7 +127,7 @@ isTokenValid :: forall site.
                  YesodPersistBackend site ~ SqlBackend) =>
                 Text -> Text -> HandlerT site IO Bool
 isTokenValid email token = do
-    t <- getRealToken email
+    t <- getToken email
     case t of
         Nothing -> do
             $(logDebug) ("isTokenValid: no token for " <> email)
