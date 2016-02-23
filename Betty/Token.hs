@@ -1,8 +1,8 @@
 {-# LANGUAGE RankNTypes #-}
 
 module Betty.Token
-       ( makeToken
-       , makeToken'
+       ( newToken
+       , newToken'
        , maybeUidFromHeader
        , getToken
        , setToken
@@ -51,19 +51,19 @@ hAuthToken = "X-Auth-Token"
 
 ------------------------------------------------------------------------
 
--- TODO: replace makeToken (and makeToken') with something better
+-- TODO: replace newToken (and newToken') with something better
 -- thought out.
 --
--- `makeToken` generates a token (a random mix of uppercase and
+-- `newToken` generates a token (a random mix of uppercase and
 -- lowercase letters, and digits.)
 
-makeToken :: IO Text
-makeToken = do
+newToken :: IO Text
+newToken = do
     g <- newStdGen
-    makeToken' g
+    newToken' g
 
-makeToken' :: RandomGen g => g -> IO Text
-makeToken' g = fmap T.pack $ scramble $ P.concat [p1, p2, p3]
+newToken' :: RandomGen g => g -> IO Text
+newToken' g = fmap T.pack $ scramble $ P.concat [p1, p2, p3]
     where
         p1 = makeStr 4 ('A', 'Z')
         p2 = makeStr 4 ('a', 'z')

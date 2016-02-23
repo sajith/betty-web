@@ -7,7 +7,7 @@ import Import
 import Data.Monoid   ((<>))
 #endif
 
-import Betty.Token   (makeToken, setToken)
+import Betty.Token   (newToken, setToken)
 import Yesod.Auth    (requireAuth)
 
 -- TODO: write tests
@@ -20,7 +20,7 @@ postResetTokenR = do
     let email = userEmail u
 
     -- generate new api key
-    token <- lift makeToken
+    token <- lift newToken
 
     $(logDebug) ("postResetTokenR: email: " <> email
                  <> ",token:" <> token <> "\n")
