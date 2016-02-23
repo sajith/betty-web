@@ -3,8 +3,6 @@ To get started, you will need the following thigs:
    - the Haskell tool "stack"
    - GHC 7.10.3
    - cabal-install
-   - alex
-   - happy
    - PostgreSQL
    - libpq-dev
    - yesod-bin
