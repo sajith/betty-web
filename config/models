@@ -12,6 +12,7 @@ User
     password Text Maybe -- password is not be set until verification
     verkey Text Maybe   -- verification key for setting/resetting passwords
     verified Bool
+    token Text Maybe    -- API auth token
     UniqueUser email
     deriving Typeable
     deriving Show
@@ -54,11 +55,3 @@ BloodGlucoseHistory
 
 ------------------------------------------------------------------------
 
--- auth tokens
-AuthTokens
-    uid UserId
-    email Text
-    token Text Maybe
-    UniqueAuthTokens email
-
-------------------------------------------------------------------------

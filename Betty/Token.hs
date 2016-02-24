@@ -6,6 +6,7 @@ module Betty.Token
        , maybeUidFromHeader
        , getToken
        , setToken
+       , isTokenSet
        ) where
 
 -- TODO: we should not have to use this.
@@ -36,9 +37,9 @@ import           Yesod.Core             (HandlerT, logDebug, waiRequest)
 import           Yesod.Persist.Core     (YesodPersist, YesodPersistBackend,
                                          runDB)
 
-import           Database.Persist.Sql   (SqlBackend (..))
-import           Database.Persist.Class (getBy, upsert)
-import           Database.Persist.Types (Entity, Key, entityKey, entityVal)
+import           Database.Persist.Sql   (SqlBackend (..), (=.))
+import           Database.Persist.Class (getBy, update)
+import           Database.Persist.Types (Key, entityKey, entityVal)
 
 import           Betty.Text             (txt)
 import           Betty.Helpers          (sendJson)
@@ -89,13 +90,13 @@ getToken :: forall site.
             Text -> HandlerT site IO (Maybe Text)
 getToken email = do
     $(logDebug) ("getToken: " <> email)
-    t <- runDB $ getBy $ UniqueAuthTokens email
+    t <- runDB $ getBy $ UniqueUser email
     case t of
         Nothing -> do
             $(logDebug) ("getToken: no token found for " <> email)
             return Nothing
         Just t' -> do
-            let token = (authTokensToken . entityVal) t'
+            let token = (userToken . entityVal) t'
             $(logDebug) ("getToken: Token "
                          <> txt token <> " found for "
                          <> email)
@@ -107,17 +108,17 @@ isTokenSet :: forall site.
               (YesodPersist site,
                YesodPersistBackend site ~ SqlBackend) =>
               Text -> HandlerT site IO Bool
-isTokenSet email = fmap isJust $ runDB $ getBy $ UniqueAuthTokens email
+isTokenSet email = isJust <$> getToken email
 
 ------------------------------------------------------------------------
 
 setToken :: forall site.
             (YesodPersist site,
              YesodPersistBackend site ~ SqlBackend) =>
-            Key User -> Text -> Text -> HandlerT site IO (Entity AuthTokens)
+            Key User -> Text -> Text -> HandlerT site IO ()
 setToken uid email token = runDB $ do
     $logDebug ("setToken: " <> email <> " " <> token)
-    upsert (AuthTokens uid email (Just token)) []
+    update uid [UserToken =. Just token]
 
 ------------------------------------------------------------------------
 
