@@ -106,9 +106,10 @@ library
                  , wai
                  , base64-bytestring
                  , persistent
-                 , random
                  , yesod-persistent
                  , attoparsec
+                 , mwc-random
+                 , vector
 
     -- see https://github.com/yesodweb/yesod/issues/814
     if !os(windows)

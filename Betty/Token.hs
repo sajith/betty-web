@@ -22,10 +22,12 @@ import           Data.Maybe             (fromJust, isJust)
 import           Data.String            (IsString)
 import           Data.Text              as T
 import           Data.Text.Encoding     (decodeUtf8)
-import           System.Random          (RandomGen, randomRIO, randomRs,
-                                         newStdGen)
 
-import           Data.ByteString.Char8   as B
+import qualified Data.Vector.Unboxed    as V (Vector, map, toList)
+import           Data.Word              (Word8)
+import           System.Random.MWC      (asGenST, uniformVector, withSystemRandom)
+
+import           Data.ByteString.Char8  as B
 import           Data.Attoparsec.ByteString.Char8 as C
 
 import           Network.HTTP.Types     (status401)
@@ -52,6 +54,11 @@ hAuthToken = "X-Auth-Token"
 
 ------------------------------------------------------------------------
 
+tokenLength :: forall a. Num a => a
+tokenLength = 12
+
+------------------------------------------------------------------------
+
 -- TODO: replace newToken (and newToken') with something better
 -- thought out.
 --
@@ -59,28 +66,21 @@ hAuthToken = "X-Auth-Token"
 -- lowercase letters, and digits.)
 
 newToken :: IO Text
-newToken = do
-    g <- newStdGen
-    newToken' g
+newToken = newToken' tokenLength
 
-newToken' :: RandomGen g => g -> IO Text
-newToken' g = fmap T.pack $ scramble $ P.concat [p1, p2, p3]
+newToken' :: Int -> IO Text
+newToken' len = do
+    
+    v <- withSystemRandom . asGenST $ \gen -> uniformVector gen len
+    return $ T.pack $ V.toList $ V.map toChar (v :: V.Vector Word8)
+    
     where
-        p1 = makeStr 4 ('A', 'Z')
-        p2 = makeStr 4 ('a', 'z')
-        p3 = makeStr 4 ('0', '9')
+        
+        toChar :: Enum a => a -> Char
+        toChar i = chars !! (fromEnum i `mod` L.length chars)
 
-        makeStr :: Int -> (Char, Char) -> String
-        makeStr len range = P.take len $ randomRs range g
-
-        -- TODO: benchmark this.
-        scramble :: String -> IO String
-        scramble [] = return []
-        scramble xs = do
-            n <- randomRIO (0, P.length xs - 1)
-            let e = xs !! n
-            result <- scramble (L.delete e xs)
-            return (e:result)
+        chars :: String
+        chars = ['0'..'9'] ++ ['A'..'Z'] ++ ['a'..'z']
 
 ------------------------------------------------------------------------
 
