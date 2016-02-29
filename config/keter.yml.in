@@ -22,7 +22,10 @@ stanzas:
 
     # Enable to force Keter to redirect to https
     # Can be added to any stanza
-    requires-secure: true
+    # requires-secure: true
+
+    # Useful when Nginx <--> Keter
+    ssl: true
 
   # Static files.
   - type: static-files
