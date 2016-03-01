@@ -56,6 +56,9 @@ UserProfile
 
 -- blood glucose logs
 
+-- TODO: what about adding "json" to derive ToJSON and FromJSON
+-- instances of BloodGlucoseHistory?
+
 BloodGlucoseHistory
     uid UserId
     -- email Text           -- TODO: handle this.    
