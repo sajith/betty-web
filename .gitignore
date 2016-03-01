@@ -17,8 +17,8 @@ cabal.sandbox.config
 /config/keter.yml
 /config/postgresql.yml
 /config/settings.yml
+/config/test-settings.yml
 /Betty/SESCreds.hs
 /betty.keter
 /betty.pid
 /.stack-work/
-/config/test-settings.yml
