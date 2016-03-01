@@ -1,23 +1,20 @@
 module Foundation where
 
-import qualified Data.CaseInsensitive as CI
-import qualified Data.Text.Encoding   as TE
+-- import qualified Data.CaseInsensitive as CI
+-- import qualified Data.Text.Encoding   as TE
 import           Database.Persist.Sql (ConnectionPool, runSqlPool)
 import           Import.NoFoundation
 import           Text.Hamlet          (hamletFile)
 import           Text.Jasmine         (minifym)
-import           Yesod.Auth.BrowserId (authBrowserId)
-import           Yesod.Auth.Message   (AuthMessage (InvalidLogin))
+-- import           Yesod.Auth.Message   (AuthMessage (InvalidLogin))
 import           Yesod.Core.Types     (Logger)
 import qualified Yesod.Core.Unsafe    as Unsafe
 import           Yesod.Default.Util   (addStaticContentExternal)
 
-import           Yesod.Auth
 import           Yesod.Auth.Email
 
 import           Betty.Helpers
 import           Betty.Signup
-import           Betty.Token
 import           Betty.Vendor
 import           Betty.Version
 
@@ -75,7 +72,7 @@ instance Yesod App where
     yesodMiddleware = defaultCsrfMiddleware . defaultYesodMiddleware
 
     defaultLayout widget = do
-        master <- getYesod
+        -- master <- getYesod
         mmsg <- getMessage
 
         ma <- maybeAuth
