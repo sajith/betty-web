@@ -12,6 +12,15 @@ import           Yesod.Core.Types     (Logger)
 import qualified Yesod.Core.Unsafe    as Unsafe
 import           Yesod.Default.Util   (addStaticContentExternal)
 
+import           Yesod.Auth
+import           Yesod.Auth.Email
+
+import           Betty.Helpers
+import           Betty.Signup
+import           Betty.Token
+import           Betty.Vendor
+import           Betty.Version
+
 -- | The foundation datatype for your application. This can be a good place to
 -- keep settings and values requiring initialization before your application
 -- starts running, such as database connections. Every handler will have
