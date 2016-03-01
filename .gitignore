@@ -21,3 +21,4 @@ cabal.sandbox.config
 /betty.keter
 /betty.pid
 /.stack-work/
+/config/test-settings.yml
