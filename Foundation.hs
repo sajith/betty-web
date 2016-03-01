@@ -142,8 +142,11 @@ instance YesodAuth App where
         case x of
             Just (Entity uid _) -> return $ Authenticated uid
             Nothing -> Authenticated <$> insert User
-                { userIdent    = credsIdent creds
+                { userEmail    = credsIdent creds
                 , userPassword = Nothing
+                , userVerkey   = Nothing
+                , userVerified = False
+                , userToken    = Nothing
                 }
 
     -- You can add other plugins like BrowserID, email or OAuth here
