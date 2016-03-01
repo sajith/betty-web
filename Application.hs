@@ -25,7 +25,6 @@ import           Yesod.Auth
 import           Yesod.Core.Types                     (Logger (Logger),
                                                        loggerSet)
 import           Yesod.Default.Config
-import           Yesod.Default.Handlers
 import           Yesod.Default.Main
 
 import           Betty.Pid                            (writePidFile)
@@ -34,6 +33,7 @@ import           Betty.Pid                            (writePidFile)
 -- Don't forget to add new modules to your cabal file!
 import           Handler.AddBG
 import           Handler.Api
+import           Handler.Common
 import           Handler.HistoryBG
 import           Handler.Home
 import           Handler.Info
