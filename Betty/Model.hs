@@ -1,7 +1,6 @@
 module Betty.Model where
 
-import Database.Persist.TH
-import Prelude
+import ClassyPrelude.Yesod
 
 -- Blood glucose units.
 data BGUnit = MgDL | Mmol
