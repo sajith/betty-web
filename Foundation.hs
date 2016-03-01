@@ -166,11 +166,57 @@ instance YesodAuth App where
                 }
 
     -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = [authBrowserId def]
+    authPlugins _ = [authEmail]
 
     authHttpManager = getHttpManager
 
 instance YesodAuthPersist App
+
+------------------------------------------------------------------------
+
+-- Yesod.Auth.Email customizations here.
+
+instance YesodAuthEmail App where
+    type AuthEmailId App = UserId
+
+    addUnverified email verkey =
+        runDB $ insert $ User email Nothing (Just verkey) False Nothing
+
+    sendVerifyEmail = sendVerificationEmail
+
+    getVerifyKey = runDB . fmap (join . fmap userVerkey) . get
+
+    setVerifyKey uid key = runDB $ update uid [ UserVerkey =. Just key ]
+
+    verifyAccount uid = runDB $ do
+        m <- get uid
+        case m of
+            Nothing -> return Nothing
+            Just _  -> do
+                update uid [UserVerified =. True]
+                return $ Just uid
+
+    getPassword = runDB . fmap (join . fmap userPassword) . get
+
+    setPassword uid pass = runDB $ update uid [UserPassword =. Just pass]
+
+    getEmailCreds email = runDB $ do
+        mu <- getBy $ UniqueUser email
+        case mu of
+            Nothing             -> return Nothing
+            Just (Entity uid u) ->
+                return $ Just EmailCreds { emailCredsId     = uid
+                                         , emailCredsAuthId = Just uid
+                                         , emailCredsStatus = isJust $ userPassword u
+                                         , emailCredsVerkey = userVerkey u
+                                         , emailCredsEmail  = email
+                                         }
+
+    getEmail = runDB . fmap (fmap userEmail) . get
+
+    afterPasswordRoute _ = ProfileStartR
+
+------------------------------------------------------------------------
 
 -- This instance is required to use forms. You can modify renderMessage to
 -- achieve customized and internationalized form validation messages.
