@@ -19,6 +19,22 @@ User
 
 ------------------------------------------------------------------------
 
+-- TODO: What if we split `User` to `User` and `Email`, like below?
+-- Recent Yesod scaffolds do this.
+
+-- User
+--     ident Text
+--     password Text Maybe
+--     UniqueUser ident
+--     deriving Typeable
+-- Email
+--     email Text
+--     userId UserId Maybe
+--     verkey Text Maybe
+--     UniqueEmail email
+
+------------------------------------------------------------------------
+
 -- other details about a user goes here
 
 UserProfile
