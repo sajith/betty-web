@@ -1,11 +1,10 @@
 module Handler.AddBG where
 
-import Import
-import Yesod.Auth          (requireAuth)
+------------------------------------------------------------------------
 
-import Data.Text           (pack)
-import Data.Time           (Day, TimeOfDay)
-import Data.Time.Clock     (getCurrentTime)
+import Import
+
+import Data.Time           (TimeOfDay)
 import Data.Time.LocalTime (minutesToTimeZone, timeZoneOffsetString)
 
 import Betty.Model
@@ -23,6 +22,7 @@ import Betty.Vendor
 
 ------------------------------------------------------------------------
 
+-- TODO: fix layout
 data BGData =
     BGData {
         date    :: Day
