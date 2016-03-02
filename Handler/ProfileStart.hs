@@ -35,15 +35,13 @@ getProfileStartR = do
 ------------------------------------------------------------------------
 
 data ProfileData =
-    ProfileData
-    {
-      timezone      :: Text
-    , bgUnit        :: Text
-    , wtUnit        :: Text
-    , diabetesType  :: Maybe Text
-    , diagnosedYear :: Maybe Int
-    , birthYear     :: Maybe Int
-    }
+    ProfileData { timezone      :: Text
+                , bgUnit        :: Text
+                , wtUnit        :: Text
+                , diabetesType  :: Maybe Text
+                , diagnosedYear :: Maybe Int
+                , birthYear     :: Maybe Int
+                }
 
 ------------------------------------------------------------------------
 
