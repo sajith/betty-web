@@ -36,6 +36,7 @@ library
                    Handler.Api.V0.Sugar
                    Handler.Api.V0.User
                    Handler.ResetToken
+                   Import.NoFoundation
                    Betty.Version
                    Betty.Signup
                    Betty.Signup.MailText
