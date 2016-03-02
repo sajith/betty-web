@@ -92,3 +92,8 @@ dimpleJs :: StaticRoute
 dimpleJs = vendorPath ["dimplejs-2.1.2", "dimple.v2.1.2.min.js" ]
 
 ------------------------------------------------------------------------
+
+jsCookie :: StaticRoute
+jsCookie = vendorPath ["js-cookie-2.1.0", "js.cookie-2.1.0.min.js"]
+
+------------------------------------------------------------------------
