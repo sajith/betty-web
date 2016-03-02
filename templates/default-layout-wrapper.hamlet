@@ -17,7 +17,7 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
     <script type="text/javascript" src=@{StaticR jQueryJs}>
     <script type="text/javascript" src=@{StaticR bootstrapJs}>
 
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.3/js.cookie.min.js">
+    <script type="text/javascript" src=@{StaticR jsCookie}>
   
     \<!--[if lt IE 9]>
     \<script type="text/javascript" src=@{StaticR respondJs}></script>
