@@ -8,24 +8,22 @@
 
 module Handler.Api.V0.Sugar where
 
-import           Import
+-- TODO: resolve `parseTime` origin correctly.
 
--- TODO: we should not have to use this.
-#if __GLASGOW_HASKELL__ > 704
-import           Data.Monoid                     ((<>))
-#endif
+import           Import               hiding (parseTime)
 
 import qualified Data.Text            as T
-import           Data.Time.Clock      (getCurrentTime, utctDay, utctDayTime)
 import           Data.Time.LocalTime  (timeToTimeOfDay)
 
-import           Network.HTTP.Types   (status200)
 import           Database.Persist.Sql (fromSqlKey)
-import           Yesod.Auth           (requireAuthId)
 
+import           Yesod.Form.Fields    (parseTime)
+
+import           Betty.Helpers        (sendJson)
 import           Betty.Model          (BGUnit (..))
 import           Betty.Text           (txt)
-import           Betty.Helpers        (sendJson)
+
+import           Prelude              (read)
 
 ------------------------------------------------------------------------
 
