@@ -17,7 +17,6 @@ library
                      Import
                      Model
                      Settings
-                     Settings.StaticFiles
                      Betty.SESCreds
 
     other-modules: Handler.Home
@@ -37,6 +36,7 @@ library
                    Handler.Api.V0.User
                    Handler.ResetToken
                    Import.NoFoundation
+                   Settings.StaticFiles                   
                    Betty.Version
                    Betty.Signup
                    Betty.Signup.MailText
