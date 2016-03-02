@@ -8,7 +8,7 @@
           <a .btn .btn-outline-inverse .btn-lg href=@{AboutR}>
             Find out more
 
-$maybe analytics <- extraAnalytics $ appExtra $ settings master
+$maybe analytics <- appAnalytics $ appSettings master
     <script>
       if(!window.location.href.match(/localhost/)){
         window._gaq = [['_setAccount','#{analytics}'],['_trackPageview'],['_trackPageLoadTime']];
