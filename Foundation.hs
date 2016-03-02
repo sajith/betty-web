@@ -1,7 +1,7 @@
 module Foundation where
 
--- import qualified Data.CaseInsensitive as CI
--- import qualified Data.Text.Encoding   as TE
+import qualified Data.CaseInsensitive as CI
+import qualified Data.Text.Encoding   as TE
 import           Database.Persist.Sql (ConnectionPool, runSqlPool)
 import           Import.NoFoundation
 import           Text.Hamlet          (hamletFile)
