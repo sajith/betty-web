@@ -1,7 +1,6 @@
 module Handler.ProfileStart where
 
 import Import
-import Yesod.Auth  (requireAuth, requireAuthId)
 
 import Betty.Model
 
