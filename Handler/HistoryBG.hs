@@ -1,7 +1,6 @@
 module Handler.HistoryBG where
 
 import Import
-import Yesod.Auth (requireAuth)
 
 ------------------------------------------------------------------------
 
