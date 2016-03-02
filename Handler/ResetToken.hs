@@ -2,13 +2,7 @@ module Handler.ResetToken where
 
 import Import
 
--- TODO: we should not have to use this.
-#if __GLASGOW_HASKELL__ > 704
-import Data.Monoid   ((<>))
-#endif
-
-import Betty.Token   (newToken, setToken)
-import Yesod.Auth    (requireAuth)
+import Betty.Token (newToken, setToken)
 
 -- TODO: write tests
 
