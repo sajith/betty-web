@@ -2,10 +2,7 @@ module Handler.Profile where
 
 import Import
 
-import Data.Maybe  (fromMaybe)
-
 import Betty.Token (getToken)
-import Yesod.Auth  (requireAuth)
 
 ------------------------------------------------------------------------
 
