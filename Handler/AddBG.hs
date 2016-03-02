@@ -22,15 +22,12 @@ import Betty.Vendor
 
 ------------------------------------------------------------------------
 
--- TODO: fix layout
-data BGData =
-    BGData {
-        date    :: Day
-        , time  :: TimeOfDay
-        , tz    :: Maybe Int
-        , value :: Double
-        , notes :: Maybe Text
-        } deriving (Show)
+data BGData = BGData { date  :: Day
+                     , time  :: TimeOfDay
+                     , tz    :: Maybe Int
+                     , value :: Double
+                     , notes :: Maybe Text
+                     } deriving (Show)
 
 ------------------------------------------------------------------------
 
