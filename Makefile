@@ -21,6 +21,7 @@ M4MACROS = secrets.m4
 all: devel
 
 files:	config/settings.yml \
+	config/test-settings.yml \
 	config/postgresql.yml \
 	config/keter.yml \
 	Betty/SESCreds.hs
@@ -39,6 +40,9 @@ secrets.m4: secrets.m4.example
 	cp $< $@
 
 config/settings.yml: config/settings.yml.in secrets.m4
+	${M4} ${M4FLAGS} ${M4MACROS} $< > $@
+
+config/test-settings.yml: config/test-settings.yml.in secrets.m4
 	${M4} ${M4FLAGS} ${M4MACROS} $< > $@
 
 config/postgresql.yml: config/postgresql.yml.in secrets.m4
