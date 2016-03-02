@@ -23,6 +23,7 @@ import           Betty.Helpers        (sendJson)
 import           Betty.Model          (BGUnit (..))
 import           Betty.Text           (txt)
 
+-- TODO: avoid this use of `read`.
 import           Prelude              (read)
 
 ------------------------------------------------------------------------
