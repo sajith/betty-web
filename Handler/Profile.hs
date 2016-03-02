@@ -25,6 +25,7 @@ getProfileR = do
 
 ------------------------------------------------------------------------
 
+-- TODO: implement this.
 postProfileR :: Handler Html
 postProfileR = error "Not yet implemented: postProfileR"
 
