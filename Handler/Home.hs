@@ -3,10 +3,10 @@
 
 module Handler.Home where
 
-import Import
-import Numeric              (showFFloat)
-import Yesod.Auth           (maybeAuth, requireAuth)
-import Yesod.Default.Config (appExtra)
+-- TODO: use maximum from Import
+import Data.List    (maximum)
+import Import       hiding (maximum)
+import Numeric      (showFFloat)
 
 import Betty.Vendor
 
