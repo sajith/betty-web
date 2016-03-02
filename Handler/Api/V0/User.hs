@@ -2,30 +2,16 @@
 
 module Handler.Api.V0.User where
 
-import           Import
+import Import                          hiding (Request (..))
 
--- TODO: we should not have to use this.
-#if __GLASGOW_HASKELL__ > 704
-import           Data.Monoid                     ((<>))
-#endif
+import Database.Persist.Sql            (unSqlBackendKey)
+import Network.Wai                     (Request (..), requestHeaders)
+import Network.Wai.Middleware.HttpAuth (extractBasicAuth)
+import Yesod.Auth.Email                (isValidPass)
 
-import           Control.Monad                   (liftM)
-import           Data.ByteString                 (ByteString)
-import           Data.String                     (IsString)
-import qualified Data.Text                       as T
-import           Data.Text.Encoding              (decodeUtf8)
-
-import           Database.Persist.Sql            (SqlBackend (..),
-                                                  unSqlBackendKey)
-import           Network.HTTP.Types              (hAuthorization)
-import           Network.Wai                     (Request (..),
-                                                  requestHeaders)
-import           Network.Wai.Middleware.HttpAuth (extractBasicAuth)
-import           Yesod.Auth.Email                (isValidPass)
-
-import           Betty.Model
-import           Betty.Token
-import           Betty.Text                      (txt)
+import Betty.Model
+import Betty.Text                      (txt)
+import Betty.Token
 
 ------------------------------------------------------------------------
 
@@ -76,7 +62,7 @@ getApiV0UserR = do
 
             getUid = unSqlBackendKey . unUserKey
 
-            fmtUid = T.pack . show . getUid
+            fmtUid = pack . show . getUid
 
             getUserInfo email = runDB $ do
                 $logInfo ("getUserInfo: " <> email <> "\n")
@@ -179,6 +165,6 @@ denyMessage rlm msg = do
     addHeader "WWW-Authenticate" (makeRealm rlm)
     permissionDenied msg
     where
-        makeRealm r = T.concat ["Basic realm=\"", r , "\""]
+        makeRealm r = concat ["Basic realm=\"", r , "\""]
 
 ------------------------------------------------------------------------
