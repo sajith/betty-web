@@ -1,32 +1,30 @@
-module Betty.Pid
-       (
-           writePidFile
-       ) where
+module Betty.Pid ( writePidFile ) where
 
-import Import
+------------------------------------------------------------------------
 
-import Control.Monad        (when)
-import System.Directory     (createDirectoryIfMissing)
+import ClassyPrelude.Yesod
+import System.Directory     (createDirectoryIfMissing,
+                             getAppUserDataDirectory)
 import System.IO            (IOMode (WriteMode), hPrint, withFile)
 import System.Posix.Process (getProcessID)
 
 ------------------------------------------------------------------------
 
--- Write a PID file so that monitoring apps can monitor.
+-- Write PID to $HOME/.betty/betty.pid so that monitoring apps can
+-- monitor.
 writePidFile :: IO ()
 writePidFile = do
-    let pidDir = if production
-                  then "/opt/keter/var/"
-                  else "./"
 
-    when production $
-        createDirectoryIfMissing True pidDir
+    -- TODO: catch errors from System.Directory functions.
+    -- TODO: check permissions for appDir.
+    -- TODO: hardcoded app name, fix.
 
-    let pidFile = pidDir ++ "betty.pid"
+    appDir <- getAppUserDataDirectory "betty"
+    let pidFile = appDir </> "betty.pid"
+
+    createDirectoryIfMissing True appDir
 
     pid <- getProcessID
-
-    withFile pidFile WriteMode $ \handle ->
-        hPrint handle pid
+    withFile pidFile WriteMode $ \h -> hPrint h pid
 
 ------------------------------------------------------------------------
