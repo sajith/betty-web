@@ -21,10 +21,6 @@ spec = withApp $ do
 
     describe "SES Email test" $ do
 
-        -- TODO: this is useless; remove.
-        it "Does nothing in particular" $ do
-            assertEqual "Nothing" True $ not False
-
         -- TODO: this is not particularly useful when SES credentials
         -- aren't available; fix.
         it "Try SES" $ do
