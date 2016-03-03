@@ -21,6 +21,7 @@ spec = withApp $ do
 
     describe "SES Email test" $ do
 
+#if USE_AWS_SES        
         -- TODO: this is not particularly useful when SES credentials
         -- aren't available; fix.
         it "Try sending email using SES" $ do
@@ -31,6 +32,10 @@ spec = withApp $ do
             -- TODO: this line does nothing except pleasing the type
             -- checker; make it do useful work.
             assertEqual "Nothing" True $ not False
+#else
+        it "Not configured to use SES, skipping test" $ do
+            assertEqual "Nothing" True $ not False
+#endif
 
 ses :: SES
 ses = SES { sesFrom = sender
