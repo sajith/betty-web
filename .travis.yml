@@ -8,7 +8,6 @@ addons:
   apt:
     packages:
     - libgmp-dev
-    - hspec-discover
   # Just use the default version of PostgreSQL installed on Travis CI.
   # postgresql: "9.1"
 
@@ -27,6 +26,7 @@ before_install:
 install:
   - cp secrets.m4.example secrets.m4
   - make files
+  - stack install hspec-discover
 
 before_script:
   - psql -c 'create database betty_test;' -U postgres
