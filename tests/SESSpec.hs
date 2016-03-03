@@ -30,7 +30,8 @@ spec = withApp $ do
                 renderSendMailSES manager ses mail
 
             -- TODO: this line does nothing except pleasing the type
-            -- checker; make it do useful work.
+            -- checker; make it do useful work, by checking results of
+            -- running the above code.
             assertEqual "Nothing" True $ not False
 #else
         it "Not configured to use SES, skipping test" $ do
