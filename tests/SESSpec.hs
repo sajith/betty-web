@@ -39,27 +39,26 @@ spec = withApp $ do
 #endif
 
 ses :: SES
-ses = SES { sesFrom = sender
-          , sesTo = [ender]
+ses = SES { sesFrom      = sender
+          , sesTo        = [ender]
           , sesAccessKey = access
           , sesSecretKey = secret
           , sesRegion    = "us-east-1"
           }
 
 mail :: Mail
-mail = Mail { mailHeaders =
-                 [("Subject", "Testing email")]
-            , mailFrom = Address Nothing sender
-            , mailTo = [Address Nothing ender]
-            , mailCc = []
-            , mailBcc = []
-            , mailParts = return [textpart, htmlpart]
+mail = Mail { mailHeaders = [("Subject", "[Betty] Testing SES")]
+            , mailFrom    = Address Nothing sender
+            , mailTo      = [Address Nothing ender]
+            , mailCc      = []
+            , mailBcc     = []
+            , mailParts   = return [textpart, htmlpart]
             }
 
 textpart :: Part
 textpart = Part "text/plain" None Nothing [] $
-           "Just some text"
+           "This is the text part."
 
 htmlpart :: Part
 htmlpart = Part "text/html" None Nothing [] $
-           renderHtml $ toHtml ("Just some html" :: String)
+           renderHtml $ toHtml ("This is the HTML part." :: String)
