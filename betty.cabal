@@ -143,6 +143,11 @@ test-suite test
     ghc-options:       -Wall
     -- cpp-options:       -DUSE_AWS_SES
 
+    other-modules:     HomeSpec
+                       SESSpec
+                       TestImport
+                       TestTools
+
     extensions: TemplateHaskell
                 QuasiQuotes
                 OverloadedStrings
