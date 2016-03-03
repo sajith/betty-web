@@ -47,10 +47,11 @@ firstRedirect method url = do
 
 assertLoginPage :: ByteString -> YesodExample App ()
 assertLoginPage loc = do
-    assertEqual "Right login redirection location" (testRoot `B.append` "/auth/login") loc
+    -- assertEqual "Right login redirection location" (testRoot `B.append` "/auth/login") loc
+    assertEqual "Right login redirection location" ("/auth/login") loc    
     get $ urlPathB loc
     statusIs 200
-    bodyContains "Login"
+    bodyContains "Log in"
 
 submitLogin :: Text -> Text -> YesodExample App (Maybe ByteString)
 submitLogin user pass = do
