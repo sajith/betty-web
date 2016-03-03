@@ -1,19 +1,15 @@
-{-# LANGUAGE OverloadedStrings #-}
-module HomeTest
-    ( homeSpecs
+module HomeSpec
+    ( spec
     ) where
 
-import qualified Data.List  as L
-import           TestImport
-import           TestTools
+import TestImport
+import TestTools
 
-import           Data.Text  (Text)
+spec :: Spec
+spec = withApp $ do
+    describe "test homepage for unauthenticated user" $ do
 
-homeSpecs :: Spec
-homeSpecs =
-    ydescribe "test homepage for unauthenticated user" $ do
-
-        yit "loads the index and checks it looks right" $ do
+        it "loads the index and checks it looks right" $ do
             get HomeR
             statusIs 200
             htmlAllContain "h1" "Manage diabetes the smart way."
@@ -27,7 +23,7 @@ homeSpecs =
             htmlAnyContain "a" "Terms of Use"
             htmlAnyContain "a" "Privacy Policy"
 
-        yit "Requires login" $ do
+        it "Requires login" $ do
             needsLogin GET ("/history/bg" :: Text)
 
 {--
@@ -49,9 +45,9 @@ homeSpecs =
         -- This is a simple example of using a database access in a test.  The
         -- test will succeed for a fresh scaffolded site with an empty database,
         -- but will fail on an existing database with a non-empty user table.
-        yit "leaves the user table empty" $ do
+        it "leaves the user table empty" $ do
             get HomeR
             statusIs 200
             users <- runDB $ selectList ([] :: [Filter User]) []
-            assertEqual "user table empty" 0 $ L.length users
+            assertEqual "user table empty" 0 $ length users
 
