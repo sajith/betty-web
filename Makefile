@@ -36,6 +36,9 @@ devel: setup
 test: setup
 	stack test
 
+deploy: setup
+	stack exec yesod keter
+
 secrets.m4: secrets.m4.example
 	cp $< $@
 
