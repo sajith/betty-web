@@ -3,16 +3,17 @@
 
 module SESSpec (spec) where
 
-import Yesod
+import TestImport
 
+#if USE_AWS_SES
+
+import Yesod
 import Betty.SESCreds                (access, ender, secret, sender)
 import Control.Monad.Trans.Resource  (runResourceT)
 import Network.HTTP.Conduit          (newManager, tlsManagerSettings)
 import Network.Mail.Mime
 import Network.Mail.Mime.SES
 import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
-
-import TestImport
 
 -- TODO: refactor to correctly use Betty.Signup.SES
 
@@ -21,7 +22,7 @@ spec = withApp $ do
 
     describe "SES Email test" $ do
 
-#if USE_AWS_SES        
+
         -- TODO: this is not particularly useful when SES credentials
         -- aren't available; fix.
         it "Trying to send email using SES" $ do
@@ -33,10 +34,6 @@ spec = withApp $ do
             -- checker; make it do useful work, by checking results of
             -- running the above code.
             assertEqual "Nothing" True $ not False
-#else
-        it "Not configured to use SES, skipping test" $ do
-            assertEqual "Nothing" True $ not False
-#endif
 
 ses :: SES
 ses = SES { sesFrom      = sender
@@ -47,7 +44,7 @@ ses = SES { sesFrom      = sender
           }
 
 mail :: Mail
-mail = Mail { mailHeaders = [("Subject", "[Betty] Testing SES")]
+mail = Mail { mailHeaders = [("Subject", "Testing SES")]
             , mailFrom    = Address Nothing sender
             , mailTo      = [Address Nothing ender]
             , mailCc      = []
@@ -62,3 +59,13 @@ textpart = Part "text/plain" None Nothing [] $
 htmlpart :: Part
 htmlpart = Part "text/html" None Nothing [] $
            renderHtml $ toHtml ("This is the HTML part." :: String)
+
+#else
+
+spec :: Spec
+spec = withApp $ do
+    describe "SES Email test" $ do
+        it "Not configured to use SES, skipping test" $ do
+            assertEqual "Nothing" True $ not False
+
+#endif
