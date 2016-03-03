@@ -1,9 +1,7 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 -- TODO: Refactor Betty.Signup, make it testable, and actually test
 -- that piece of code instead of this isolated code.
 
-module SESTest (sesMailSpecs) where
+module SESSpec (spec) where
 
 import Yesod
 
@@ -18,17 +16,25 @@ import TestImport
 
 -- TODO: refactor to correctly use Betty.Signup.SES
 
-sesMailSpecs :: Spec
-sesMailSpecs = ydescribe "SES Email test" $ do
-  yit "Does nothing in particular" $ do
-    assertEqual "Nothing" True $ not False
+spec :: Spec
+spec = withApp $ do
 
-  yit "Try SES" $ do
-      runResourceT $ do
-          manager <- liftIO $ newManager tlsManagerSettings
-          renderSendMailSES manager ses mail
+    describe "SES Email test" $ do
 
-    assertEqual "Nothing" True $ not False
+        -- TODO: this is useless; remove.
+        it "Does nothing in particular" $ do
+            assertEqual "Nothing" True $ not False
+
+        -- TODO: this is not particularly useful when SES credentials
+        -- aren't available; fix.
+        it "Try SES" $ do
+            runResourceT $ do
+                manager <- liftIO $ newManager tlsManagerSettings
+                renderSendMailSES manager ses mail
+
+            -- TODO: this line does nothing except pleasing the type
+            -- checker; make it do useful work.
+            assertEqual "Nothing" True $ not False
 
 ses :: SES
 ses = SES { sesFrom = sender
@@ -55,5 +61,3 @@ textpart = Part "text/plain" None Nothing [] $
 htmlpart :: Part
 htmlpart = Part "text/html" None Nothing [] $
            renderHtml $ toHtml ("Just some html" :: String)
-
-
