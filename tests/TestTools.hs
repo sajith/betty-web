@@ -1,6 +1,3 @@
-{-# LANGUAGE FlexibleContexts  #-}
-{-# LANGUAGE OverloadedStrings #-}
-
 --
 -- Code from Yesod wiki:
 --
@@ -24,7 +21,6 @@ import Network.Wai.Test     (SResponse(..))
 
 import Data.ByteString   as B hiding (elem) 
 import Data.Text         as T
-import Data.Text.Encoding   (decodeUtf8)
 
 testRoot :: ByteString
 testRoot = "http://localhost:3000"
