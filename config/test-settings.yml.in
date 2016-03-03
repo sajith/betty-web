@@ -1,2 +1,3 @@
 database:
+  user: TESTING_DB_USER
   database: TESTING_DB_NAME
