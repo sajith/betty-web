@@ -1,4 +1,4 @@
-module Handler.CommonSpec (spec) where
+module CommonSpec (spec) where
 
 import TestImport
 
