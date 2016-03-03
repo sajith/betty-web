@@ -24,7 +24,7 @@ spec = withApp $ do
 #if USE_AWS_SES        
         -- TODO: this is not particularly useful when SES credentials
         -- aren't available; fix.
-        it "Try sending email using SES" $ do
+        it "Trying to send email using SES" $ do
             runResourceT $ do
                 manager <- liftIO $ newManager tlsManagerSettings
                 renderSendMailSES manager ses mail
