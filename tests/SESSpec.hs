@@ -23,7 +23,7 @@ spec = withApp $ do
 
         -- TODO: this is not particularly useful when SES credentials
         -- aren't available; fix.
-        it "Try SES" $ do
+        it "Try sending email using SES" $ do
             runResourceT $ do
                 manager <- liftIO $ newManager tlsManagerSettings
                 renderSendMailSES manager ses mail
