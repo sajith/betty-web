@@ -23,6 +23,7 @@ before_install:
   - export PATH=$HOME/.local/bin:$PATH
   - travis_retry curl -L https://github.com/commercialhaskell/stack/releases/download/v1.0.4/stack-1.0.4-linux-x86_64.tar.gz | tar xz --strip-components=1 -C ~/.local/bin
   - stack $ARGS --no-terminal setup
+  - stack ghc -- --version
   - stack $ARGS --no-terminal --skip-ghc-check install hspec-discover
     
 install:
