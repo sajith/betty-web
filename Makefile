@@ -39,6 +39,12 @@ test: setup
 deploy: setup
 	stack exec yesod keter
 
+repl: setup
+	stack ghci
+
+test-repl: setup
+	stack ghci --test --main-is betty:test:test
+
 secrets.m4: secrets.m4.example
 	cp $< $@
 
