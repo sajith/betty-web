@@ -9,42 +9,23 @@ module Betty.Token
        , isTokenSet
        ) where
 
--- TODO: we should not have to use this.
-import           Prelude                as P
+import           Import                           hiding (requestHeaders)
 
--- TODO: we should not have to use this.
-#if __GLASGOW_HASKELL__ >= 704
-import           Data.Monoid          ((<>))
-#endif
+import qualified Data.List                        as L
+import           Data.Maybe                       (fromJust)
+import           Data.Text                        as T
 
-import qualified Data.List              as L
-import           Data.Maybe             (fromJust, isJust)
-import           Data.String            (IsString)
-import           Data.Text              as T
-import           Data.Text.Encoding     (decodeUtf8)
+import qualified Data.Vector.Unboxed              as V (Vector, map, toList)
+import           System.Random.MWC                (asGenST, uniformVector,
+                                                   withSystemRandom)
 
-import qualified Data.Vector.Unboxed    as V (Vector, map, toList)
-import           Data.Word              (Word8)
-import           System.Random.MWC      (asGenST, uniformVector, withSystemRandom)
-
-import           Data.ByteString.Char8  as B
 import           Data.Attoparsec.ByteString.Char8 as C
+import           Data.ByteString.Char8            as B
 
-import           Network.HTTP.Types     (status401)
-import           Network.Wai            (requestHeaders)
+import           Network.Wai                      (requestHeaders)
 
-import           Model
-
-import           Yesod.Core             (HandlerT, logDebug, waiRequest)
-import           Yesod.Persist.Core     (YesodPersist, YesodPersistBackend,
-                                         runDB)
-
-import           Database.Persist.Sql   (SqlBackend (..), (=.))
-import           Database.Persist.Class (getBy, update)
-import           Database.Persist.Types (Key, entityKey, entityVal)
-
-import           Betty.Text             (txt)
-import           Betty.Helpers          (sendJson)
+import           Betty.Helpers                    (sendJson)
+import           Betty.Text                       (txt)
 
 ------------------------------------------------------------------------
 
@@ -70,14 +51,14 @@ newToken = newToken' tokenLength
 
 newToken' :: Int -> IO Text
 newToken' len = do
-    
+
     v <- withSystemRandom . asGenST $ \gen -> uniformVector gen len
     return $ T.pack $ V.toList $ V.map toChar (v :: V.Vector Word8)
-    
+
     where
-        
+
         toChar :: Enum a => a -> Char
-        toChar i = chars !! (fromEnum i `mod` L.length chars)
+        toChar i = chars L.!! (fromEnum i `mod` L.length chars)
 
         chars :: String
         chars = ['0'..'9'] ++ ['A'..'Z'] ++ ['a'..'z']
