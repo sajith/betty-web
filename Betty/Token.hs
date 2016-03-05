@@ -9,7 +9,7 @@ module Betty.Token
        , isTokenSet
        ) where
 
-import           Import                           hiding (requestHeaders)
+import           Import
 
 import qualified Data.List                        as L
 import           Data.Maybe                       (fromJust)
@@ -22,7 +22,7 @@ import           System.Random.MWC                (asGenST, uniformVector,
 import           Data.Attoparsec.ByteString.Char8 as C
 import           Data.ByteString.Char8            as B
 
-import           Network.Wai                      (requestHeaders)
+import           Network.Wai                      as W (requestHeaders)
 
 import           Betty.Helpers                    (sendJson)
 import           Betty.Text                       (txt)
@@ -147,7 +147,7 @@ maybeUidFromHeader = do
 
     request <- waiRequest
 
-    case lookup hAuthToken $ requestHeaders request of
+    case lookup hAuthToken $ W.requestHeaders request of
 
         Just hdr -> do
 
