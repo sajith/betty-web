@@ -26,23 +26,23 @@ files:	config/settings.yml \
 	config/keter.yml \
 	Betty/SESCreds.hs
 
-setup: files
+build: files
 	stack setup
 	stack build
 
-devel: setup
+devel: build
 	stack exec yesod devel -- -p 8000
 
-test: setup
+test: build
 	stack test
 
-deploy: setup
+deploy: build
 	stack exec yesod keter
 
-repl: setup
+repl: build
 	stack ghci
 
-test-repl: setup
+test-repl: build
 	stack ghci --test --main-is betty:test:test
 
 secrets.m4: secrets.m4.example
