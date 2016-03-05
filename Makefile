@@ -18,7 +18,7 @@ M4	 = m4
 M4FLAGS	 =
 M4MACROS = secrets.m4
 
-all: devel
+all: build
 
 files:	config/settings.yml \
 	config/test-settings.yml \
