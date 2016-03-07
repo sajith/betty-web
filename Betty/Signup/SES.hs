@@ -15,6 +15,8 @@ import Network.HTTP.Conduit  (newManager, tlsManagerSettings)
 import Betty.SESCreds        (access, secret, sender)
 import Betty.Signup.MailText (verHeaders, verHtml, verText)
 
+------------------------------------------------------------------------
+
 ses :: Email -> SES
 ses email = SES { sesFrom       = sender
                 , sesTo         = [encodeUtf8 email]
@@ -22,6 +24,8 @@ ses email = SES { sesFrom       = sender
                 , sesSecretKey  = secret
                 , sesRegion     = "us-east-1"
                 }
+
+------------------------------------------------------------------------
 
 -- TODO: catch exception when renderSendMailSES fails.
 sendVerificationEmail :: Email -> VerKey -> VerUrl -> HandlerT site IO ()
@@ -33,6 +37,8 @@ sendVerificationEmail email _ verurl = do
       manager <- liftIO $ newManager tlsManagerSettings
       renderSendMailSES manager ses' mail
 
+------------------------------------------------------------------------
+
 formMail :: Email -> VerUrl -> Mail
 formMail email verurl = Mail
     { mailFrom    = Address Nothing sender
@@ -42,3 +48,6 @@ formMail email verurl = Mail
     , mailHeaders = verHeaders
     , mailParts   = return $ map ($ verurl) [verText, verHtml]
     }
+
+------------------------------------------------------------------------
+

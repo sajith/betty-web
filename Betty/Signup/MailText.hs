@@ -12,8 +12,12 @@ import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
 import Text.Shakespeare.Text         (stext)
 import Yesod.Auth.Email              (VerUrl)
 
+------------------------------------------------------------------------
+
 verHeaders :: (IsString t, IsString t1) => [(t, t1)]
 verHeaders =  [("Subject", "Please verify your email address")]
+
+------------------------------------------------------------------------
 
 -- TODO: externalize the message itself.
 verText :: VerUrl -> Part
@@ -30,6 +34,8 @@ Thank you!
                       , partHeaders = []
                       }
 
+------------------------------------------------------------------------
+
 -- TODO: externalize the message itself.
 verHtml :: VerUrl -> Part
 verHtml verurl = Part { partType = "text/html; charset=utf-8"
@@ -43,3 +49,6 @@ verHtml verurl = Part { partType = "text/html; charset=utf-8"
                         |]
                       , partHeaders = []
                       }
+
+------------------------------------------------------------------------
+

@@ -11,6 +11,7 @@ import Yesod.Auth.Email
 
 import Betty.Signup.MailText (verHeaders, verHtml, verText)
 
+------------------------------------------------------------------------
 
 sendVerificationEmail :: Email -> VerKey -> VerUrl -> HandlerT site IO ()
 sendVerificationEmail email _ verurl =
@@ -19,3 +20,5 @@ sendVerificationEmail email _ verurl =
                 , mailHeaders = verHeaders
                 , mailParts   = [map ($ verurl) [verText, verHtml]]
                 }
+
+------------------------------------------------------------------------

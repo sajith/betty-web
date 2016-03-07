@@ -6,6 +6,8 @@ module Betty.SESCreds
 
 import Data.String (IsString)
 
+------------------------------------------------------------------------
+
 access :: IsString a => a
 access = "AWS_SES_ACCESS"
 
@@ -19,3 +21,4 @@ sender = "AWS_SES_SENDER"
 ender :: IsString a => a
 ender = "AWS_SES_TEST_TARGET"
 
+------------------------------------------------------------------------
