@@ -49,6 +49,7 @@ library
                    Betty.Vendor
                    Betty.Pid
                    Betty.Token
+                   Paths_betty
 
     if flag(dev) || flag(library-only)
         cpp-options:   -DDEVELOPMENT
