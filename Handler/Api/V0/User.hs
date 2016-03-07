@@ -10,7 +10,6 @@ import Network.Wai.Middleware.HttpAuth (extractBasicAuth)
 import Yesod.Auth.Email                (isValidPass)
 
 import Betty.Model
-import Betty.Text                      (txt)
 import Betty.Token
 
 ------------------------------------------------------------------------
@@ -43,8 +42,8 @@ getApiV0UserR = do
         uid = getUid $ entityKey user
         p   = entityVal profile
 
-    $logDebug ("User: " <> txt u)
-    $logDebug ("Profile: " <> txt p)
+    $logDebug ("User: " <> tshow u)
+    $logDebug ("Profile: " <> tshow p)
 
     return $ object [ "uid"                .= show uid
                     , "email"              .= userEmail u
@@ -97,11 +96,11 @@ getApiV0UserR = do
                 _       -> unknown
 
             formatBY p = case userProfileBirthYear p of
-                Just y  -> if y == 0 then unknown else txt y
+                Just y  -> if y == 0 then unknown else tshow y
                 Nothing -> unknown
 
             formatDY p = case userProfileDiagnosedYear p of
-                Just y  -> if y == 0 then unknown else txt y
+                Just y  -> if y == 0 then unknown else tshow y
                 Nothing -> unknown
 
 ------------------------------------------------------------------------

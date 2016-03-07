@@ -25,7 +25,6 @@ import           Data.ByteString.Char8            as B
 import           Network.Wai                      as W (requestHeaders)
 
 import           Betty.Helpers                    (sendJson)
-import           Betty.Text                       (txt)
 
 ------------------------------------------------------------------------
 
@@ -79,7 +78,7 @@ getToken email = do
         Just t' -> do
             let token = (userToken . entityVal) t'
             $(logDebug) ("getToken: Token "
-                         <> txt token <> " found for "
+                         <> tshow token <> " found for "
                          <> email)
             return token
 
@@ -151,12 +150,12 @@ maybeUidFromHeader = do
 
         Just hdr -> do
 
-            $(logDebug) (hAuthToken <> ": " <> txt hdr)
+            $(logDebug) (hAuthToken <> ": " <> tshow hdr)
 
             case str2auth hdr of
 
                 Left err -> do
-                    $(logDebug) ("Error: " <> txt err)
+                    $(logDebug) ("Error: " <> tshow err)
                     _ <- sendJson status401 msgTokenCorrupt
                     return Nothing
 

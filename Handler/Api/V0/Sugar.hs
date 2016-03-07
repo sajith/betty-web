@@ -21,7 +21,6 @@ import           Yesod.Form.Fields    (parseTime)
 
 import           Betty.Helpers        (sendJson)
 import           Betty.Model          (BGUnit (..))
-import           Betty.Text           (txt)
 
 -- TODO: avoid this use of `read`.
 import           Prelude              (read)
@@ -78,13 +77,13 @@ postApiV0SugarAddR = do
                  (Just unit')           -- blood sugar unit
                  notes                  -- notes, if any
 
-    $(logDebug) ("Record: " <> txt record)
+    $(logDebug) ("Record: " <> tshow record)
 
     result <- runDB $ insert record
 
     let key = fromSqlKey result
 
-    $(logDebug) ("Result key: " <> txt key)
+    $(logDebug) ("Result key: " <> tshow key)
 
     sendJson status200 "OK"
 
@@ -115,12 +114,12 @@ getApiV0SugarGetR = do
 
     uid <- requireAuthId
 
-    $(logDebug) ("uid: " <> txt uid)
+    $(logDebug) ("uid: " <> tshow uid)
 
     sugars <- fmap (map entityVal) $
               runDB $ selectList [BloodGlucoseHistoryUid ==. uid][LimitTo 10]
 
-    $(logDebug) ("Returning " <> txt (length sugars) <> " records")
+    $(logDebug) ("Returning " <> tshow (length sugars) <> " records")
 
     return $ object [ "count"  .= length sugars
                     , "sugars" .= sugars
