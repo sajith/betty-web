@@ -13,7 +13,7 @@ derivePersistField "BGUnit"
 ------------------------------------------------------------------------
 
 -- Weight units.
- WtUnit = Kg | Lb
+data WtUnit = Kg | Lb
      deriving (Show, Read, Eq, Enum, Bounded)
 
 derivePersistField "WtUnit"
