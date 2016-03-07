@@ -144,6 +144,7 @@ test-suite test
     -- cpp-options:       -DUSE_AWS_SES
 
     other-modules:     HomeSpec
+                       CommonSpec
                        SESSpec
                        TestImport
                        TestTools
