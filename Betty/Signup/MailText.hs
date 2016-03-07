@@ -6,14 +6,11 @@ module Betty.Signup.MailText
        )
        where
 
-import Prelude
-import Yesod                            (shamlet)
-import Yesod.Auth.Email                 (VerUrl)
-import Network.Mail.Mime                (Part(..), Encoding(None))
-import Text.Shakespeare.Text            (stext)
-import Data.Text.Lazy.Encoding          (encodeUtf8)
-import Text.Blaze.Html.Renderer.Utf8    (renderHtml)
-import Data.String                      (IsString)
+import ClassyPrelude.Yesod
+import Network.Mail.Mime             (Encoding (None), Part (..))
+import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
+import Text.Shakespeare.Text         (stext)
+import Yesod.Auth.Email              (VerUrl)
 
 verHeaders :: (IsString t, IsString t1) => [(t, t1)]
 verHeaders =  [("Subject", "Please verify your email address")]

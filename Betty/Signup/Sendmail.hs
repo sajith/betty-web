@@ -4,13 +4,12 @@ module Betty.Signup.Sendmail
        )
        where
 
-import Prelude
-import Yesod
+import ClassyPrelude.Yesod
 
-import Yesod.Auth.Email
 import Network.Mail.Mime
+import Yesod.Auth.Email
 
-import Betty.Signup.MailText      (verHeaders, verText, verHtml)
+import Betty.Signup.MailText (verHeaders, verHtml, verText)
 
 
 sendVerificationEmail :: Email -> VerKey -> VerUrl -> HandlerT site IO ()

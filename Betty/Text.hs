@@ -2,8 +2,7 @@
 
 module Betty.Text (txt) where
 
-import Data.Text (Text, pack)
-import Prelude
+import ClassyPrelude.Yesod
 
 ------------------------------------------------------------------------
 

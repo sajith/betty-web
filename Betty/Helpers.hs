@@ -7,13 +7,10 @@ module Betty.Helpers
        , sendJson
        ) where
 
-import Data.Text          (Text)
+import ClassyPrelude.Yesod
 import Model
-import Prelude
-import Yesod
 
-import Data.Text.Encoding (decodeLatin1)
-import Network.HTTP.Types (Status, statusCode, statusMessage)
+import Data.Text.Encoding  (decodeLatin1)
 
 ------------------------------------------------------------------------
 

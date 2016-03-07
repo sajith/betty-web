@@ -12,8 +12,6 @@
 -- as well not.)
 --
 
-import Prelude
-
 import Control.Monad                   (liftM)
 import System.Process                  (readProcess)
 
