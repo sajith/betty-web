@@ -78,7 +78,7 @@ instance Yesod App where
     yesodMiddleware = defaultYesodMiddleware
 
     defaultLayout widget = do
-        -- master <- getYesod
+        master <- getYesod
         mmsg <- getMessage
 
         ma <- maybeAuth

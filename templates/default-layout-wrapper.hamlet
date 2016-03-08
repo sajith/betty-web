@@ -143,7 +143,7 @@ $# [if IE 9]><html class="lt-ie10" lang="en" > <![endif]
               <div .text-muted>
                 <p>
                   <span .nowrap>
-                    Copyright &copy; 2014 Sajith Sasidharan.
+                    #{appCopyright $ appSettings master}
               <div .site-meta .muted>
                 <ul>
                   <li>
