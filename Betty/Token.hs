@@ -9,7 +9,7 @@ module Betty.Token
        , isTokenSet
        ) where
 
-import           Import
+import           ClassyPrelude.Yesod
 
 import qualified Data.List                        as L
 import           Data.Maybe                       (fromJust)
@@ -25,6 +25,7 @@ import           Data.ByteString.Char8            as B
 import           Network.Wai                      as W (requestHeaders)
 
 import           Betty.Helpers                    (sendJson)
+import           Model
 
 ------------------------------------------------------------------------
 
