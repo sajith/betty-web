@@ -3,7 +3,7 @@
 module Betty.Token
        ( newToken
        , newToken'
-       , maybeUidFromHeader
+       , maybeAuthToken
        , getToken
        , setToken
        , isTokenSet
@@ -139,11 +139,11 @@ str2auth str = eitherResult $ feed (parse authParser str) B.empty
 ------------------------------------------------------------------------
 
 -- TODO: Handle "Accept:" header, before sending JSON, maybe?
-maybeUidFromHeader :: forall site.
-                      (YesodPersist site,
-                       YesodPersistBackend site ~ SqlBackend) =>
-                      HandlerT site IO (Maybe (Key User))
-maybeUidFromHeader = do
+maybeAuthToken :: forall site.
+                  (YesodPersist site,
+                   YesodPersistBackend site ~ SqlBackend) =>
+                  HandlerT site IO (Maybe (Key User))
+maybeAuthToken = do
 
     request <- waiRequest
 
