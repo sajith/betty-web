@@ -15,6 +15,7 @@ import           Yesod.Auth.Email
 
 import           Betty.Helpers
 import           Betty.Signup
+import           Betty.Token
 import           Betty.Vendor
 import           Betty.Version
 
@@ -172,6 +173,21 @@ instance YesodAuth App where
     authPlugins _ = [authEmail]
 
     authHttpManager = getHttpManager
+
+    -- Overriding maybeAuthId so that we can handle tokens presesnted
+    -- in request headers.
+    maybeAuthId = do
+        mid <- defaultMaybeAuthId
+        case mid of
+            Nothing -> do
+                $(logDebug) "Looking for auth token"
+                uid <- maybeAuthToken
+                case uid of
+                    Nothing  -> return Nothing
+                    Just tid -> return $ Just tid
+            Just _ -> do
+                $(logDebug) "Authorized -- not looking for token"
+                return mid
 
 instance YesodAuthPersist App
 
