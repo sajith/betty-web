@@ -67,8 +67,8 @@ UserProfile
 
 BloodGlucoseHistory
     uid UserId
-    -- email Text           -- TODO: handle this.    
-    utctime UTCTime         -- TODO: remove duplicate time/date fields.   
+    -- email Text           -- TODO: handle this.
+    utctime UTCTime         -- TODO: remove duplicate time/date fields.
     date Day
     time TimeOfDay
     timezone Text Maybe     -- TODO: use TimeZone data type, or
@@ -79,4 +79,3 @@ BloodGlucoseHistory
     deriving Show
 
 ------------------------------------------------------------------------
-
