@@ -59,6 +59,12 @@ UserProfile
 -- TODO: what about adding "json" to derive ToJSON and FromJSON
 -- instances of BloodGlucoseHistory?
 
+-- TODO: would be nice to use `timestamp with time zone` (or
+-- `timestamptz` as it is accepted in PostgreSQL) instead of the wonky
+-- (date, time, tz) combo field.  This is distinct from `utctime`
+-- field, which is just the server timestamp of when it received the
+-- data.
+
 BloodGlucoseHistory
     uid UserId
     -- email Text           -- TODO: handle this.    
