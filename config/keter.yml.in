@@ -11,8 +11,7 @@ stanzas:
     exec: ../dist/bin/betty
 
     # Command line options passed to your application.
-    args:
-      - production
+    args: []
 
     hosts:
       # You can specify one or more hostnames for your application to respond
