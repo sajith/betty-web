@@ -115,13 +115,13 @@ lookupAuth request =
 
 ------------------------------------------------------------------------
 
-type Email      = ByteString
+type Ident      = ByteString
 type Passord    = ByteString
 
 --  returns (email, pass) pair
 decodeAuth :: forall (m :: * -> *).
               MonadHandler m =>
-              ByteString -> m (Email, Passord)
+              ByteString -> m (Ident, Passord)
 decodeAuth enc =
     case extractBasicAuth enc of
         Just auth -> return auth
@@ -132,7 +132,7 @@ decodeAuth enc =
 verifyAuth :: forall site.
               (YesodPersist site,
                YesodPersistBackend site ~ SqlBackend) =>
-              (Email, Passord) -> HandlerT site IO Text
+              (Ident, Passord) -> HandlerT site IO Text
 verifyAuth (email, passwd) = do
     let emailBs  = decodeUtf8 email
         passwdBs = decodeUtf8 passwd
