@@ -103,9 +103,8 @@ instance ToJSON BloodGlucoseHistory where
                  ]
         where
             format :: Maybe BGUnit -> String
-            format (Just MgDL) = "mg/dL"
-            format (Just Mmol) = "mmol/L"
-            format Nothing     = "unknown"
+            format (Just u) = show u
+            format Nothing  = "unknown"
 
 ------------------------------------------------------------------------
 
