@@ -31,7 +31,7 @@ build: files
 	stack build
 
 devel: build
-	stack exec yesod devel -- -p 8000
+	APPROOT=http://localhost:8000 stack exec yesod devel -- -p 8000
 
 test: build
 	stack test
