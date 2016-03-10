@@ -19,6 +19,18 @@ User
 
 ------------------------------------------------------------------------
 
+-- TODO: separate `User` and `Email` records.  This is so that we can
+-- decouple `authEmail`-backed accounts from `User`.
+Email
+    email Text
+    userId UserId Maybe
+    verkey Text Maybe
+    verified Bool
+    verifydate UTCTime
+    UniqueEmail email
+
+------------------------------------------------------------------------
+
 -- TODO: What if we split `User` to `User` and `Email`, like below?
 -- Recent Yesod scaffolds do this.
 
