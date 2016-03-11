@@ -36,9 +36,6 @@ devel: build
 test: build
 	stack test
 
-deploy: build
-	stack exec yesod keter
-
 repl: build
 	stack ghci
 
@@ -71,3 +68,8 @@ clean:
 	rm -f config/keter.yml
 	rm -f Betty/SESCreds.hs
 	stack clean
+
+# Provides `make deploy` etc., when Makefile.deploy exists.
+# Because deployment details are a... separate concern.
+-include Makefile.deploy
+

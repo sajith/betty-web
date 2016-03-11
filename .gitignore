@@ -22,3 +22,4 @@ cabal.sandbox.config
 /betty.keter
 /betty.pid
 /.stack-work/
+/Makefile.deploy
