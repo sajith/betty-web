@@ -140,6 +140,7 @@ instance Yesod App where
 
     -- TODO: what to do about static/tmp and static/autogen?
     -- TODO: how can I turn this off for `yesod devel`?
+    -- TODO: find staticroot from configuration; remove hardcoding.
     -- urlRenderOverride master (StaticR s) = do
     --     Just $ uncurry (joinPath master "https://static.domain") $ renderRoute s
     -- urlRenderOverride _ _ = Nothing
