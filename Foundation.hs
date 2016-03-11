@@ -138,6 +138,12 @@ instance Yesod App where
 
     makeLogger = return . appLogger
 
+    -- TODO: what to do about static/tmp and static/autogen?
+    -- TODO: how can I turn this off for `yesod devel`?
+    -- urlRenderOverride master (StaticR s) = do
+    --     Just $ uncurry (joinPath master "https://static.domain") $ renderRoute s
+    -- urlRenderOverride _ _ = Nothing
+
 -- How to run database actions.
 instance YesodPersist App where
     type YesodPersistBackend App = SqlBackend
