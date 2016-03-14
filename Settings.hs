@@ -54,6 +54,8 @@ data AppSettings = AppSettings
     -- ^ Copyright text to appear in the footer of the page
     , appAnalytics              :: Maybe Text
     -- ^ Google Analytics code
+    , appStaticRoot             :: Maybe Text
+    -- ^ Static asset serving site.
     }
 
 instance FromJSON AppSettings where
@@ -79,6 +81,8 @@ instance FromJSON AppSettings where
 
         appCopyright              <- o .: "copyright"
         appAnalytics              <- o .:? "analytics"
+
+        appStaticRoot             <- o .:? "static-root"
 
         return AppSettings {..}
 

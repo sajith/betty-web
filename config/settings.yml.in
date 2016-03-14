@@ -33,3 +33,5 @@ database:
 
 copyright: Copyright (C) 2014 Sajith Sasidharan
 analytics: ANALYTICS_CODE
+
+static-root: https://KETER_STATIC_HOST
