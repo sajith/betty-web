@@ -31,7 +31,7 @@ database:
   database: "_env:PGDATABASE:DEFAULT_DB_NAME"
   poolsize: "_env:PGPOOLSIZE:DEFAULT_DB_POOL"
 
-copyright: Copyright (C) 2014 Sajith Sasidharan
+copyright: Copyright (C) 2014-2016 Sajith Sasidharan
 analytics: ANALYTICS_CODE
 
 static-root: https://KETER_STATIC_HOST
