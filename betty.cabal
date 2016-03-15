@@ -49,6 +49,7 @@ library
                    Betty.Vendor
                    Betty.Pid
                    Betty.Token
+                   Betty.DateTime
                    Paths_betty
 
     if flag(dev) || flag(library-only)
