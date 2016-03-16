@@ -108,7 +108,7 @@ instance ToJSON BloodGlucoseHistory where
 
 ------------------------------------------------------------------------
 
-getApiV0SugarGetR :: Handler Value
+getApiV0SugarGetR :: Handler TypedContent
 getApiV0SugarGetR = do
 
     uid <- requireAuthId
@@ -120,9 +120,12 @@ getApiV0SugarGetR = do
 
     $(logDebug) ("Returning " <> tshow (length sugars) <> " records")
 
-    return $ object [ "count"  .= length sugars
-                    , "sugars" .= sugars
-                    ]
+    -- With `selectRep` and `provideRep`, we could return other
+    -- representations (XML, for example) if we want to.  Neat.
+    selectRep $ do
+        provideRep $ return $ object [ "count"  .= length sugars
+                                     , "sugars" .= sugars
+                                     ]
 
 ------------------------------------------------------------------------
 
