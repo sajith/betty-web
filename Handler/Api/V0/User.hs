@@ -16,7 +16,7 @@ import Betty.Token
 
 -- TODO:
 -- 1. Move basic auth to Betty/BasicAuth.hs or some such.
--- 2. Make sure regular auth flow continues to work.
+-- 2. Log all basic auth events.
 -- 3. Write tests.
 -- 4. Fix the TODO items.
 -- 5. Carry on my wayward son.
