@@ -16,3 +16,18 @@ language_extensions:
     - TemplateHaskell
     - QuasiQuotes
     - TypeFamilies
+    - OverloadedStrings
+    - NoImplicitPrelude
+    - CPP
+    - MultiParamTypeClasses
+    - GADTs
+    - GeneralizedNewtypeDeriving
+    - FlexibleContexts
+    - FlexibleInstances
+    - EmptyDataDecls
+    - NoMonomorphismRestriction
+    - DeriveDataTypeable
+    - ViewPatterns
+    - TupleSections
+    - TypeSynonymInstances
+    - RecordWildCards
