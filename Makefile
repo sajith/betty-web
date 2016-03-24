@@ -42,6 +42,12 @@ repl: build
 test-repl: build
 	stack ghci --test --main-is betty:test:test --ghc-options="-O0 -fobject-code"
 
+ghcid: build
+	ghcid -c "stack ghci"
+
+ghcid-test: build
+	ghcid -c "stack ghci --test --main-is betty:test:test"
+
 secrets.m4: secrets.m4.example
 	cp $< $@
 
