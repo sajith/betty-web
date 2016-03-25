@@ -108,6 +108,15 @@ instance ToJSON BloodGlucoseHistory where
 
 ------------------------------------------------------------------------
 
+--
+-- TODO: select by these options:
+--
+--  * from/until timestamps: if `from` is omitted, default to 7 days
+--  from `until`; if `until` is omitted, default to the current time.
+--
+--
+--  * count: the last `n` records.
+--
 getApiV0SugarGetR :: Handler TypedContent
 getApiV0SugarGetR = do
 
