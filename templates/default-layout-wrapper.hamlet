@@ -167,7 +167,7 @@ $newline never
                       Privacy Policy
               <div #version-info .text-muted>
                 <p>
-                  Rev #{gitCommitHash}
+                  #{appVersion} / rev #{gitCommitHash}
       <!-- end footer -->
 
     \ <script>
