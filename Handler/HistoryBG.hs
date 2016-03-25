@@ -13,7 +13,7 @@ getHistoryBGR = do
               runDB $ selectList [BloodGlucoseHistoryUid ==. uid] [LimitTo 10]
 
     defaultLayout $ do
-        setTitle "Project D : Blood Sugar Logs"
+        setTitle "Betty : Blood Sugar Logs"
         $(widgetFile "bg.history")
 
 ------------------------------------------------------------------------

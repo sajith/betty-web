@@ -18,7 +18,7 @@ getProfileStartR = do
     if profile < 1
         then
             defaultLayout $ do
-                setTitle "Project D: Set up your profile"
+                setTitle "Betty: Set up your profile"
                 $(widgetFile "profile.start")
         else
             defaultLayout $ do
@@ -29,7 +29,7 @@ getProfileStartR = do
     -- the below block.
 
     -- defaultLayout $ do
-    --     setTitle "Project D: Set up your profile"
+    --     setTitle "Betty: Set up your profile"
     --     $(widgetFile "profile.start")
 
 ------------------------------------------------------------------------

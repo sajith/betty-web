@@ -14,7 +14,7 @@ getProfileR = do
     let token = fromMaybe "not set" t
 
     defaultLayout $ do
-        setTitle "Project D: Your Profile"
+        setTitle "Betty: Your Profile"
         $(widgetFile "profile")
         $(widgetFile "profile.password")
         $(widgetFile "profile.email")

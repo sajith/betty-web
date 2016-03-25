@@ -6,7 +6,7 @@ import Import
 
 getPrivacyR :: Handler Html
 getPrivacyR = defaultLayout $ do
-    setTitle "Project D : Privacy Policy"
+    setTitle "Betty : Privacy Policy"
     $(widgetFile "info.privacy")
 
 ------------------------------------------------------------------------
