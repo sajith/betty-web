@@ -184,6 +184,14 @@ instance YesodAuth App where
 
     authHttpManager = getHttpManager
 
+    -- `authLayout` is exactly like `defaultLayout`, but we also use
+    -- some jQuery code in `auth-layout` to remove the signup/login
+    -- links from navbar, which is redundant in this context.
+    authLayout widget =
+        defaultLayout $ do
+            widget
+            $(widgetFile "auth-layout")
+
     -- Overriding maybeAuthId so that we can handle tokens presesnted
     -- in request headers.
     maybeAuthId = do
