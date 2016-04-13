@@ -141,7 +141,7 @@ executable         betty
 test-suite test
     type:              exitcode-stdio-1.0
     main-is:           Spec.hs
-    hs-source-dirs:    tests
+    hs-source-dirs:    test
     ghc-options:       -Wall
     -- cpp-options:       -DUSE_AWS_SES
 
