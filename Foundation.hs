@@ -190,7 +190,7 @@ instance YesodAuth App where
     authLayout widget =
         defaultLayout $ do
             widget
-            $(widgetFile "auth-layout")
+            $(widgetFile "auth.layout")
 
     -- Overriding maybeAuthId so that we can handle tokens presesnted
     -- in request headers.
