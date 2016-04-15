@@ -97,7 +97,7 @@ $newline never
 
           <!-- sidebar -->
           $maybe _ <- ma
-            <div .col-xs-6 .col-sm-4 .col-md-3>
+            <div .col-xs-6 .col-sm-4 .col-md-3 #sidebar-auth>
               <div #sidebar .panel .sidebar-offcanvas>
                 <ul #affix .nav .nav-stacked>
                   <li>
