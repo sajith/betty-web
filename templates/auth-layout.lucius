@@ -1,0 +1,37 @@
+.signin-wrapper {
+    margin-bottom: 40px;
+    padding-left: 0;
+}
+
+#page-main {
+    padding: 30px 30px 20px 30px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    float: left;
+}
+
+#emailLoginForm #email,
+#emailLoginForm #password,
+#registerForm #email,
+#forgotPasswordForm #forgotPassword {
+    width: 100%;
+    padding: 6px 12px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+#registerForm #email {
+    padding: 6px 12px;
+}
+
+#emailLoginForm input[type="email"],
+#emailLoginForm input[type="password"],
+#registerForm input[type="email"],
+#forgotPasswordForm input[type="email"] {
+    /* nothing for now */
+}
+
+.btn {
+    margin-bottom: 10px;
+}
