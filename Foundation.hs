@@ -207,6 +207,11 @@ instance YesodAuth App where
                 $(logDebug) "Authorized -- not looking for token"
                 return mid
 
+    -- Default is to print the message "You are now logged in"
+    -- (`NowLoggedIn` from `Yesod.Auth.Message`).  That is kind of
+    -- redundant here.
+    onLogin = return ()
+
 instance YesodAuthPersist App
 
 ------------------------------------------------------------------------
