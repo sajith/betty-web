@@ -71,12 +71,7 @@ instance Yesod App where
     --   b) Validates that incoming write requests include that token in either a header or POST parameter.
     -- For details, see the CSRF documentation in the Yesod.Core.Handler module of the yesod-core package.
 
-    -- Sajith, Wed, 02 Mar 2016: having trouble with CSRF middleware,
-    -- so removing it.  Yesod scaffold also appears to be moving in
-    -- this direction.  See
-    -- https://github.com/yesodweb/yesod-scaffold/pull/125, and
-    -- https://github.com/yesodweb/yesod-scaffold/commit/8afc7d873a6ab62c5bedb3054f9a2d7bb093a813
-    yesodMiddleware = defaultYesodMiddleware
+    yesodMiddleware = defaultCsrfMiddleware . defaultYesodMiddleware
 
     defaultLayout widget = do
         master <- getYesod
