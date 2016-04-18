@@ -51,7 +51,6 @@ Email
 
 UserProfile
     uid UserId
-    -- email Text               -- TODO: handle this.
     -- signupdate UTCTime Maybe -- default: TODO
     -- verifydate UTCTime Maybe -- default: TODO
     timezone Text Maybe      -- default: GMT
