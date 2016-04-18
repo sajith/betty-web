@@ -121,10 +121,10 @@ isTokenValid email token = do
 
 ------------------------------------------------------------------------
 
-type AuthIdent  = Text
-type AuthToken  = Text
+type UserIdent  = Text
+type UserToken  = Text
 
-authParser :: Parser (AuthIdent, AuthToken)
+authParser :: Parser (UserIdent, UserToken)
 authParser = do
 
     email <- takeWhile1 (/= ':')
@@ -133,7 +133,7 @@ authParser = do
 
     return (decodeUtf8 email, T.pack token)
 
-str2auth :: ByteString -> Either String (AuthIdent, AuthToken)
+str2auth :: ByteString -> Either String (UserIdent, UserToken)
 str2auth str = eitherResult $ feed (parse authParser str) B.empty
 
 ------------------------------------------------------------------------
