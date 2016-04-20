@@ -2,16 +2,24 @@ module Handler.Profile where
 
 import Import
 
+import Betty.Model
 import Betty.Token (getToken)
 
 ------------------------------------------------------------------------
 
 getProfileR :: Handler Html
 getProfileR = do
-    Entity _ u <- requireAuth
+    Entity uid u <- requireAuth
 
     t <- getToken $ userEmail u
     let token = fromMaybe "not set" t
+
+    -- TODO: refactor this.
+    userProfile <- runDB $ selectFirst [UserProfileUid ==. uid] []
+    let bgUnitPref = case userProfile of
+            Just p  -> fromMaybe MgDL (userProfileBgunits $ entityVal p)
+            Nothing -> MgDL
+    $(logDebug) ("bgUnitPref: " <> tshow bgUnitPref)
 
     defaultLayout $ do
         setTitle "Betty: Your Profile"
