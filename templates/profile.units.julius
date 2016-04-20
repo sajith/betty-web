@@ -1,0 +1,3 @@
+console.log("bgunit set to: " + #{toJSON bgUnitPref});
+
+$("select option[value=" + #{toJSON bgUnitPref} + "]").attr("selected", "selected");
