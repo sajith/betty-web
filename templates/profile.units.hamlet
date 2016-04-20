@@ -11,9 +11,9 @@
             Choose blood glucose unit
           <div .col-sm-8>
             <select .form-control name=bgunits>
-              <option bgunits=mgdl value=mgdl>
+              <option id=#{tshow MgDL} value=#{tshow MgDL}>
                 mg/dL
-              <option bgunits=mmol value=mmol>
+              <option id=#{tshow Mmol} value=#{tshow Mmol}>
                 mmol/L
         <div .form-group>
           <div .col-sm-offset-4 .col-sm-8>
