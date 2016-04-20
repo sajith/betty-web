@@ -5,12 +5,12 @@
   <div .panel-body>
     <div #units-update>
       <!-- blood sugar units -->
-      <form #bgunits-form action=@{ProfileBGUnitR} .form-horizontal role=form method=post>
+      <form #bgunit-form action=@{ProfileBGUnitR} .form-horizontal role=form method=post>
         <div .form-group>
           <label .col-sm-4 .control-label>
             Choose blood glucose unit
           <div .col-sm-8>
-            <select .form-control name=bgunits>
+            <select .form-control name=bgunit>
               <option id=#{tshow MgDL} value=#{tshow MgDL}>
                 mg/dL
               <option id=#{tshow Mmol} value=#{tshow Mmol}>
