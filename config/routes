@@ -17,6 +17,7 @@
 /profile        ProfileR        GET POST
 /profile/start  ProfileStartR   GET POST
 /profile/apikey ResetTokenR     POST
+/profile/bgunit ProfileBGUnitR  POST
 
 /add/bg         AddBGR          GET POST
 /history/bg     HistoryBGR      GET
@@ -27,3 +28,4 @@
 /api/v0/sugar/get       ApiV0SugarGetR      GET
 /api/v0/sugar/edit      ApiV0SugarEditR     PUT
 /api/v0/sugar/delete    ApiV0SugarDeleteR   DELETE
+
