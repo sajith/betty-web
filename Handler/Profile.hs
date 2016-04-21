@@ -3,7 +3,9 @@ module Handler.Profile where
 import Import
 
 import Betty.Model
-import Betty.Token (getToken)
+import Betty.Token      (getToken)
+
+import Yesod.Auth.Email (setpassR)
 
 ------------------------------------------------------------------------
 
