@@ -50,13 +50,7 @@
     border-color: #fff;
 }
 
-#footer {
-    border-top: none;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
 /* media queries */
-
 @media screen and (max-width: 767px) {
     #sidebar-noauth .sidebar-offcanvas {
         /* background: transparent; */
