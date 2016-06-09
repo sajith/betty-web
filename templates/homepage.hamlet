@@ -1,13 +1,18 @@
 <div .site-info>
-  <div .banner-area>
-    <section .banner>
+
+  <div #homepage>
+    <div .col-md-6 .col-lg-6>
+      <img #wish src=@{StaticR img_wish_400x400_jpg}>
+  
+    <div .col-md-6 .col-lg-6>
       <h1>
-        Manage diabetes the smart way.
+        Betty is a blood sugar tracker.
       <div .action>
         <p .lead>
-          <a .btn .btn-outline-inverse .btn-lg href=@{AboutR}>
+          <a #homepage-about-button .btn .btn-outline-inverse .btn-lg href=@{AboutR}>
             Find out more
 
+        
 $maybe analytics <- appAnalytics $ appSettings master
     <script>
       if(!window.location.href.match(/localhost/)){
