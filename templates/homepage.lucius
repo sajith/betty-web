@@ -23,7 +23,7 @@
 }
 
 #homepage h1 {
-    color: #777;
+    color: #777; // TODO: use variable
     text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
 
@@ -45,9 +45,9 @@
 }
 
 .btn-outline-inverse {
-    color: #fff;
+    color: #fff; // TODO: use variable
     background-color: transparent;
-    border-color: #fff;
+    border-color: #fff; // TODO: use variable
 }
 
 /* media queries */
