@@ -10,11 +10,11 @@
 }
 
 .navbar .nav > li > a {
-    color: white !important;
+    // color: #428bca;
 }
 
 .navbar .navbar-brand {
-    color: white !important;
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
 
 .banner-area {
