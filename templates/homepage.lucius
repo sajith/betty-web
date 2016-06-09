@@ -22,7 +22,7 @@
     overflow: auto;
 }
 
-.banner h1 { 
+.banner h1 {
     color: white;
     text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
@@ -55,7 +55,7 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-body { 
+body {
     background-attachment: fixed;
     background-color: rgba(96, 140, 200, 1.0);
     background-position: left top;
@@ -73,9 +73,8 @@ body {
 /* media queries */
 
 @media screen and (max-width: 767px) {
-    #sidebar-noauth .sidebar-offcanvas { 
+    #sidebar-noauth .sidebar-offcanvas {
         /* background: transparent; */
         border-right: 1px;
     }
 }
-
