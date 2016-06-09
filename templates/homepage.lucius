@@ -55,21 +55,6 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-body {
-    background-attachment: fixed;
-    background-color: rgba(96, 140, 200, 1.0);
-    background-position: left top;
-    background-image: url(@{StaticR img_floral_png});
-    background-repeat: repeat;
-
-/*
-  -webkit-background-size: cover;
-     -moz-background-size: cover;
-       -o-background-size: cover;
-          background-size: cover;
-  */
-}
-
 /* media queries */
 
 @media screen and (max-width: 767px) {
