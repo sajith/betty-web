@@ -5,13 +5,23 @@
       <img #wish src=@{StaticR img_wish_400x400_jpg}>
   
     <div .col-md-6 .col-lg-6>
+
+      <!-- blurb -->
       <h1>
         Betty is a blood sugar tracker.
-      <div .action>
-        <p .lead>
-          <a #homepage-about-button .btn .btn-outline-inverse .btn-lg href=@{AboutR}>
-            Find out more
 
+      <div>
+            
+        <p>
+          Diabates is manageable for the most part.  We can manage our
+          blood sugar levels by watching quality and quantity of food
+          we consume, and with regular physical excercise.  This is
+          very empowering!
+
+        <p>
+          "Betty" is a simple web application to track your blood
+          sugar.
+          
         
 $maybe analytics <- appAnalytics $ appSettings master
     <script>
