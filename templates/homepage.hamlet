@@ -1,9 +1,16 @@
 <div .site-info>
 
   <div #homepage>
+    
     <div .col-md-6 .col-lg-6>
-      <img #wish src=@{StaticR img_wish_400x400_jpg}>
-  
+
+      <!-- image -->
+      <picture #wish-picture>
+        <source srcset=@{StaticR img_wish_500x500_jpg} media="(min-width: 1200px)">
+        <source srcset=@{StaticR img_wish_400x400_jpg} media="(max-width: 1200px) and (min-width: 769px)">
+        <source srcset=@{StaticR img_wish_300x300_jpg} media="(max-width: 768px)">
+        <img #wish src=@{StaticR img_wish_300x300_jpg}>
+
     <div .col-md-6 .col-lg-6>
 
       <!-- blurb -->
