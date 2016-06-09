@@ -26,8 +26,8 @@
           very empowering!
 
         <p>
-          "Betty" is a simple web application to track your blood
-          sugar.
+          "Betty" is a simple web application created to help you keep
+          track of your blood sugar.
           
         
 $maybe analytics <- appAnalytics $ appSettings master
