@@ -12,7 +12,7 @@ spec = withApp $ do
         it "loads the index and checks it looks right" $ do
             get HomeR
             statusIs 200
-            htmlAllContain "h1" "Manage diabetes the smart way."
+            htmlAllContain "h1" "Betty is a blood sugar tracker."
 
             htmlAnyContain "a" "Betty"
             htmlAnyContain "a" "Log in"
