@@ -1,4 +1,4 @@
-<div .content-area>
+<div #infopage .content-area>
 
   <h1>About Betty
   

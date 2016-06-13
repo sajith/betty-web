@@ -21,3 +21,10 @@ body #message {
     color: #428bca;
     text-shadow: 2px 4px 3px rgba(0,0,0,0.3);    
 }
+
+// TODO: use variables.
+@media screen and (min-width: 768px) {
+    #infopage {
+        max-width: 600px;
+    }
+}
