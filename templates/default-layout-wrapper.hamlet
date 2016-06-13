@@ -95,8 +95,9 @@ $newline never
       <div .container>
         <div .row>
 
-          <!-- sidebar -->
           $maybe _ <- ma
+            <!-- sidebar + content, when authenticated -->
+            <!-- sidebar -->                      
             <div .col-xs-6 .col-sm-4 .col-md-3 #sidebar-auth>
               <div #sidebar .panel .sidebar-offcanvas>
                 <ul #affix .nav .nav-stacked>
@@ -125,23 +126,22 @@ $newline never
                     <a href=@{AuthR LogoutR}>
                       <span .fa .fa-sign-out .sidebar-icon>
                       Log out
-          $nothing
-            <div .col-xs-6 .col-sm-4 .col-md-3 #sidebar-noauth>
-              <div .sidebar-offcanvas>
-                <ul #affix .nav .nav-stacked>
-                  <li>
-                    <a href=@{AuthR registerR}>
-                      Register
-                  <li>
-                    <a href=@{AuthR LoginR}>
-                      Log in
-          <!-- end sidebar -->
+            <!-- end sidebar -->
+                      
+            <!-- content -->
+            <div .col-xs-12 .col-sm-8 .col-md-9 .content>
+              <div #page-main .page-main>
+                ^{pageBody pc}
+            <!-- end content -->
 
-          <!-- content -->
-          <div .col-xs-12 .col-sm-8 .col-md-9 .content>
+            <!-- end sidebar + content, when authenticated -->
+            
+          $nothing
+            <!-- content, when not authenticated -->
             <div #page-main .page-main>
               ^{pageBody pc}
-
+            <!-- end content, when not authenticated -->
+              
       <!-- footer -->
       <footer>
         <div #footer>
