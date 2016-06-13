@@ -22,6 +22,10 @@ body #message {
     text-shadow: 2px 4px 3px rgba(0,0,0,0.3);    
 }
 
+#navbar-user-status .fa {
+    padding-right: 0.3em;
+}
+
 // TODO: use variables.
 @media screen and (min-width: 768px) {
     #infopage {
