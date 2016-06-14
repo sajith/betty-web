@@ -35,3 +35,7 @@
 .btn {
     margin-bottom: 10px;
 }
+
+#navbar-user-status, #sidebar-auth {
+    display: none;
+}

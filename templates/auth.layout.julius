@@ -1,6 +1,3 @@
-$("#navbar-user-status").remove();
-$("#sidebar-auth").remove();
-
 var forgotTxt = "<div id=\"forgotPassword\"> \
 <p><a href=\"@{AuthR forgotPasswordR}\">Forgot password?</a><p> \
 </div>";
