@@ -13,6 +13,7 @@ import           Yesod.Default.Util   (addStaticContentExternal)
 
 import           Yesod.Auth.Email
 
+import           Betty.Auth
 import           Betty.Helpers
 import           Betty.Signup
 import           Betty.Token
@@ -176,7 +177,7 @@ instance YesodAuth App where
                 }
 
     -- You can add other plugins like BrowserID, email or OAuth here
-    authPlugins _ = [authEmail]
+    authPlugins _ = [authEmailBetty]
 
     authHttpManager = getHttpManager
 

@@ -50,6 +50,7 @@ library
                    Betty.Vendor
                    Betty.Pid
                    Betty.Token
+                   Betty.Auth
                    Betty.DateTime
                    Paths_betty
 
