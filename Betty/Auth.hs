@@ -28,9 +28,9 @@ authEmailBetty = do
   <div #emailLoginForm>
     <form method=post action=@{tm loginR}>
       <div>
-        <input #email name=email required="" autofocus="" placeholder=Email type=email>
+        <input #email name=email required="" value="" autofocus="" placeholder=Email type=email>
       <div>
-        <input #password name=password required="" placeholder=Password type=password>
+        <input #password name=password required="" value="" placeholder=Password type=password>
       <div>
         <button #submitButton .btn .btn-success type=submit>
           Login with email
