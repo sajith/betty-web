@@ -3,14 +3,14 @@ html {
     min-height: 100%;
 }
 
-body #message {
-    border: 1px solid #e7e7e7;
-}
-
 body {
     font-family: Verdana, Helvetica, Arial, sans-serif;
     margin-bottom: 120px;
     /* padding-top: 50px; */
+}
+
+body #message {
+    border: 1px solid #e7e7e7;
 }
 
 .wrapper {
