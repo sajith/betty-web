@@ -1,16 +1,50 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body #message {
     border: 1px solid #e7e7e7;
 }
 
+body {
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  margin-bottom: 120px;
+  /* padding-top: 50px; */
+}
+
+.wrapper {
+  height: 100%;
+}
+
+.page-main {
+  padding-top: 1.2em;
+  overflow: auto;
+}
+
+.full-width {
+  min-width: 100%;
+  position: relative;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
 .navbar {
-    background: transparent;
-    background-color: transparent;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    color: white !important;
-    font-color: white !important;
-    text-color: white !important;
-    foregound-color: white !important;
+  background: transparent;
+  background-color: transparent;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  color: white !important;
+  font-color: white !important;
+  text-color: white !important;
+  foregound-color: white !important;
+}
+
+.navbar-default {
+  border-color: transparent;
+  border-bottom-color: #e7e7e7;
 }
 
 .navbar .nav > li > a {
@@ -26,9 +60,174 @@ body #message {
     padding-right: 0.3em;
 }
 
-// TODO: use variables.
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  padding: 20px 0;
+  border-top: 1px solid #e7e7e7;
+}
+
+#footer .site-meta a { 
+  /* color: #333; */
+}
+
+#footer .site-meta ul {
+  padding-left: 0;
+}
+
+#footer .site-meta li {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px 10px 0px 0px;
+  display: inline-block;
+}
+
+#footer .site-meta li:first-child {
+  border-left: 0;
+  list-style: none;
+  display: inline;
+}
+
+#version-info {
+  font-size: 75%;
+  opacity: 0.5;
+}
+
+.navbar-header {
+  float: none;
+  text-align: center;
+}
+
+.nav li a {
+  border-bottom: 1px solid #ddd;
+  color: #7b7a7e;
+}
+
+.nav li a i {
+  margin-right: 20px;
+}
+
+#navbar-user-status {
+  float: right;
+  margin-right: 15px;
+}
+
+#navbar-user-status a {
+  border-bottom-width: 0;
+}
+
+.navbar-user-status {
+  float: right;
+}
+
+.navbar-user-status a {
+  border-bottom-width: 0;
+}
+
+.sidebar-icon {
+  padding-right: 1em;
+}
+
+.content-area {
+  padding-bottom: 50px;
+}
+
+.content-area h1 {
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+  margin-top: 0;
+  font-weight: 300;
+}
+
+.content-area h2 {
+  font-weight: 300;
+  font-size: 26px;
+  line-height: 30px;
+}
+
+.content-area h3 {
+  font-weight: 300;
+  font-size: 22px;
+}
+
 @media screen and (min-width: 768px) {
-    #infopage {
-        max-width: 600px;
-    }
+  #sidebar {
+    border: 1px solid #e7e7e7;
+    border-radius: 5px;
+    margin-top: 1.2em;
+  }
+
+  #sidebar-noauth { 
+    display: none;
+  }
+
+  #infopage {
+    max-width: 600px;
+  }  
+}
+
+@media screen and (max-width: 767px) {
+
+  #navbar-brand-loggedin { float: right; }
+  #navbar-brand-notloggedin { float: left; }
+
+  .navbar-toggle { float: left; margin-left: 15px; }
+
+  /* .affix { position: relative !important; transform: none !important; } */
+  /* #affix { width: 100%; } */
+
+  .sidebar-offcanvas {
+    -webkit-transition: all 0.3s ease-in-out;
+       -moz-transition: all 0.3s ease-in-out;
+        -ms-transition: all 0.3s ease-in-out;
+         -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+    width: 50%;
+    min-height: 100% !important;
+    overflow-x: scroll !important;
+    background-color: #f8f8f8;
+    z-index: 51;
+    margin: 0; 
+    padding: 0;
+    position: fixed;
+    top: 50px;
+    left: -70%;
+  }
+
+  .sidebar-offcanvas ul li {
+    margin: 0;
+  }
+
+  .sidebar-offcanvas ul li a {
+    padding: 15px 20px;
+    margin: 0;
+    font-size: 15px;
+    border-bottom: 1px solid #e7e7e7;
+  }
+
+  .sidebar-offcanvas ul li a:hover {
+    /* background: #303030; */
+    border: none;
+    border-radius: 0;
+  }
+
+  .nav {
+    margin-top: 0px;
+  }
+
+  .nav > li > a:hover,
+  .nav > li > a:focus {
+    /* background-color: #303030 */
+  }
+
+  .active {
+    left: 0;
+  }
+
+  #sidebar-noauth .sidebar-offcanvas { 
+    background-color: #f8f8f8;
+    max-height: auto;
+  }
 }
