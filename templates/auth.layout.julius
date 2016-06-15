@@ -1,6 +1,0 @@
-var forgotTxt = "<div id=\"forgotPassword\"> \
-<p><a href=\"@{AuthR forgotPasswordR}\">Forgot password?</a><p> \
-</div>";
-
-$("#emailLoginForm").append(forgotTxt);
-
