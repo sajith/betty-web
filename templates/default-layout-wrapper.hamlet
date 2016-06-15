@@ -93,7 +93,7 @@ $newline never
       <!-- end top navbar -->
 
       <div .container>
-        <div .row>
+        <div .row #pagebody>
 
           $maybe _ <- ma
             <!-- sidebar + content, when authenticated -->

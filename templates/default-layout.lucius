@@ -17,6 +17,12 @@ body #message {
     height: 100%;
 }
 
+#pagebody {
+    /* TODO: find a better alternative to hardcoded padding */
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
 .page-main {
     padding-top: 1.2em;
     overflow: auto;
