@@ -3,7 +3,7 @@
     padding-left: 0;
 }
 
-#page-main {
+#pagemain {
     padding: 30px 30px 20px 30px;
     margin: 0 auto;
     background-color: #fff;

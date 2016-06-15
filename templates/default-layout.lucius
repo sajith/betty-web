@@ -23,9 +23,9 @@ body #message {
     padding-right: 16px;
 }
 
-.page-main {
+.pagemain {
     padding-top: 1.2em;
-    overflow: auto;
+    /* overflow: auto; */
 }
 
 .full-width {
