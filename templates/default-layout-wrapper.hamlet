@@ -49,7 +49,7 @@ $newline never
       document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
 
   <body>
-    <div .wrapper>
+    <div #wrapper>
 
       <!-- top navbar -->
       <div .navbar .navbar-default .navbar-top role=navigation>

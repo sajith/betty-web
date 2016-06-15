@@ -13,7 +13,7 @@ body #message {
     border: 1px solid #e7e7e7;
 }
 
-.wrapper {
+#wrapper {
     height: 100%;
 }
 
