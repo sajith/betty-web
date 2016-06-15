@@ -23,11 +23,6 @@ body #message {
     padding-right: 16px;
 }
 
-.pagemain {
-    padding-top: 1.2em;
-    /* overflow: auto; */
-}
-
 .full-width {
     min-width: 100%;
     position: relative;
