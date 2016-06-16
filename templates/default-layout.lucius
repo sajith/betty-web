@@ -27,12 +27,6 @@ h1, h2, h3, h4 {
     height: 100%;
 }
 
-#pagebody {
-    /* TODO: find a better alternative to hardcoded padding */
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
 .full-width {
     min-width: 100%;
     position: relative;

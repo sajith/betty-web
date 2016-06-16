@@ -3,6 +3,12 @@
     padding-left: 0;
 }
 
+#pagebody {
+    /* TODO: find a better alternative to hardcoded padding */    
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
 #pagemain {
     padding: 30px 30px 20px 30px;
     margin: 0 auto;
