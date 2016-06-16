@@ -39,3 +39,15 @@
 #navbar-user-status, #sidebar-auth {
     display: none;
 }
+
+@media screen and (min-width: 601px) {
+    #pagemain {
+        width: 500px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #pagemain {
+        width: 100%;
+    }    
+}
