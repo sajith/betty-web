@@ -163,7 +163,7 @@ $newline never
                       Privacy Policy
               <div .text-muted>
                 <p>
-                  <span .nowrap>
+                  <span #copyright .nowrap>
                     #{appCopyright $ appSettings master}
               <div #version-info .text-muted>
                 <p>
