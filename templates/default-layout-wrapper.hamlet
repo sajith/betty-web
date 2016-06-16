@@ -147,10 +147,6 @@ $newline never
         <div #footer>
           <div .container>
             <div .muted>
-              <div .text-muted>
-                <p>
-                  <span .nowrap>
-                    #{appCopyright $ appSettings master}
               <div .site-meta .muted>
                 <ul>
                   <li>
@@ -165,6 +161,10 @@ $newline never
                   <li>
                     <a href="@{PrivacyR}">
                       Privacy Policy
+              <div .text-muted>
+                <p>
+                  <span .nowrap>
+                    #{appCopyright $ appSettings master}
               <div #version-info .text-muted>
                 <p>
                   #{appVersion} / rev #{gitCommitHash}
