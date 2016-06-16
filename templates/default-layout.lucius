@@ -80,6 +80,10 @@ h1, h2, h3, h4 {
     border-top: 1px solid #e7e7e7;
 }
 
+#copyright {
+    font-size: 90%;
+}
+
 #footer .site-meta a { 
     /* color: #333; */
 }
