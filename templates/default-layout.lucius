@@ -3,8 +3,14 @@ html {
     min-height: 100%;
 }
 
+@font-face {
+    font-family: Cantarell;
+    src: url('@{StaticR fonts_Cantarell_Regular_otf}') format('opentype');
+}
+
 body {
-    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-family: Cantarell, Verdana, Helvetica, Arial, sans-serif;
+    font-size: 16px;
     margin-bottom: 120px;
     /* padding-top: 50px; */
 }
