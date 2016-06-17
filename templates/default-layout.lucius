@@ -53,12 +53,12 @@ h1, h2, h3, h4 {
 }
 
 .navbar .nav > li > a {
-    color: #428bca;    
+    color: #428bca;
 }
 
 .navbar .navbar-brand {
     color: #428bca;
-    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);    
+    text-shadow: 2px 4px 3px rgba(0,0,0,0.3);
 }
 
 #navbar-user-status .fa {
@@ -78,7 +78,7 @@ h1, h2, h3, h4 {
     font-size: 90%;
 }
 
-#footer .site-meta a { 
+#footer .site-meta a {
     /* color: #333; */
 }
 
@@ -168,13 +168,13 @@ h1, h2, h3, h4 {
         margin-top: 1.2em;
     }
 
-    #sidebar-noauth { 
+    #sidebar-noauth {
         display: none;
     }
 
     #infopage {
         max-width: 600px;
-    }  
+    }
 }
 
 @media screen and (max-width: 767px) {
@@ -198,7 +198,7 @@ h1, h2, h3, h4 {
         overflow-x: scroll !important;
         background-color: #f8f8f8;
         z-index: 51;
-        margin: 0; 
+        margin: 0;
         padding: 0;
         position: fixed;
         top: 50px;
@@ -235,7 +235,7 @@ h1, h2, h3, h4 {
         left: 0;
     }
 
-    #sidebar-noauth .sidebar-offcanvas { 
+    #sidebar-noauth .sidebar-offcanvas {
         background-color: #f8f8f8;
         max-height: auto;
     }
