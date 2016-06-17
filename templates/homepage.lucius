@@ -27,6 +27,11 @@
     text-shadow: 2px 2px 2px rgba(0,0,0,0.3);
 }
 
+#wish {
+    max-width: 100%;
+    height: auto;
+}
+
 .btn {
     display: inline-block;
     margin-bottom: 0px;
@@ -55,10 +60,5 @@
     #sidebar-noauth .sidebar-offcanvas {
         /* background: transparent; */
         border-right: 1px;
-    }
-
-    #wish {
-        max-width: 100%;
-        height: auto;
     }
 }
