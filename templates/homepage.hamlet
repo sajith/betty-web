@@ -2,7 +2,7 @@
 
   <div #homepage>
     
-    <div .col-md-6 .col-lg-6>
+    <div .col-sm-6 .col-md-6 .col-lg-6>
 
       <!-- image -->
       <picture #wish-picture>
@@ -11,7 +11,7 @@
         <source srcset=@{StaticR img_wish_300x300_jpg} media="(max-width: 768px)">
         <img #wish src=@{StaticR img_wish_300x300_jpg}>
 
-    <div .col-md-6 .col-lg-6>
+    <div .col-sm-6 .col-md-6 .col-lg-6>
 
       <!-- blurb -->
       <h1>
