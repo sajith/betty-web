@@ -29,6 +29,7 @@ h1, h2, h3, h4 {
 
 #pagebody {
     margin-left: 0;
+    margin-bottom: 20px;
 }
 
 .full-width {
