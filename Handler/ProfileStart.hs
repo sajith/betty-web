@@ -69,17 +69,9 @@ postProfileStartR = do
                 "lb" -> Lb
                 _    -> Lb
 
-        ty = case diabetesType input of
-                Just t  -> t
-                Nothing -> "unknown"
-
-        dy = case diagnosedYear input of
-                Just y  -> y
-                Nothing -> 0
-
-        by = case birthYear input of
-                Just y  -> y
-                Nothing -> 0
+        ty = fromMaybe "unknown" (diabetesType input)
+        dy = fromMaybe 0 (diagnosedYear input)
+        by = fromMaybe 0 (birthYear input)
 
     let record = UserProfile
                  uid
