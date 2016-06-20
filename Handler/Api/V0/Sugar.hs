@@ -132,10 +132,9 @@ getApiV0SugarGetR = do
 
     -- With `selectRep` and `provideRep`, we could return other
     -- representations (XML, for example) if we want to.  Neat.
-    selectRep $ do
-        provideRep $ return $ object [ "count"  .= length sugars
-                                     , "sugars" .= sugars
-                                     ]
+    selectRep $ provideRep $ return $ object [ "count"  .= length sugars
+                                             , "sugars" .= sugars
+                                             ]
 
 ------------------------------------------------------------------------
 
