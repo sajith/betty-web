@@ -6,7 +6,7 @@ import TestImport
 import TestTools
 
 spec :: Spec
-spec = withApp $ do
+spec = withApp $
     describe "test homepage for unauthenticated user" $ do
 
         it "loads the index and checks it looks right" $ do
@@ -23,7 +23,7 @@ spec = withApp $ do
             htmlAnyContain "a" "Terms of Use"
             htmlAnyContain "a" "Privacy Policy"
 
-        it "Requires login" $ do
+        it "Requires login" $
             needsLogin GET ("/history/bg" :: Text)
 
 {--
