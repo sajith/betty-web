@@ -70,6 +70,10 @@ h1, h2, h3, h4 {
     padding-right: 0.3em;
 }
 
+#maincontainer {
+    padding-left: 0;
+}
+
 #footer {
     position: absolute;
     bottom: 0;
