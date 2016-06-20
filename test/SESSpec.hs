@@ -7,13 +7,13 @@ import TestImport
 
 #if USE_AWS_SES
 
-import Yesod
 import Betty.SESCreds                (access, ender, secret, sender)
 import Control.Monad.Trans.Resource  (runResourceT)
 import Network.HTTP.Conduit          (newManager, tlsManagerSettings)
 import Network.Mail.Mime
 import Network.Mail.Mime.SES
 import Text.Blaze.Html.Renderer.Utf8 (renderHtml)
+import Yesod
 
 -- TODO: refactor to correctly use Betty.Signup.SES
 
@@ -29,11 +29,6 @@ spec = withApp $ do
             runResourceT $ do
                 manager <- liftIO $ newManager tlsManagerSettings
                 renderSendMailSES manager ses mail
-
-            -- TODO: this line does nothing except pleasing the type
-            -- checker; make it do useful work, by checking results of
-            -- running the above code.
-            assertEqual "Nothing" True $ not False
 
 ses :: SES
 ses = SES { sesFrom      = sender
@@ -63,9 +58,9 @@ htmlpart = Part "text/html" None Nothing [] $
 #else
 
 spec :: Spec
-spec = withApp $ do
-    describe "SES Email test" $ do
-        it "Not configured to use SES, skipping test" $ do
-            assertEqual "Nothing" True $ not False
+spec = withApp $
+    describe "SES Email test" $
+        it "Not configured to use SES, skipping test" $
+            assertEqual "Nothing" True True
 
 #endif
