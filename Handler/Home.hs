@@ -75,6 +75,6 @@ min' sv = case sv of
 avg' :: RealFloat a => [a] -> String
 avg' sv = case sv of
     [] -> "_"
-    _  -> showFFloat (Just 2) ((sum sv) / fromIntegral (length sv)) ""
+    _  -> showFFloat (Just 2) (sum sv / fromIntegral (length sv)) ""
 
 ------------------------------------------------------------------------
