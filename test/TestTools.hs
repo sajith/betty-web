@@ -14,13 +14,13 @@ module TestTools
 
 import TestImport
 
-import Yesod.Core           (RedirectUrl)
-import Network.URI          (URI(uriPath), parseURI)
-import Network.HTTP.Types   (StdMethod(..), renderStdMethod, Status(..))
-import Network.Wai.Test     (SResponse(..))
+import Network.HTTP.Types (Status (..), StdMethod (..), renderStdMethod)
+import Network.URI        (URI (uriPath), parseURI)
+import Network.Wai.Test   (SResponse (..))
+import Yesod.Core         (RedirectUrl)
 
-import Data.ByteString   as B hiding (elem) 
-import Data.Text         as T
+import Data.ByteString    as B hiding (elem)
+import Data.Text          as T
 
 testRoot :: ByteString
 testRoot = "http://localhost:3000"
@@ -63,7 +63,7 @@ submitLogin user pass = do
     extractLocation
 
 extractLocation :: YesodExample App (Maybe ByteString)
-extractLocation = do
+extractLocation =
     withResponse (\ SResponse {simpleStatus = s, simpleHeaders = h} -> do
                        let code = statusCode s
                        assertEqual ("Expected 302/303, received " ++ show code)
