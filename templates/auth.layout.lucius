@@ -4,9 +4,9 @@
 }
 
 #pagemain {
-    padding: 30px 30px 20px 30px;
-    margin: 0 auto;
-    background-color: #fff;
+    padding: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
     border: 1px solid rgba(0,0,0,0.1);
     float: left;
 }
