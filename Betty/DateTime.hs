@@ -44,7 +44,7 @@ formatDayTZ day tz = formatTime tz dateFormat t
 ------------------------------------------------------------------------
 
 formatUTCTime :: UTCTime -> String
-formatUTCTime tm = formatTime defaultTimeLocale timeFormat tm
+formatUTCTime = formatTime defaultTimeLocale timeFormat
 
 formatUTCTimeTZ :: UTCTime -> TimeLocale -> String
 formatUTCTimeTZ tm tz = formatTime tz timeFormat tm
