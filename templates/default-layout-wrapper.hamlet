@@ -130,7 +130,7 @@ $newline never
                       
             <!-- content -->
             <div .col-xs-12 .col-sm-8 .col-md-9 .content>
-              <div #pagemain #authpagemain .pagemain>
+              <div #pagemain .authcontent .pagemain>
                 ^{pageBody pc}
             <!-- end content -->
 
@@ -138,7 +138,7 @@ $newline never
             
           $nothing
             <!-- content, when not authenticated -->
-            <div #pagemain #unauthpagemain .pagemain>
+            <div #pagemain .unauthcontent .pagemain>
               ^{pageBody pc}
             <!-- end content, when not authenticated -->
               
