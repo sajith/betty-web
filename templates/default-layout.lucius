@@ -226,6 +226,10 @@ h1, h2, h3, h4 {
         border-radius: 0;
     }
 
+    .navbar-toggle {
+        margin-right: 0 !important;
+    }
+    
     .nav {
         margin-top: 0px;
     }
