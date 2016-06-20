@@ -62,15 +62,13 @@ postAddBGR = do
 
     utctime <- liftIO getCurrentTime
 
-    let tzs = fmap (pack . timeZoneOffsetString . minutesToTimeZone) $ tz bgdata
+    let tzs = (pack . timeZoneOffsetString . minutesToTimeZone) <$> tz bgdata
 
     -- Mg/dL is the default blood sugar unit.
     -- TODO: there could be a better way of doing this. Revisit later.
     profile <- runDB $ selectFirst [UserProfileUid ==. uid] []
     let unit = case profile of
-            Just p  -> case (userProfileBgunits . entityVal) p of
-                Just un -> un
-                Nothing -> MgDL
+            Just p  -> fromMaybe MgDL ((userProfileBgunits . entityVal) p)
             Nothing -> MgDL
 
     let record = BloodGlucoseHistory
@@ -91,5 +89,5 @@ postAddBGR = do
     $(logDebug) "[POST] Recorded blood glucose"
 
     -- TODO: avoid the redirect.
-    redirect $ HistoryBGR
+    redirect HistoryBGR
 
