@@ -24,3 +24,4 @@ cabal.sandbox.config
 /.stack-work/
 /Makefile.deploy
 /issues/
+*_flymake.hs
