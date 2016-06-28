@@ -47,6 +47,13 @@ Email
 
 ------------------------------------------------------------------------
 
+AuthToken
+    token Text      -- API auth token
+    userId UserId    
+    deriving Show
+
+------------------------------------------------------------------------
+
 -- other details about a user goes here
 
 UserProfile
