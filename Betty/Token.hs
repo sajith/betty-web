@@ -6,6 +6,7 @@ module Betty.Token
        , maybeAuthToken
        , getToken
        , setToken
+       , setNewToken
        , hasToken
        ) where
 
@@ -82,6 +83,17 @@ hasToken :: (YesodPersist site,
 hasToken uid = runDB $ do
     res <- selectFirst [AuthTokenUid ==. uid] []
     return (isJust res)
+
+------------------------------------------------------------------------
+
+setNewToken :: (YesodPersist site,
+                YesodPersistBackend site ~ SqlBackend) =>
+               Key User -> HandlerT site IO ()
+setNewToken uid = do
+    token <- lift newToken
+    $logDebug ("setNewToken: uid: " <> tshow (unUserKey uid)
+               <> ", new token:" <> token)
+    setToken uid token
 
 ------------------------------------------------------------------------
 
