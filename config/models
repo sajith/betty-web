@@ -45,9 +45,12 @@ Email
 
 ------------------------------------------------------------------------
 
+-- API auth tokens.
 AuthToken
-    token Text      -- API auth token
-    userId UserId    
+    uid UserId           -- UserId from `User`.
+    token Text           -- The token.
+    UniqueToken token    -- Tokens have to be unique!
+    UniqueUserId uid     -- One token per user.
     deriving Show
 
 ------------------------------------------------------------------------
