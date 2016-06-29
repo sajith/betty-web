@@ -80,8 +80,8 @@ hasToken :: (YesodPersist site,
              YesodPersistBackend site ~ SqlBackend) =>
             Key User -> HandlerT site IO Bool
 hasToken uid = runDB $ do
-    record <- selectFirst [AuthTokenUid ==. uid] []
-    return $ if (isJust record) then True else False
+    res <- selectFirst [AuthTokenUid ==. uid] []
+    return (isJust res)
 
 ------------------------------------------------------------------------
 
