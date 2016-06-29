@@ -95,10 +95,8 @@ setToken uid token = runDB $ do
     -- try to update.  Using `repsert` would be nice, but we have two
     -- unique constraints on AuthToken record...
     res <- insertBy $ AuthToken uid token
-    when (isLeft res) $ do
+    when (isLeft res) $
         updateWhere [AuthTokenUid ==. uid] [AuthTokenToken =. token]
-        -- TODO: implement getToken and remove this:
-        -- updateWhere [UserId ==. uid] [UserToken =. Just token]
 
 ------------------------------------------------------------------------
 
