@@ -13,8 +13,8 @@ getProfileR :: Handler Html
 getProfileR = do
     Entity uid u <- requireAuth
 
-    t <- getToken $ userEmail u
-    let token = fromMaybe "not set" t
+    t <- getToken uid
+    let token = fromMaybe ("not set" :: Text) t
 
     -- TODO: refactor this.
     userProfile <- runDB $ selectFirst [UserProfileUid ==. uid] []
