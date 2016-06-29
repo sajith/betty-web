@@ -9,23 +9,19 @@ module Betty.Token
        , isTokenSet
        ) where
 
-import           ClassyPrelude.Yesod
+import           ClassyPrelude.Yesod as P
 
-import           Data.Either                      (isLeft)
-import qualified Data.List                        as L
-import           Data.Maybe                       (fromJust)
-import           Data.Text                        as T
+import           Data.Either         (isLeft)
+import qualified Data.List           as L
+import           Data.Text           as T
 
-import qualified Data.Vector.Unboxed              as V (Vector, map, toList)
-import           System.Random.MWC                (asGenST, uniformVector,
-                                                   withSystemRandom)
+import qualified Data.Vector.Unboxed as V (Vector, map, toList)
+import           System.Random.MWC   (asGenST, uniformVector,
+                                      withSystemRandom)
 
-import           Data.Attoparsec.ByteString.Char8 as C
-import           Data.ByteString.Char8            as B
+import           Network.Wai         as W (requestHeaders)
 
-import           Network.Wai                      as W (requestHeaders)
-
-import           Betty.Helpers                    (sendJson)
+import           Betty.Helpers       (sendJson)
 import           Model
 
 ------------------------------------------------------------------------
@@ -69,20 +65,13 @@ newToken' len = do
 getToken :: forall site.
             (YesodPersist site,
              YesodPersistBackend site ~ SqlBackend) =>
-            Text -> HandlerT site IO (Maybe Text)
-getToken email = do
-    $(logDebug) ("getToken: " <> email)
-    t <- runDB $ getBy $ UniqueUser email
+            Key User -> HandlerT site IO (Maybe Text)
+getToken uid = runDB $ do
+    $logDebug ("getToken, uid: " <> tshow uid)
+    t <- selectFirst [AuthTokenUid ==. uid] []
     case t of
-        Nothing -> do
-            $(logDebug) ("getToken: no token found for " <> email)
-            return Nothing
-        Just t' -> do
-            let token = (userToken . entityVal) t'
-            $(logDebug) ("getToken: Token "
-                         <> tshow token <> " found for "
-                         <> email)
-            return token
+      Nothing -> return Nothing
+      Just (Entity _ v) -> return $ Just $ authTokenToken v
 
 ------------------------------------------------------------------------
 
@@ -90,7 +79,13 @@ isTokenSet :: forall site.
               (YesodPersist site,
                YesodPersistBackend site ~ SqlBackend) =>
               Text -> HandlerT site IO Bool
-isTokenSet email = isJust <$> getToken email
+isTokenSet email = runDB $ do
+    user <- getBy (UniqueUser email)
+    case user of
+      Just (Entity uid _) -> do
+          ts <- selectList [AuthTokenUid ==. uid] []
+          return (P.length ts >= 1)
+      Nothing -> return False
 
 ------------------------------------------------------------------------
 
@@ -107,46 +102,11 @@ setToken uid token = runDB $ do
     when (isLeft res) $ do
         updateWhere [AuthTokenUid ==. uid] [AuthTokenToken =. token]
         -- TODO: implement getToken and remove this:
-        updateWhere [UserId ==. uid] [UserToken =. Just token]
+        -- updateWhere [UserId ==. uid] [UserToken =. Just token]
 
 ------------------------------------------------------------------------
 
--- TODO: is there a better way to do this?
-isTokenValid :: forall site.
-                (YesodPersist site,
-                 YesodPersistBackend site ~ SqlBackend) =>
-                Text -> Text -> HandlerT site IO Bool
-isTokenValid email token = do
-    t <- getToken email
-    case t of
-        Nothing -> do
-            $(logDebug) ("isTokenValid: no token for " <> email)
-            return False
-        Just realtoken -> do
-            $(logDebug) ("realToken: " <> realtoken
-                         <> ", given:" <> token)
-            return (token == realtoken)
-
-------------------------------------------------------------------------
-
-type UserIdent  = Text
-type UserToken  = Text
-
-authParser :: Parser (UserIdent, UserToken)
-authParser = do
-
-    email <- takeWhile1 (/= ':')
-    _     <- char8 ':'
-    token <- many1 anyChar
-
-    return (decodeUtf8 email, T.pack token)
-
-str2auth :: ByteString -> Either String (UserIdent, UserToken)
-str2auth str = eitherResult $ feed (parse authParser str) B.empty
-
-------------------------------------------------------------------------
-
--- TODO: Handle "Accept:" header, before sending JSON, maybe?
+-- TODO: Handle "Accept:" header before sending JSON, maybe?
 maybeAuthToken :: forall site.
                   (YesodPersist site,
                    YesodPersistBackend site ~ SqlBackend) =>
@@ -157,36 +117,26 @@ maybeAuthToken = do
 
     case lookup hAuthToken $ W.requestHeaders request of
 
-        Just hdr -> do
+        Just token -> do
 
-            $(logDebug) (hAuthToken <> ": " <> tshow hdr)
+            let tokenTxt = decodeUtf8 token
+            $logDebug (hAuthToken <> ": " <> tokenTxt)
 
-            case str2auth hdr of
+            -- lookup auth token in AuthToken; return uid or
+            -- nothing depending on lookup result.
+            record <- runDB $ getBy (UniqueToken tokenTxt)
 
-                Left err -> do
-                    $(logDebug) ("Error: " <> tshow err)
-                    _ <- sendJson status401 msgTokenCorrupt
-                    return Nothing
-
-                Right (email, token) -> do
-                    $(logDebug) ("Auth email: " <> email <>
-                                 " token: " <> token)
-
-                    valid <- isTokenValid email token
-
-                    if valid
-                        then do
-                            -- TODO: handle 'Nothing'
-                            u <- runDB $ getBy $ UniqueUser email
-                            let user = fmap entityKey u
-
-                            let u' = T.pack $ show $ fromJust user
-                            $(logDebug) ("Found token user: " <> u')
-
-                            return user
-                        else do
-                            _ <- sendJson status401 msgTokenWrong
-                            return Nothing
+            case record of
+              Nothing -> do
+                  $logDebug ("Token " <> tokenTxt <>
+                             "not found in DB")
+                  _ <- sendJson status401 msgTokenWrong
+                  return Nothing
+              Just (Entity _ v) -> do
+                  let uid = authTokenUid v
+                  $logDebug ("Uid " <> tshow uid <>
+                             "found for token " <> tokenTxt)
+                  return $ Just uid
 
         Nothing  -> do
             -- NOTE: calling any 'sendStatus' (sendResponseStatus,
@@ -208,10 +158,6 @@ maybeAuthToken = do
         msgTokenNotFound :: Text
         msgTokenNotFound =
             "auth token header (" <> hAuthToken <> ") not found"
-
-        -- error when auth token header cannot be parsed.
-        msgTokenCorrupt :: Text
-        msgTokenCorrupt = "auth token appears to be corrupt"
 
 ------------------------------------------------------------------------
 
