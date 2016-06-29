@@ -34,18 +34,21 @@ getApiV0UserR = do
 
     request <- waiRequest
     email   <- lookupAuth request >>= decodeAuth >>= verifyAuth
-    token   <- getToken email
     user    <- getUserInfo email
-    profile <- getUserProfile $ entityKey user
+
+    let uid = entityKey user
+    profile <- getUserProfile uid
 
     let u   = entityVal user
-        uid = getUid $ entityKey user
+        un  = getUid uid
         p   = entityVal profile
+
+    token   <- getToken uid
 
     $logDebug ("User: " <> tshow u)
     $logDebug ("Profile: " <> tshow p)
 
-    return $ object [ "uid"                .= show uid
+    return $ object [ "uid"                .= show un
                     , "email"              .= userEmail u
                     , "auth_token"         .= token
                     , "verified"           .= userVerified u
