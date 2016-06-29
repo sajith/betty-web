@@ -6,7 +6,7 @@ module Betty.Token
        , maybeAuthToken
        , getToken
        , setToken
-       , isTokenSet
+       , hasToken
        ) where
 
 import           ClassyPrelude.Yesod as P
@@ -75,17 +75,13 @@ getToken uid = runDB $ do
 
 ------------------------------------------------------------------------
 
-isTokenSet :: forall site.
-              (YesodPersist site,
-               YesodPersistBackend site ~ SqlBackend) =>
-              Text -> HandlerT site IO Bool
-isTokenSet email = runDB $ do
-    user <- getBy (UniqueUser email)
-    case user of
-      Just (Entity uid _) -> do
-          ts <- selectList [AuthTokenUid ==. uid] []
-          return (P.length ts >= 1)
-      Nothing -> return False
+-- TODO: write unit tests.
+hasToken :: (YesodPersist site,
+             YesodPersistBackend site ~ SqlBackend) =>
+            Key User -> HandlerT site IO Bool
+hasToken uid = runDB $ do
+    record <- selectFirst [AuthTokenUid ==. uid] []
+    return $ if (isJust record) then True else False
 
 ------------------------------------------------------------------------
 
