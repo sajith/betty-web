@@ -2,7 +2,7 @@ module Handler.ResetToken where
 
 import Import
 
-import Betty.Token (newToken, setToken)
+import Betty.Token (setNewToken)
 
 ------------------------------------------------------------------------
 
@@ -14,14 +14,8 @@ postResetTokenR = do
     -- no representation without authorization
     uid <- requireAuthId
 
-    -- generate new api key
-    token <- lift newToken
-
-    $logDebug ("postResetTokenR: uid: " <> tshow (unUserKey uid)
-               <> ", new token:" <> token)
-
-    -- update database
-    _ <- setToken uid token
+    -- generate and set new token.
+    setNewToken uid
 
     -- return to /profile page.
     redirect ProfileR
