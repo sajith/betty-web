@@ -11,6 +11,7 @@ module Betty.Token
 
 import           ClassyPrelude.Yesod
 
+import           Data.Either                      (isLeft)
 import qualified Data.List                        as L
 import           Data.Maybe                       (fromJust)
 import           Data.Text                        as T
@@ -96,10 +97,17 @@ isTokenSet email = isJust <$> getToken email
 setToken :: forall site.
             (YesodPersist site,
              YesodPersistBackend site ~ SqlBackend) =>
-            Key User -> Text -> Text -> HandlerT site IO ()
-setToken uid email token = runDB $ do
-    $logDebug ("setToken: " <> email <> " " <> token)
-    update uid [UserToken =. Just token]
+            Key User -> Text -> HandlerT site IO ()
+setToken uid token = runDB $ do
+    $logDebug ("setToken: uid " <> tshow uid <> " token: " <> token)
+    -- Try to insert (uid, token) to AuthToken record.  If that fails,
+    -- try to update.  Using `repsert` would be nice, but we have two
+    -- unique constraints on AuthToken record...
+    res <- insertBy $ AuthToken uid token
+    when (isLeft res) $ do
+        updateWhere [AuthTokenUid ==. uid] [AuthTokenToken =. token]
+        -- TODO: implement getToken and remove this:
+        updateWhere [UserId ==. uid] [UserToken =. Just token]
 
 ------------------------------------------------------------------------
 
