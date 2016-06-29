@@ -20,7 +20,7 @@ postResetTokenR = do
                  <> ",token:" <> token <> "\n")
 
     -- update database
-    _ <- setToken k email token
+    _ <- setToken k token
 
     -- return to /profile page.
     redirect ProfileR
