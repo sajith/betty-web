@@ -28,8 +28,8 @@ import           Model
 ------------------------------------------------------------------------
 
 -- custom header bearing email:token pair.
-hAuthToken :: forall a. IsString a => a
-hAuthToken = "X-Auth-Token"
+authTokenHeader :: forall a. IsString a => a
+authTokenHeader = "X-Auth-Token"
 
 ------------------------------------------------------------------------
 
@@ -121,12 +121,12 @@ maybeAuthToken = do
 
     request <- waiRequest
 
-    case lookup hAuthToken $ W.requestHeaders request of
+    case lookup authTokenHeader $ W.requestHeaders request of
 
         Just token -> do
 
             let tokenTxt = decodeUtf8 token
-            $logDebug (hAuthToken <> ": " <> tokenTxt)
+            $logDebug (authTokenHeader <> ": " <> tokenTxt)
 
             -- lookup auth token in AuthToken; return uid or
             -- nothing depending on lookup result.
@@ -163,7 +163,7 @@ maybeAuthToken = do
         -- request.
         msgTokenNotFound :: Text
         msgTokenNotFound =
-            "auth token header (" <> hAuthToken <> ") not found"
+            "auth token header (" <> authTokenHeader <> ") not found"
 
 ------------------------------------------------------------------------
 
