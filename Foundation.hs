@@ -173,7 +173,6 @@ instance YesodAuth App where
                 , userPassword = Nothing
                 , userVerkey   = Nothing
                 , userVerified = False
-                , userToken    = Nothing
                 }
 
     -- You can add other plugins like BrowserID, email or OAuth here
@@ -219,7 +218,7 @@ instance YesodAuthEmail App where
     type AuthEmailId App = UserId
 
     addUnverified email verkey =
-        runDB $ insert $ User email Nothing (Just verkey) False Nothing
+        runDB $ insert $ User email Nothing (Just verkey) False
 
     sendVerifyEmail = sendVerificationEmail
 

@@ -10,7 +10,6 @@ User
     password Text Maybe -- password is not be set until verification
     verkey Text Maybe   -- verification key for setting/resetting passwords
     verified Bool
-    token Text Maybe    -- API auth token
     UniqueUser email
     deriving Typeable
     deriving Show
