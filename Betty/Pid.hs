@@ -1,6 +1,14 @@
 module Betty.Pid ( writePidFile ) where
 
 ------------------------------------------------------------------------
+--
+-- Write process ID somewhere in the filesystem so that monitoring
+-- apps can monitor.  If "/opt/keter/var" is writable or can be
+-- created, write betty.pid there; do not write anything otherwise.
+--
+-- TODO: Ignoring failures silently is not a good idea! Fix.
+--
+------------------------------------------------------------------------
 
 import ClassyPrelude.Yesod
 
@@ -10,18 +18,15 @@ import System.Posix.Process (getProcessID)
 
 ------------------------------------------------------------------------
 
--- Write PID to /opt/keter/var/betty.pid so that monitoring apps can
--- monitor.
 writePidFile :: IO ()
 writePidFile = do
 
-    -- TODO: hardcoded app name, fix.
-    let appDir  = "/opt/keter/var"
-        pidFile = appDir </> "betty.pid"
+    let pidDir  = "/opt/keter/var"
+        pidFile = pidDir </> "betty.pid"
 
-    createDirectoryIfMissing True appDir
-
-    pid <- getProcessID
-    withFile pidFile WriteMode $ \h -> hPrint h pid
+    catchAny (do createDirectoryIfMissing True pidDir
+                 pid <- getProcessID
+                 withFile pidFile WriteMode $ \h -> hPrint h pid)
+        (const $ return ())
 
 ------------------------------------------------------------------------
