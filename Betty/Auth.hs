@@ -22,11 +22,14 @@ import Yesod.Auth.Email
 -- Customizations to the login form.
 authEmailBetty :: YesodAuthEmail m => AuthPlugin m
 authEmailBetty = do
-    AuthPlugin "email" (apDispatch authEmail) $ \tm ->
+    AuthPlugin "email" (apDispatch authEmail) $ \tm -> do
+        request <- getRequest
         [whamlet|
 <div #emailLoginFormOuter>
   <div #emailLoginForm>
     <form method=post action=@{tm loginR}>
+      $maybe token <- reqToken request
+        <input type=hidden name=#{defaultCsrfParamName} value=#{token}>
       <div>
         <input #email name=email required="" value="" autofocus="" placeholder=Email type=email>
       <div>
