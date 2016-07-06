@@ -152,6 +152,7 @@ test-suite test
                        SESSpec
                        TestImport
                        TestTools
+                       Handler.ProfileBGUnitSpec
 
     extensions: TemplateHaskell
                 QuasiQuotes
