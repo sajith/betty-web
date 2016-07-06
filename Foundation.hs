@@ -74,7 +74,7 @@ instance Yesod App where
 
     -- TODO: defaultCsrfMiddleware is acting up again; disabling for
     -- now.
-    yesodMiddleware = defaultYesodMiddleware
+    yesodMiddleware = defaultCsrfMiddleware . defaultYesodMiddleware
 
     defaultLayout widget = do
         master <- getYesod
