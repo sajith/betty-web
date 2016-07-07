@@ -15,22 +15,23 @@
     <div .col-sm-6 .col-md-6 .col-lg-6>
 
       <!-- blurb -->
-      <h1>
-        Betty is a diabetes logbook.
-
-      <div>
-            
-        <p>
-          Living with Diabetes is not easy, but it is mostly
-          manageable.  We can manage our blood sugar levels by
-          watching quality and quantity of what we eat, and by staying
-          physically active.  With better blood sugar levels, we can
-          manage long-term effects of diabetes.  This is very
-          empowering.
-
-        <p>
-          "Betty" is a simple web application created to help us keep
-          track of our blood sugar levels.
+      <div #homepageblurb>
+        <h1>
+          Betty is a diabetes logbook.
+  
+        <div>
+              
+          <p>
+            Living with Diabetes is not easy, but it is mostly
+            manageable.  We can manage our blood sugar levels by
+            watching quality and quantity of what we eat, and by
+            staying physically active.  With better blood sugar
+            levels, we can manage long-term effects of diabetes.  This
+            is very empowering.
+  
+          <p>
+            "Betty" is a simple web application created to help us
+            keep track of our blood sugar levels.
           
         
 $maybe analytics <- appAnalytics $ appSettings master
