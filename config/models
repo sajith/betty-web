@@ -85,7 +85,8 @@ UserProfile
 
 BloodGlucoseHistory
     uid UserId
-    utctime UTCTime         -- TODO: remove duplicate time/date fields.
+    serverts UTCTime default=now() -- server time when this data was
+                                   -- recorded.
 
     date Day
     time TimeOfDay
