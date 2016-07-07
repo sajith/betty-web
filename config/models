@@ -88,6 +88,11 @@ BloodGlucoseHistory
     serverts UTCTime default=now() -- server time when this data was
                                    -- recorded.
 
+    -- TODO: ZonedTime has been removed from Persistent 2.0
+    -- onwards. That is sad, because now we have to use a custom
+    -- field.  See:
+    -- https://github.com/yesodweb/persistent/wiki/Persistent-entity-syntax#times-with-timezones
+    -- http://justatheory.com/computers/databases/postgresql/use-timestamptz.html
     date Day
     time TimeOfDay
     timezone Text Maybe     -- TODO: use TimeZone data type, or
