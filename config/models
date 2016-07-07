@@ -85,7 +85,7 @@ UserProfile
 
 BloodGlucoseHistory
     uid UserId
-    serverts UTCTime default=now() -- server time when this data was
+    serverTs UTCTime default=now() -- server time when this data was
                                    -- recorded.
 
     -- TODO: ZonedTime has been removed from Persistent 2.0
