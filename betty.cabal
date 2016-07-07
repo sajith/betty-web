@@ -123,6 +123,7 @@ library
                  , vector
                  , file-embed
                  , case-insensitive
+                 , gitrev
 
     -- see https://github.com/yesodweb/yesod/issues/814
     if !os(windows)

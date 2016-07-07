@@ -12,7 +12,6 @@ yesod-devel/
 cabal.sandbox.config
 .DS_Store
 *.swp
-/Betty/Version.hs
 /secrets.m4
 /config/keter.yml
 /config/postgresql.yml
