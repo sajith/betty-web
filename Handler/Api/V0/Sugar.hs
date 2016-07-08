@@ -13,14 +13,14 @@ module Handler.Api.V0.Sugar where
 import           Import               hiding (parseTime)
 
 import qualified Data.Text            as T
-import           Data.Time.LocalTime  (timeToTimeOfDay)
+-- import           Data.Time.LocalTime  (timeToTimeOfDay)
 
 import           Database.Persist.Sql (fromSqlKey)
 
-import           Yesod.Form.Fields    (parseTime)
+-- import           Yesod.Form.Fields    (parseTime)
 
 import           Betty.Helpers        (sendJson)
-import           Betty.Model          (BGUnit (..))
+import           Betty.Model          (BGUnit (..), TZ)
 
 -- TODO: avoid this use of `read`.
 import           Prelude              (read)
@@ -32,16 +32,15 @@ postApiV0SugarAddR = do
 
     uid <- requireAuthId
 
-    utctime <- liftIO getCurrentTime
+    serverTs <- liftIO getCurrentTime
 
     params <- reqGetParams <$> getRequest
 
-    let value = lookup "value" params :: Maybe Text
-        unit  = lookup "unit" params  :: Maybe Text
-        date  = lookup "date" params  :: Maybe Text
-        time  = lookup "time" params  :: Maybe Text
-        tz    = lookup "tz" params    :: Maybe Text
-        notes = lookup "notes" params :: Maybe Text
+    let value = lookup "value" params     :: Maybe Text
+        unit  = lookup "unit" params      :: Maybe Text
+        ts    = lookup "timestamp" params :: Maybe Text
+        tz    = lookup "timezone" params  :: Maybe Text
+        notes = lookup "notes" params     :: Maybe Text
 
     v' <- case value of
         Nothing -> invalidArgs ["No blood sugar value given."] -- 400 Error
@@ -53,29 +52,38 @@ postApiV0SugarAddR = do
                | T.toLower u == "mmol" -> return Mmol
                | otherwise -> invalidArgs ["Invalid unit."]
 
-    date' <- case date of
-        Nothing -> return $ utctDay utctime
-        Just d  -> return d'
-            where d' = case parseDate $ T.unpack d of
-                           Right dt  -> dt
-                           Left  _   -> utctDay utctime
+    -- TODO: parse client timestamp
+    clientTs <- case ts of
+                  Nothing -> return serverTs
+                  Just _  -> error "TODO"
 
-    time' <- case time of
-        Nothing -> return $ timeToTimeOfDay $ utctDayTime utctime
-        Just t  -> return t'
-            where t' = case parseTime t of
-                           Right tm -> tm
-                           Left  _  -> timeToTimeOfDay $ utctDayTime utctime
+    -- TODO: parse client timestamp
+    clientTz <- case tz of
+                  Nothing -> error "TODO"
+                  Just _  -> error "TODO"
+
+    -- date' <- case date of
+    --     Nothing -> return $ utctDay utctime
+    --     Just d  -> return d'
+    --         where d' = case parseDate $ T.unpack d of
+    --                        Right dt  -> dt
+    --                        Left  _   -> utctDay utctime
+
+    -- time' <- case time of
+    --     Nothing -> return $ timeToTimeOfDay $ utctDayTime utctime
+    --     Just t  -> return t'
+    --         where t' = case parseTime t of
+    --                        Right tm -> tm
+    --                        Left  _  -> timeToTimeOfDay $ utctDayTime utctime
 
     let record = BloodGlucoseHistory
-                 uid
-                 utctime                -- utc time
-                 date'                  -- date as set by client
-                 time'                  -- time as set by client
-                 tz                     -- tz as set by client
-                 (read $ T.unpack v')   -- blood sugar value
-                 (Just unit')           -- blood sugar unit
-                 notes                  -- notes, if any
+                 uid                    -- User ID.
+                 serverTs               -- Server timestamp
+                 clientTs               -- Client timestamp
+                 clientTz               -- Client timezone
+                 (read $ T.unpack v')   -- Blood sugar value
+                 (Just unit')           -- Blood sugar unit
+                 notes                  -- Notes, if any
 
     $(logDebug) ("Record: " <> tshow record)
 
@@ -90,13 +98,10 @@ postApiV0SugarAddR = do
 ------------------------------------------------------------------------
 
 instance ToJSON BloodGlucoseHistory where
-    toJSON (BloodGlucoseHistory uid utctime date time tz value unit notes)
+    toJSON (BloodGlucoseHistory uid _ clientTs tz value unit notes)
         = object [ "uid"       .= uid
-                 , "utctime"   .= utctime
-                 -- , "localtime" .= localtime
-                 , "date"      .= show date
-                 , "time"      .= show time
-                 , "tz"        .= tz
+                 , "timestamp" .= clientTs
+                 , "tz"        .= formatTz tz
                  , "value"     .= value
                  , "unit"      .= format unit
                  , "notes"     .= notes
@@ -106,6 +111,9 @@ instance ToJSON BloodGlucoseHistory where
             format (Just MgDL) = "mg/dL"
             format (Just Mmol) = "mmol/L"
             format Nothing     = "unknown"
+
+            formatTz :: Maybe TZ -> Text
+            formatTz = error "TODO"
 
 ------------------------------------------------------------------------
 

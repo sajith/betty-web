@@ -4,8 +4,8 @@ module Handler.AddBG where
 
 import Import
 
-import Data.Time           (TimeOfDay)
-import Data.Time.LocalTime (minutesToTimeZone, timeZoneOffsetString)
+import Data.Time    (TimeOfDay)
+-- import Data.Time.LocalTime (minutesToTimeZone, timeZoneOffsetString)
 
 import Betty.Model
 import Betty.Vendor
@@ -60,9 +60,12 @@ postAddBGR = do
 
     Entity uid _ <- requireAuth
 
-    utctime <- liftIO getCurrentTime
+    serverTs <- liftIO getCurrentTime
 
-    let tzs = (pack . timeZoneOffsetString . minutesToTimeZone) <$> tz bgdata
+    -- let tzs = (pack . timeZoneOffsetString . minutesToTimeZone) <$> tz bgdata
+
+    let clientTs = error "TODO" -- TODO: form clientTs from date + time
+        clientTz = error "TODO" -- TODO: parse timezone correctly.
 
     -- Mg/dL is the default blood sugar unit.
     -- TODO: there could be a better way of doing this. Revisit later.
@@ -73,15 +76,12 @@ postAddBGR = do
 
     let record = BloodGlucoseHistory
                  uid
-                 utctime         -- utc time
-                 -- Nothing      -- local zonedtime
-                                 -- TODO: add this field
-                 (date bgdata)   -- date as set by client
-                 (time bgdata)   -- time as set by client
-                 tzs             -- tz as set by client
-                 (value bgdata)  -- blood sugar value
-                 (Just unit)     -- blood sugar unit
-                 (notes bgdata)  -- notes, if any
+                 serverTs        -- Server timestamp
+                 clientTs        -- Client timestamp
+                 clientTz        -- Client timezone
+                 (value bgdata)  -- Blood sugar value
+                 (Just unit)     -- Blood sugar unit
+                 (notes bgdata)  -- Notes, if any
 
     _ <- runDB $ insert record
 

@@ -56,6 +56,9 @@ loggedInPage = do
         addScript $ StaticR d3Js
         addScript $ StaticR dimpleJs
 
+        let bloodGlucoseHistoryDate _ = "TODO" :: Text -- TODO
+            bloodGlucoseHistoryTime _ = "TODO" :: Text -- TODO
+
         $(widgetFile "bg.trends")
         $(widgetFile "bg.history")
 
