@@ -7,6 +7,8 @@ module Betty.SESCreds
 import Data.String (IsString)
 
 ------------------------------------------------------------------------
+-- SESCreds.hs is generated from SESCreds.hs.in.
+------------------------------------------------------------------------
 
 access :: IsString a => a
 access = "AWS_SES_ACCESS"
