@@ -3,8 +3,6 @@ module Model where
 import ClassyPrelude.Yesod
 import Database.Persist.Quasi
 
-import Data.Time              (TimeOfDay)
-
 import Betty.Model
 
 -- You can define all of your database entities in the entities file.
