@@ -25,12 +25,20 @@ verText verurl = Part { partType = "text/plain; charset=utf-8"
                       , partEncoding = None
                       , partFilename = Nothing
                       , partContent = encodeUtf8 [stext|
-Please confirm your email address by visiting the link below.
+Hello,
 
- #{verurl}
+Someone (possibly you?) has requested for an account with our service
+using your email address.
+
+If it was indeed you, please confirm your email address by visiting the
+link below.
+
+#{verurl}
+
+If you did not create an account with us, please ignore this email.
 
 Thank you!
-                        |]
+|]
                       , partHeaders = []
                       }
 
@@ -42,11 +50,21 @@ verHtml verurl = Part { partType = "text/html; charset=utf-8"
                       , partEncoding = None
                       , partFilename = Nothing
                       , partContent = renderHtml [shamlet|
-<p>Please confirm your email address by visiting the link below.
+<p>Hello,
+
+<p>Someone (possibly you?) has requested for an account with our service
+using your email address.
+
+<p>If it was indeed you, please confirm your email address by visiting the
+link below.
+
 <p>
   <a href=#{verurl}>#{verurl}
+
+<p>If you did not request for an account with us, please ignore this email.
+
 <p>Thank you!
-                        |]
+|]
                       , partHeaders = []
                       }
 
