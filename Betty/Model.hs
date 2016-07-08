@@ -4,6 +4,8 @@ module Betty.Model where
 
 import ClassyPrelude.Yesod
 
+import Data.Time.LocalTime (TimeZone)
+
 ------------------------------------------------------------------------
 
 -- Blood glucose units.
@@ -25,5 +27,15 @@ derivePersistField "WtUnit"
 
 instance FromJSON WtUnit
 instance ToJSON WtUnit
+
+------------------------------------------------------------------------
+
+-- A custome timezone field to replace ZonedTime, which has been
+-- deprecated as of Persistent 2.0.  We'll use UTCTime + TZ instead of
+-- ZonedTime.
+newtype TZ = TZ TimeZone
+             deriving (Show, Read, Eq, Generic)
+
+derivePersistField "TZ"
 
 ------------------------------------------------------------------------
