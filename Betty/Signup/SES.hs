@@ -45,7 +45,7 @@ sendVerificationEmail email _ verurl = do
                 -- same result page: "Error sending message" and "A
                 -- confirmation email has been sent to
                 -- you@example.net"  That sucks.
-                lift $ setMessageI ("Error sending email" :: Text)
+                lift $ setMessageI ("Error sending email." :: Text)
                 return ())
 
 ------------------------------------------------------------------------
