@@ -10,6 +10,8 @@ import Network.Mail.Mime
 import Network.Mail.Mime.SES
 import Yesod.Auth.Email
 
+import Data.Text             as T (pack)
+
 import Network.HTTP.Conduit  (newManager, tlsManagerSettings)
 
 import Betty.SESCreds        (access, secret, sender)
@@ -35,7 +37,18 @@ sendVerificationEmail email _ verurl = do
 
   runResourceT $ do
       manager <- liftIO $ newManager tlsManagerSettings
-      renderSendMailSES manager ses' mail
+      catchAny (renderSendMailSES manager ses' mail)
+          (\_ -> do
+                -- TODO: This will likely be a SESException, but I
+                -- don't want to expose visitors to the details.  So,
+                -- (1) I do have to log this event somewhere; (2) User
+                -- experience here is less than optimal because the
+                -- visitor will see two conflicting messages on the
+                -- same result page: "Error sending message" and "A
+                -- confirmation email has been sent to
+                -- you@example.net"  That sucks.
+                lift $ setMessageI ("Error sending email" :: Text)
+                return ())
 
 ------------------------------------------------------------------------
 
