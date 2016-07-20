@@ -10,8 +10,6 @@ import Network.Mail.Mime
 import Network.Mail.Mime.SES
 import Yesod.Auth.Email
 
-import Data.Text             as T (pack)
-
 import Network.HTTP.Conduit  (newManager, tlsManagerSettings)
 
 import Betty.SESCreds        (access, secret, sender)
