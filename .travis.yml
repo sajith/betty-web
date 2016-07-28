@@ -51,7 +51,10 @@ script:
   - stack $ARGS --no-terminal --skip-ghc-check test --coverage
 
 after_script:
-  - codecov-haskell
+  # TODO: Seems that `codecov-haskell` doesn't play well with Stack yet,
+  # so the below command doesn't work.  No, I don't want to be the one
+  # to shave this yak!
+  - codecov-haskell test
   
 # Speed up subsequent builds using Stack caching.  
 cache:
