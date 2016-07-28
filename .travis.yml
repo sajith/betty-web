@@ -37,7 +37,7 @@ before_install:
   - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
   # - stack $ARGS --no-terminal setup
   - stack ghc -- --version
-  - stack $ARGS --no-terminal --skip-ghc-check install hspec-discover
+  - stack $ARGS --no-terminal --skip-ghc-check install hspec-discover codecov-haskell
     
 install:
   - cp secrets.m4.example secrets.m4
@@ -48,8 +48,11 @@ before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
-  - stack $ARGS --no-terminal --skip-ghc-check test
+  - stack $ARGS --no-terminal --skip-ghc-check test --coverage
 
+after_script:
+  - codecov-haskell
+  
 # Speed up subsequent builds using Stack caching.  
 cache:
   directories:
