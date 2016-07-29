@@ -12,6 +12,7 @@
 
 module Betty.Auth ( authEmailBetty
                   , localRegisterHandler
+                  , localForgotPasswordHandler
                   ) where
 
 import           ClassyPrelude.Yesod
@@ -75,6 +76,35 @@ registerMessage = unlines
     [ "To create a new account, enter your e-mail address below, and "
     , "you will receive an e-mail with a confirmation link. "
     , "Be sure to visit the link to complete registration!"
+    ]
+
+------------------------------------------------------------------------
+
+localForgotPasswordHandler :: YesodAuthEmail master => AuthHandler master Html
+localForgotPasswordHandler = do
+    tp <- getRouteToParent
+    -- email <- newIdent
+    lift $ authLayout $ do
+        request <- getRequest
+        setTitleI Msg.PasswordResetTitle
+        [whamlet|
+            <p>#{forgotMessage}
+            <form method="post" action="@{tp forgotPasswordR}">
+              $maybe token <- reqToken request
+                <input type=hidden name=#{defaultCsrfParamName} value=#{token}>
+              <div id="registerForm">
+                <div>
+                  <input #email name=email required="" value="" autofocus="" placeholder=Email type=email>
+              <button .btn .btn-success>_{Msg.SendPasswordResetEmail}
+        |]
+
+------------------------------------------------------------------------
+
+forgotMessage :: Text
+forgotMessage = unlines
+    [ "Enter your e-mail address below, and you will receive "
+    , "an e-mail with a password reset link. "
+    , "Visit the link to reset your password."
     ]
 
 ------------------------------------------------------------------------

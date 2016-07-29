@@ -252,12 +252,11 @@ instance YesodAuthEmail App where
 
     getEmail = runDB . fmap (fmap userEmail) . get
 
-    afterPasswordRoute _ = ProfileStartR
-
-    registerHandler = localRegisterHandler
+    afterPasswordRoute _  = ProfileStartR
+    registerHandler       = localRegisterHandler
+    forgotPasswordHandler = localForgotPasswordHandler
 
     -- TODO: these are reminders to myself to customize these handlers.
-    -- forgotPasswordHandler = error "forgotPasswordHandler is not implementated"
     -- setPasswordHandler = error "setPasswordHandler is not implementated"
 
 ------------------------------------------------------------------------
