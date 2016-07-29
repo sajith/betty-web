@@ -67,6 +67,12 @@ localRegisterHandler = do
                 <div>
                   <input #email name=email required="" value="" autofocus="" placeholder=Email type=email>
               <button #submitButton .btn .btn-success>_{Msg.Register}
+              <div>
+                <a #accountExists href=@{tp loginR}>
+                  Have an account?
+                <br />
+                <a #forgotPassword href=@{tp forgotPasswordR}>
+                  Forgot password?
         |]
 
 ------------------------------------------------------------------------
