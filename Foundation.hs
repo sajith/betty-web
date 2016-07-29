@@ -254,8 +254,9 @@ instance YesodAuthEmail App where
 
     afterPasswordRoute _ = ProfileStartR
 
+    registerHandler = localRegisterHandler
+
     -- TODO: these are reminders to myself to customize these handlers.
-    -- registerHandler = error "registerHandler is not implementated"
     -- forgotPasswordHandler = error "forgotPasswordHandler is not implementated"
     -- setPasswordHandler = error "setPasswordHandler is not implementated"
 

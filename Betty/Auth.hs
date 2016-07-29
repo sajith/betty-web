@@ -10,12 +10,16 @@
 --
 ------------------------------------------------------------------------
 
-module Betty.Auth where
+module Betty.Auth ( authEmailBetty
+                  , localRegisterHandler
+                  ) where
 
-import ClassyPrelude.Yesod
+import           ClassyPrelude.Yesod
 
-import Yesod.Auth
-import Yesod.Auth.Email
+import           Yesod.Auth
+import           Yesod.Auth.Email
+
+import qualified Yesod.Auth.Message  as Msg
 
 ------------------------------------------------------------------------
 
@@ -44,5 +48,33 @@ authEmailBetty = do
         <a #newAccount href=@{tm registerR}>
           Don't have an account?
 |]
+
+------------------------------------------------------------------------
+
+localRegisterHandler :: YesodAuthEmail master => AuthHandler master Html
+localRegisterHandler = do
+    tp <- getRouteToParent
+    request <- getRequest
+    lift $ authLayout $ do
+        setTitleI Msg.RegisterLong
+        [whamlet|
+            <p>#{registerMessage}
+            <form method="post" action="@{tp registerR}">
+              $maybe token <- reqToken request
+                <input type=hidden name=#{defaultCsrfParamName} value=#{token}>
+              <div id="registerForm">
+                <div>
+                  <input #email name=email required="" value="" autofocus="" placeholder=Email type=email>
+              <button #submitButton .btn .btn-success>_{Msg.Register}
+        |]
+
+------------------------------------------------------------------------
+
+registerMessage :: Text
+registerMessage = unlines
+    [ "To create a new account, enter your e-mail address below, and "
+    , "you will receive an e-mail with a confirmation link. "
+    , "Be sure to visit the link to complete registration!"
+    ]
 
 ------------------------------------------------------------------------
