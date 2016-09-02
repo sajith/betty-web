@@ -52,11 +52,9 @@ verHtml verurl = Part { partType = "text/html; charset=utf-8"
                       , partContent = renderHtml [shamlet|
 <p>Hello,
 
-<p>Someone (possibly you?) has requested for an account with our service
-using your email address.
+<p>Someone (possibly you?) has requested for an account with our service using your email address.
 
-<p>If it was indeed you, please confirm your email address by visiting the
-link below.
+<p>If it was indeed you, please confirm your email address by visiting the link below.
 
 <p>
   <a href=#{verurl}>#{verurl}
