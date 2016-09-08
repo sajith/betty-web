@@ -1,0 +1,20 @@
+image: haskell:7.10.3
+
+cache:
+  paths:
+    - .stack
+
+before_script:
+  - export STACK_ROOT=$(pwd)/.stack
+  - cp secrets.m4.example secrets.m4
+  - make files
+  - stack install hspec-discover 
+  - stack install --only-dependencies
+  - stack build
+  # Haven't figured out how to use PostgreSQL in Gitlab CI.  
+  # - psql -c 'create database betty_test;' -h postgres -U postgres
+
+test:
+  script:
+    # tests will fail in the absence of PostgreSQL.
+    # - stack test
