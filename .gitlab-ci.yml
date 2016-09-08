@@ -6,8 +6,7 @@ cache:
 
 before_script:
   - export STACK_ROOT=$(pwd)/.stack
-  - apt-get update 
-  - apt-get install -y m4 libpq-dev
+  - apt-get update -qq && apt-get install -qq -y m4 libpq-dev
   - cp secrets.m4.example secrets.m4
   - make files
   - stack install hspec-discover 
