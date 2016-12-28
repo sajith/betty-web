@@ -1,3 +1,5 @@
+{-# LANGUAGE RankNTypes #-}
+
 ------------------------------------------------------------------------
 --
 -- Some customizations to Yesod.Auth.Email.
@@ -52,7 +54,7 @@ authEmailBetty = do
 
 ------------------------------------------------------------------------
 
-localRegisterHandler :: YesodAuthEmail master => AuthHandler master Html
+localRegisterHandler :: AuthHandler master Html
 localRegisterHandler = do
     tp <- getRouteToParent
     request <- getRequest
@@ -86,7 +88,7 @@ registerMessage = unlines
 
 ------------------------------------------------------------------------
 
-localForgotPasswordHandler :: YesodAuthEmail master => AuthHandler master Html
+localForgotPasswordHandler :: AuthHandler master Html
 localForgotPasswordHandler = do
     tp <- getRouteToParent
     -- email <- newIdent
