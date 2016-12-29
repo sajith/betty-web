@@ -1,3 +1,5 @@
+{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
+
 module Handler.Info.About where
 
 import Import

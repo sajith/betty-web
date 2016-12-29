@@ -1,3 +1,4 @@
+{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
 {-# LANGUAGE RankNTypes #-}
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 

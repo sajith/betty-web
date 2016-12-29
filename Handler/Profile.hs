@@ -1,3 +1,5 @@
+{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
+
 module Handler.Profile where
 
 import Import
