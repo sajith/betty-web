@@ -1,3 +1,5 @@
+{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
+
 module Foundation where
 
 import qualified Data.CaseInsensitive as CI
