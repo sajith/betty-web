@@ -18,4 +18,4 @@ before_script:
 test:
   script:
     # tests will fail in the absence of PostgreSQL.
-    # - stack test
+    - stack test
