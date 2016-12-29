@@ -37,10 +37,10 @@ test: build
 	stack test
 
 repl: build
-	APPROOT=http://localhost:3000 stack ghci --ghc-options="-O0 -fobject-code"
+	APPROOT=http://localhost:3000 stack ghci --ghci-options="-O0 -fobject-code"
 
 test-repl: build
-	stack ghci --test --main-is betty:test:test --ghc-options="-O0 -fobject-code"
+	stack ghci --test --main-is betty:test:test --ghci-options="-O0 -fobject-code"
 
 ghcid: build
 	ghcid -c "stack ghci"
