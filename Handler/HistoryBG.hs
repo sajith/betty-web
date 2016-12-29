@@ -1,3 +1,5 @@
+{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
+
 module Handler.HistoryBG where
 
 import Import
