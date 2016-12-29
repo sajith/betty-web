@@ -1,8 +1,7 @@
 To get started, you will need the following thigs:
 
    - the Haskell tool "stack"
-   - GHC 7.10.3
-   - cabal-install
+   - GHC 8.0.1
    - PostgreSQL
    - libpq-dev
    - yesod-bin
@@ -61,7 +60,7 @@ ready to build and run the web app:
 If everything went well, test cases run by 'stack test' should pass.
 Now you can run:
 
-    stack exec yesod devel
+    yesod devel
 
 and start hacking!
 
