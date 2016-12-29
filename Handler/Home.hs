@@ -1,3 +1,5 @@
+{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
+
 module Handler.Home where
 
 -- TODO: use maximum from Import
