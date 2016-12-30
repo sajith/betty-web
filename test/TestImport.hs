@@ -4,7 +4,7 @@ module TestImport
     ) where
 
 import Application           (makeFoundation, makeLogWare)
-import ClassyPrelude         as X
+import ClassyPrelude         as X hiding (Handler)
 import Database.Persist      as X hiding (delete, deleteBy, get)
 import Database.Persist.Sql  (SqlBackend, SqlPersistM, connEscapeName,
                               rawExecute, rawSql, runSqlPersistMPool,
