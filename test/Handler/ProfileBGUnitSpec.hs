@@ -1,7 +1,6 @@
 module Handler.ProfileBGUnitSpec (spec) where
 
 import TestImport
-import TestTools
 
 spec :: Spec
 spec = withApp $
