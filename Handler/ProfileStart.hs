@@ -1,5 +1,3 @@
-{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
-
 module Handler.ProfileStart where
 
 import Import

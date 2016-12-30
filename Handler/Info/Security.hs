@@ -1,5 +1,3 @@
-{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
-
 module Handler.Info.Security where
 
 import Import

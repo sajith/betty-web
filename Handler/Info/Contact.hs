@@ -1,5 +1,3 @@
-{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
-
 module Handler.Info.Contact where
 
 import Import

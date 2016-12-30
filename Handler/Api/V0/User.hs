@@ -1,4 +1,3 @@
-{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
 {-# LANGUAGE RankNTypes #-}
 
 module Handler.Api.V0.User where

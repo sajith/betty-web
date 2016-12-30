@@ -1,5 +1,3 @@
-{-# LANGUAGE NoDisambiguateRecordFields, NoRecordWildCards #-}
-
 module Handler.Info.Terms where
 
 import Import

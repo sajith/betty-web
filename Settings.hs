@@ -66,25 +66,38 @@ instance FromJSON AppSettings where
 #else
                 False
 #endif
-        appStaticDir              <- o .: "static-dir"
-        appDatabaseConf           <- o .: "database"
-        appRoot                   <- o .:? "approot"
-        appHost                   <- fromString <$> o .: "host"
-        appPort                   <- o .: "port"
-        appIpFromHeader           <- o .: "ip-from-header"
+        appStaticDir'              <- o .: "static-dir"
+        appDatabaseConf'           <- o .: "database"
+        appRoot'                   <- o .:? "approot"
+        appHost'                   <- fromString <$> o .: "host"
+        appPort'                   <- o .: "port"
+        appIpFromHeader'           <- o .: "ip-from-header"
 
-        appDetailedRequestLogging <- o .:? "detailed-logging" .!= defaultDev
-        appShouldLogAll           <- o .:? "should-log-all"   .!= defaultDev
-        appReloadTemplates        <- o .:? "reload-templates" .!= defaultDev
-        appMutableStatic          <- o .:? "mutable-static"   .!= defaultDev
-        appSkipCombining          <- o .:? "skip-combining"   .!= defaultDev
+        appDetailedRequestLogging' <- o .:? "detailed-logging" .!= defaultDev
+        appShouldLogAll'           <- o .:? "should-log-all"   .!= defaultDev
+        appReloadTemplates'        <- o .:? "reload-templates" .!= defaultDev
+        appMutableStatic'          <- o .:? "mutable-static"   .!= defaultDev
+        appSkipCombining'          <- o .:? "skip-combining"   .!= defaultDev
 
-        appCopyright              <- o .: "copyright"
-        appAnalytics              <- o .:? "analytics"
+        appCopyright'              <- o .: "copyright"
+        appAnalytics'              <- o .:? "analytics"
 
-        appStaticRoot             <- o .:? "static-root"
+        appStaticRoot'             <- o .:? "static-root"
 
-        return AppSettings {..}
+        return $ AppSettings appStaticDir' 
+                             appDatabaseConf' 
+                             appRoot' 
+                             appHost' 
+                             appPort'
+                             appIpFromHeader'
+                             appDetailedRequestLogging'
+                             appShouldLogAll'
+                             appReloadTemplates'
+                             appMutableStatic'
+                             appSkipCombining'
+                             appCopyright'
+                             appAnalytics'
+                             appStaticRoot'
 
 -- | Settings for 'widgetFile', such as which template languages to support and
 -- default Hamlet settings.
