@@ -39,6 +39,6 @@ spec = withApp $
             -- result should be 403 forbidden.
             statusIs 403
             bodyContains "<title>Permission Denied</title>"
-            bodyContains "<h1>Permission denied</h1>"
+            bodyContains "<h1>Permission Denied</h1>"
 
         -- TODO: other tests
