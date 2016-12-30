@@ -142,6 +142,26 @@ executable         betty
 
     ghc-options:       -threaded -rtsopts -with-rtsopts=-N
 
+    extensions: TemplateHaskell
+                QuasiQuotes
+                OverloadedStrings
+                NoImplicitPrelude
+                CPP
+                MultiParamTypeClasses
+                TypeFamilies
+                GADTs
+                GeneralizedNewtypeDeriving
+                FlexibleContexts
+                FlexibleInstances                
+                EmptyDataDecls
+                NoMonomorphismRestriction
+                DeriveDataTypeable
+                ViewPatterns
+                TupleSections
+                TypeSynonymInstances
+                NoDisambiguateRecordFields
+                NoRecordWildCards
+
 test-suite test
     type:              exitcode-stdio-1.0
     main-is:           Spec.hs
