@@ -29,7 +29,7 @@ afterLogin :: ByteString
 afterLogin = "/"
 
 assertFailure :: String -> YesodExample App ()
-assertFailure msg = assertEqual msg True False
+assertFailure msg = assertEq msg True False
 
 urlPath :: Text -> Text
 urlPath = T.pack . maybe "" uriPath . parseURI . T.unpack
@@ -47,7 +47,7 @@ firstRedirect method url = do
 
 assertLoginPage :: ByteString -> YesodExample App ()
 assertLoginPage loc = do
-    assertEqual "Right login redirection location" (testRoot `B.append` "/auth/login") loc
+    assertEq "Right login redirection location" (testRoot `B.append` "/auth/login") loc
     -- assertEqual "Right login redirection location" ("/auth/login") loc
     get $ urlPathB loc
     statusIs 200
@@ -66,7 +66,7 @@ extractLocation :: YesodExample App (Maybe ByteString)
 extractLocation =
     withResponse (\ SResponse {simpleStatus = s, simpleHeaders = h} -> do
                        let code = statusCode s
-                       assertEqual ("Expected 302/303, received " ++ show code)
+                       assertEq ("Expected 302/303, received " ++ show code)
                            (code `elem` [302,303])
                            True
                        return $ lookup "Location" h
@@ -84,5 +84,5 @@ doLogin user pass = do
     maybe (assertFailure "Should have location header") assertLoginPage mbloc
     mbloc2 <- submitLogin user pass
     maybe (assertFailure "Should have second location header")
-        (assertEqual "Check post-login redirection" (testRoot `B.append` afterLogin))
+        (assertEq "Check post-login redirection" (testRoot `B.append` afterLogin))
         mbloc2

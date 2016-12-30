@@ -61,6 +61,6 @@ spec :: Spec
 spec = withApp $
     describe "SES Email test" $
         it "Not configured to use SES, skipping test" $
-            assertEqual "Nothing" True True
+            assertEq "Nothing" True True
 
 #endif
