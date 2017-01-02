@@ -19,6 +19,7 @@ before_script:
   - make files
   - stack install hspec-discover 
   - stack install --only-dependencies
+  - cat config/postgresql.yml
 
 test:
   script:
