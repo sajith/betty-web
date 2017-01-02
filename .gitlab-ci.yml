@@ -1,5 +1,13 @@
 image: haskell:8.0.1
 
+services:
+  - postgres:9.4
+
+variables:
+  POSTGRES_DB: betty_test
+  POSTGRES_USER: betty
+  POSTGRES_PASSWORD: ""
+  
 cache:
   paths:
     - .stack
