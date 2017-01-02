@@ -6,7 +6,7 @@ services:
 variables:
   POSTGRES_DB: betty_test
   POSTGRES_USER: betty
-  POSTGRES_PASSWORD: ""
+  POSTGRES_PASSWORD: betty
   
 cache:
   paths:
