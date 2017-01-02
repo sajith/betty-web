@@ -15,13 +15,13 @@ cache:
 before_script:
   - export STACK_ROOT=$HOME/.stack
   - echo $STACK_ROOT
-  - ls $STACK_ROOT
   - apt-get update -qq && apt-get install -qq -y m4 libpq-dev
   - cp secrets.m4.gitlab secrets.m4
   - make files
   - cat config/postgresql.yml  
   - stack install hspec-discover 
   - stack install --only-dependencies
+  - ls $STACK_ROOT  
 
 test:
   script:
