@@ -25,4 +25,7 @@ before_script:
 
 test:
   script:
+    - export PGHOST=postgres
+    - export PGUSER=$POSTGRES_USER
+    - export PGPASS=$POSTGRES_PASSWORD
     - stack test
