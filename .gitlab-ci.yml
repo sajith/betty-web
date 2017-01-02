@@ -28,4 +28,5 @@ test:
     - export PGHOST=postgres
     - export PGUSER=$POSTGRES_USER
     - export PGPASS=$POSTGRES_PASSWORD
+    - export PGDATABASE=$POSTGRES_DB
     - stack test
