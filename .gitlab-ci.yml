@@ -19,11 +19,7 @@ before_script:
   - make files
   - stack install hspec-discover 
   - stack install --only-dependencies
-  - stack build
-  # Haven't figured out how to use PostgreSQL in Gitlab CI.  
-  # - psql -c 'create database betty_test;' -h postgres -U postgres
 
 test:
   script:
-    # tests will fail in the absence of PostgreSQL.
     - stack test
