@@ -11,7 +11,8 @@ Development:
 
 Testing:
   user: TESTING_DB_USER
-  password: TESTING_DB_PASS  
+  password: TESTING_DB_PASS
+  host: TESTING_DB_HOST
   database: TESTING_DB_NAME
   <<: *defaults
 
