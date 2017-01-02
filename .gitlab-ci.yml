@@ -9,6 +9,7 @@ variables:
   POSTGRES_PASSWORD: betty
   
 cache:
+  untracked: true  
   paths:
     - $(pwd)/.stack
 
