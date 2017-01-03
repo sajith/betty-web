@@ -52,6 +52,7 @@ script:
   - stack $ARGS --no-terminal --skip-ghc-check test --coverage
 
 after_script:
+  - stack hpc report betty  
   
 # Speed up subsequent builds using Stack caching.  
 cache:
