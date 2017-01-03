@@ -8,9 +8,8 @@ addons:
   apt:
     packages:
     - libgmp-dev
-  # Just use the default version of PostgreSQL installed on Travis CI.
-  # postgresql: "9.1"
-
+    - postgresql
+      
 # N.B. No top-level env: declaration!
 matrix:
   include:
