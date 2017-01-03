@@ -27,4 +27,7 @@ test:
     - export PGUSER=$POSTGRES_USER
     - export PGPASS=$POSTGRES_PASSWORD
     - export PGDATABASE=$POSTGRES_DB
-    - stack test
+    - stack test --coverage
+
+after_script:
+  - stack hpc report betty
