@@ -39,6 +39,10 @@ before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
+  - export PGHOST=localhost  
+  - export PGUSER=postgres
+  - export PGPASS=''
+  - export PGDATABASE=betty_test
   - stack $STACK_ARGS test --coverage
 
 after_script:
