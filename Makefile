@@ -22,7 +22,6 @@ all: build
 
 files:	config/settings.yml \
 	config/test-settings.yml \
-	config/postgresql.yml \
 	config/keter.yml \
 	Betty/SESCreds.hs
 
