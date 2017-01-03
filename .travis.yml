@@ -24,7 +24,7 @@ before_install:
   # - stack $ARGS --no-terminal setup
   - stack --version
   - stack ghc -- --version
-  - stack $ARGS --no-terminal --skip-ghc-check install hspec-discover codecov-haskell
+  - stack $ARGS --no-terminal --skip-ghc-check install hspec-discover
     
 install:
   - cp secrets.m4.example secrets.m4
