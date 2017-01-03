@@ -10,7 +10,6 @@ addons:
     - hvr-ghc
     packages:
     - libgmp-dev
-    - postgresql
     - ghc-8.0.1    
 
 env:
