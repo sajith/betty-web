@@ -11,7 +11,7 @@ variables:
 cache:
   untracked: true
   paths:
-    - $(pwd)/.stack
+    - $(pwd)/.stack/
 
 before_script:
   - export STACK_ROOT=$(pwd)/.stack
