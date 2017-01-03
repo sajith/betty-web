@@ -19,7 +19,6 @@ before_script:
   - apt-get update -qq && apt-get install -qq -y m4 libpq-dev
   - cp secrets.m4.example secrets.m4
   - make files
-  - cat config/postgresql.yml  
   - stack install hspec-discover 
   - stack install --only-dependencies
   - ls $STACK_ROOT  
