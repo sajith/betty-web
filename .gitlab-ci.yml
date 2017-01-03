@@ -19,7 +19,7 @@ before_script:
   - cp secrets.m4.example secrets.m4
   - make files
   - stack install hspec-discover
-  - stack install --only-dependencies
+  - stack install --only-dependencies -j 4
 
 test:
   script:
