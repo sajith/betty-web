@@ -2,7 +2,7 @@
 sudo: false
 
 # "haskell" will set up the whole haskell-platform.  We don't need that.
-language: c
+language: generic
 
 addons:
   apt:
