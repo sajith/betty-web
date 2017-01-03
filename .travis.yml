@@ -13,13 +13,13 @@ addons:
     - hvr-ghc
     packages:
     - libgmp-dev
-    - ghc-8.0.1    
+    - ghc-8.0.1
 
 env:
   global:
   - GHCVER=8.0.1
   - STACK_ARGS="--no-terminal --skip-ghc-check"
-    
+
 before_install:
   - mkdir -p $HOME/.local/bin
   - export PATH=$HOME/.local/bin:/opt/ghc/$GHCVER/bin:$PATH
@@ -28,7 +28,7 @@ before_install:
   - stack ghc -- --version
   - echo $STACK_ARGS
   - stack $STACK_ARGS install hspec-discover
-    
+
 install:
   - cp secrets.m4.example secrets.m4
   - make files
@@ -41,9 +41,9 @@ script:
   - stack $STACK_ARGS test --coverage
 
 after_script:
-  - stack hpc report betty  
-  
-# Speed up subsequent builds using Stack caching.  
+  - stack hpc report betty
+
+# Speed up subsequent builds using Stack caching.
 cache:
   directories:
     - $HOME/.stack
