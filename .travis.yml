@@ -6,30 +6,17 @@ language: c
 
 addons:
   apt:
+    sources:
+    - hvr-ghc
     packages:
     - libgmp-dev
     - postgresql
-      
-# N.B. No top-level env: declaration!
-matrix:
-  include:
-  - env: GHCVER=8.0.1 STACK_YAML=stack.yaml
-    addons:
-      apt:
-        sources:
-        - hvr-ghc
-        packages:
-        - ghc-8.0.1
-  - env: GHCVER=head STACK_YAML=stack.yaml
-    addons:
-      apt:
-        sources:
-        - hvr-ghc
-        packages:
-        - ghc-head
-  allow_failures:
-    - env: GHCVER=head STACK_YAML=stack.yaml
+    - ghc-8.0.1    
 
+env:
+  - GHCVER=8.0.1
+  - STACK_YAML=stack.yaml
+    
 before_install:
   - mkdir -p $HOME/.local/bin
   - export PATH=$HOME/.local/bin:/opt/ghc/$GHCVER/bin:$PATH
