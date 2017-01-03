@@ -16,6 +16,7 @@ addons:
 env:
   - GHCVER=8.0.1
   - STACK_YAML=stack.yaml
+  - STACK_ARGS="--no-terminal --skip-ghc-check"
     
 before_install:
   - mkdir -p $HOME/.local/bin
@@ -24,18 +25,20 @@ before_install:
   # - stack $ARGS --no-terminal setup
   - stack --version
   - stack ghc -- --version
-  - stack $ARGS --no-terminal --skip-ghc-check install hspec-discover
+  - echo $ARGS
+  - echo $STACK_ARGS
+  - stack $STACK_ARGS install hspec-discover
     
 install:
   - cp secrets.m4.example secrets.m4
   - make files
-  - stack $ARGS --no-terminal --skip-ghc-check build
+  - stack $STACK_ARGS build
 
 before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
-  - stack $ARGS --no-terminal --skip-ghc-check test --coverage
+  - stack $STACK_ARGS test --coverage
 
 after_script:
   - stack hpc report betty  
