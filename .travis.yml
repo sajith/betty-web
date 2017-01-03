@@ -16,7 +16,9 @@ addons:
     - ghc-8.0.1    
 
 env:
-  - GHCVER=8.0.1 STACK_ARGS="--no-terminal --skip-ghc-check"
+  global:
+  - GHCVER=8.0.1
+  - STACK_ARGS="--no-terminal --skip-ghc-check"
     
 before_install:
   - mkdir -p $HOME/.local/bin
