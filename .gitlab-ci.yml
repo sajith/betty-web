@@ -7,21 +7,19 @@ variables:
   POSTGRES_DB: betty_test
   POSTGRES_USER: betty
   POSTGRES_PASSWORD: betty
-  
+
 cache:
-  untracked: true  
+  untracked: true
   paths:
     - $(pwd)/.stack
 
 before_script:
   - export STACK_ROOT=$(pwd)/.stack
-  - echo $STACK_ROOT
   - apt-get update -qq && apt-get install -qq -y m4 libpq-dev
   - cp secrets.m4.example secrets.m4
   - make files
-  - stack install hspec-discover 
+  - stack install hspec-discover
   - stack install --only-dependencies
-  - ls $STACK_ROOT  
 
 test:
   script:
