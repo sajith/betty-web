@@ -27,6 +27,7 @@ files:	config/settings.yml \
 
 build: files
 	stack setup
+	stack install --only-dependencies
 	stack build
 
 devel: build
