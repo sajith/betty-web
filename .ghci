@@ -16,4 +16,4 @@
 :set -XTupleSections
 :set -XTypeFamilies
 :set -XViewPatterns
-:m +Prelude
+:m +ClassyPrelude.Yesod
