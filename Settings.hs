@@ -84,10 +84,10 @@ instance FromJSON AppSettings where
 
         appStaticRoot'             <- o .:? "static-root"
 
-        return $ AppSettings appStaticDir' 
-                             appDatabaseConf' 
-                             appRoot' 
-                             appHost' 
+        return $ AppSettings appStaticDir'
+                             appDatabaseConf'
+                             appRoot'
+                             appHost'
                              appPort'
                              appIpFromHeader'
                              appDetailedRequestLogging'

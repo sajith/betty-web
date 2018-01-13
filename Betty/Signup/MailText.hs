@@ -67,4 +67,3 @@ verHtml verurl = Part { partType = "text/html; charset=utf-8"
                       }
 
 ------------------------------------------------------------------------
-

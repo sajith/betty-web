@@ -13,7 +13,7 @@ Flag library-only
 
 library
     hs-source-dirs: ., app
-            
+
     exposed-modules: Application
                      Foundation
                      Import
@@ -31,7 +31,7 @@ library
                    Handler.Info.Security
                    Handler.Profile
                    Handler.ProfileStart
-                   Handler.ProfileBGUnit                   
+                   Handler.ProfileBGUnit
                    Handler.AddBG
                    Handler.HistoryBG
                    Handler.Api
@@ -39,7 +39,7 @@ library
                    Handler.Api.V0.User
                    Handler.ResetToken
                    Import.NoFoundation
-                   Settings.StaticFiles                   
+                   Settings.StaticFiles
                    Betty.Version
                    Betty.Signup
                    Betty.Signup.MailText
@@ -71,7 +71,7 @@ library
                 GADTs
                 GeneralizedNewtypeDeriving
                 FlexibleContexts
-                FlexibleInstances                
+                FlexibleInstances
                 EmptyDataDecls
                 NoMonomorphismRestriction
                 DeriveDataTypeable
@@ -152,7 +152,7 @@ executable         betty
                 GADTs
                 GeneralizedNewtypeDeriving
                 FlexibleContexts
-                FlexibleInstances                
+                FlexibleInstances
                 EmptyDataDecls
                 NoMonomorphismRestriction
                 DeriveDataTypeable
@@ -194,7 +194,7 @@ test-suite test
                 TupleSections
 
     build-depends: base       >= 4          && < 5
-                 , betty    
+                 , betty
                  , yesod-test
                  , yesod-core
                  , yesod
@@ -202,7 +202,7 @@ test-suite test
                  , persistent-postgresql
                  , resourcet
                  , monad-logger
-                 , shakespeare                 
+                 , shakespeare
                  , transformers
                  , hspec >= 2.0.0
                  , classy-prelude
@@ -211,7 +211,7 @@ test-suite test
                  , mime-mail
                  , mime-mail-ses
                  , http-conduit
-                 , http-types                 
+                 , http-types
                  , network-uri
                  , wai-extra
                  , bytestring

@@ -166,4 +166,3 @@ maybeAuthToken = do
             "auth token header (" <> authTokenHeader <> ") not found"
 
 ------------------------------------------------------------------------
-

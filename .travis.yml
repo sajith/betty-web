@@ -25,21 +25,21 @@ before_install:
   - export PATH=$HOME/.local/bin:/opt/ghc/$GHCVER/bin:$PATH
   - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
   - echo $STACK_ARGS
-  - stack $STACK_ARGS setup  
-  - stack $STACK_ARGS --version  
+  - stack $STACK_ARGS setup
+  - stack $STACK_ARGS --version
   - stack $STACK_ARGS ghc -- --version
 
 install:
   - cp secrets.m4.example secrets.m4
   - make files
-  - stack $STACK_ARGS install hspec-discover  
+  - stack $STACK_ARGS install hspec-discover
   - stack $STACK_ARGS install --only-dependencies
 
 before_script:
   - psql -c 'create database betty_test;' -U postgres
 
 script:
-  - export PGHOST=localhost  
+  - export PGHOST=localhost
   - export PGUSER=postgres
   - export PGPASS=''
   - export PGDATABASE=betty_test
