@@ -18,11 +18,12 @@ import Betty.Signup.MailText (verHeaders, verHtml, verText)
 ------------------------------------------------------------------------
 
 ses :: Email -> SES
-ses email = SES { sesFrom       = sender
-                , sesTo         = [encodeUtf8 email]
-                , sesAccessKey  = access
-                , sesSecretKey  = secret
-                , sesRegion     = "us-east-1"
+ses email = SES { sesFrom         = sender
+                , sesTo           = [encodeUtf8 email]
+                , sesAccessKey    = access
+                , sesSecretKey    = secret
+                , sesRegion       = "us-east-1"
+                , sesSessionToken = Nothing
                 }
 
 ------------------------------------------------------------------------
