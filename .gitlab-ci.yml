@@ -15,13 +15,13 @@ cache:
 
 before_script:
   - export STACK_ROOT=$(pwd)/.stack
-  - export PATH=${HOME}/.local/bin:$PATH
   - apt-get update -qq && apt-get install -qq -y m4 libpq-dev make xz-utils
   - cp secrets.m4.example secrets.m4
   - make files
   - stack upgrade
-  - stack install hspec-discover
-  - stack install --only-dependencies -j 4
+  - ${HOME}/.local/bin/stack setup
+  - ${HOME}/.local/bin/stack install hspec-discover
+  - ${HOME}/.local/bin/stack install --only-dependencies -j 4
 
 test:
   script:
@@ -29,7 +29,7 @@ test:
     - export PGUSER=$POSTGRES_USER
     - export PGPASS=$POSTGRES_PASSWORD
     - export PGDATABASE=$POSTGRES_DB
-    - stack test --coverage
+    - ${HOME}/.local/bin/stack test --coverage
 
 after_script:
-  - stack hpc report betty
+  - ${HOME}/.local/bin/stack hpc report betty
