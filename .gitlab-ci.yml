@@ -1,4 +1,4 @@
-image: haskell:8.2.2
+image: haskell:8.2
 
 services:
   - postgres:9.4
