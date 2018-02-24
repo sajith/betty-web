@@ -1,5 +1,6 @@
 database:
   user:     "_env:PGUSER:TESTING_DB_USER"
   password: "_env:PGPASS:TESTING_DB_PASS"
+  database: "_env:PGDATABASE:TESTING_DB_NAME"
 
 approot: "_env:APPROOT:http://localhost:3000"
