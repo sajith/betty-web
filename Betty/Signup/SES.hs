@@ -23,7 +23,6 @@ ses email = SES { sesFrom         = sender
                 , sesAccessKey    = access
                 , sesSecretKey    = secret
                 , sesRegion       = "us-east-1"
-                , sesSessionToken = Nothing
                 }
 
 ------------------------------------------------------------------------
