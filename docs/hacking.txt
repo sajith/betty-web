@@ -1,16 +1,25 @@
-To get started, you will need the following thigs:
+Hacking Setup
+------------------------------------------------------------------------
 
-   - the Haskell tool "stack"
-   - GHC 8.0.1
+To get started, you will need the following things:
+
+   - the Haskell tool "Stack"
+   - GHC 8.0.2
    - PostgreSQL
    - libpq-dev
    - yesod-bin
    - GNU m4
    - GNU make
 
-Please see the appropriate documentation for how to install these.
-'Stack' should handle setting up some of the environment (such as GHC
-and cabal-install).  You should install the rest.
+Please see the appropriate documentation for how to install each of
+these.
+
+In most cases Stack should handle setting up some pieces of the
+development environment, such as GHC and cabal-install.  You should
+install the rest.
+
+GNU m4 and make were unfortunately necessary because I have weird
+ideas about how to set up things; they should go away in the future.
 
 The Yesod quickstart guide is particularly helpful:
 
@@ -32,7 +41,8 @@ development, and one for testing.  To quickly set up these databases:
     GRANT
     postgres=# \q
 
-(Note: pgcli is a pretty sweet postgres client.)
+If you'd like an alternative for the "stock" psql client, consider
+pgcli <https://www.pgcli.com/>.
 
 We don't want to push passwords and other sensitive configuration
 strings to a public repository by mistake.  These strings are saved in
@@ -45,8 +55,8 @@ Create secrets.m4:
 
      cp secrets.m4.example secrets.m4
 
-Edit secrets.m4 to set appropriate usernames and passwords you might
-want to use, and then run:
+Edit secrets.m4 to use appropriate usernames and passwords, and then
+run:
 
      make
 
