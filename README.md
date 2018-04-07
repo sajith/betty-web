@@ -1,6 +1,6 @@
 # About Betty
 
-[![Build Status][badge-gitlab]]
+[badge-gitlab]
 
 This is the web side of a diabetes data management tool.  It uses
 Yesod web framework, PosgreSQL, and other fun things.
