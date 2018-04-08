@@ -20,7 +20,6 @@ before_script:
   - make files
   - stack upgrade
   - ${HOME}/.local/bin/stack setup
-  - ${HOME}/.local/bin/stack install hspec-discover
   - ${HOME}/.local/bin/stack install --only-dependencies -j 4
 
 test:
@@ -29,7 +28,7 @@ test:
     - export PGUSER=$POSTGRES_USER
     - export PGPASS=$POSTGRES_PASSWORD
     - export PGDATABASE=$POSTGRES_DB
-    - ${HOME}/.local/bin/stack test --coverage
+    - ${HOME}/.local/bin/stack test
 
 after_script:
-  - ${HOME}/.local/bin/stack hpc report betty
+  - echo "All good!"
