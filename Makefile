@@ -17,6 +17,7 @@
 M4	 = m4
 M4FLAGS	 =
 M4MACROS = secrets.m4
+APPROOT  = http://localhost:3000
 
 all: help
 
@@ -41,13 +42,13 @@ build: files
 	stack build yesod-bin
 
 devel: build
-	APPROOT=http://localhost:3000 stack exec -- yesod devel -p 3000
+	APPROOT=${APPROOT} stack exec -- yesod devel -p 3000
 
 test: build
 	stack test
 
 repl: build
-	APPROOT=http://localhost:3000 stack ghci --ghci-options="-O0 -fobject-code app/DevelMain.hs"
+	APPROOT=${APPROOT} stack ghci --ghci-options="-O0 -fobject-code app/DevelMain.hs"
 
 test-repl: build
 	stack ghci --test --main-is betty:test:test --ghci-options="-O0 -fobject-code"
