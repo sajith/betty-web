@@ -30,6 +30,7 @@ build: files
 	stack setup
 	stack install --only-dependencies
 	stack build
+	stack build yesod-bin
 
 devel: build
 	APPROOT=http://localhost:3000 yesod devel -p 3000 # was `stack exec yesod devel -- -p 3000`
