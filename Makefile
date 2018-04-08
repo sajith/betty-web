@@ -33,7 +33,7 @@ build: files
 	stack build yesod-bin
 
 devel: build
-	APPROOT=http://localhost:3000 yesod devel -p 3000 # was `stack exec yesod devel -- -p 3000`
+	APPROOT=http://localhost:3000 stack exec -- yesod devel -p 3000
 
 test: build
 	stack test
