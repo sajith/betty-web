@@ -18,7 +18,15 @@ M4	 = m4
 M4FLAGS	 =
 M4MACROS = secrets.m4
 
-all: build
+all: help
+
+help:
+	@echo "Choose one of:"
+	@echo "  make build -- build project"
+	@echo "  make devel -- build project, and start a local web server"
+	@echo "  make test  -- run the test suite"
+	@echo "  make repl  -- start a ghci session, with the project loaded"
+	@echo "  make clean -- remove generated config files, run stack clean"
 
 files:	config/settings.yml \
 	config/postgresql.yml \
