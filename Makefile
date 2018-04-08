@@ -21,6 +21,7 @@ M4MACROS = secrets.m4
 all: build
 
 files:	config/settings.yml \
+	config/postgresql.yml \
 	config/test-settings.yml \
 	config/keter.yml \
 	Betty/SESCreds.hs
