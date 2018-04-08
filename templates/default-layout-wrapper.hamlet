@@ -22,7 +22,7 @@ $newline never
     <script type="text/javascript" src=@{StaticR bootstrapJs}>
 
     <script type="text/javascript" src=@{StaticR jsCookie}>
-  
+
     \<!--[if lt IE 9]>
     \<script type="text/javascript" src=@{StaticR respondJs}></script>
     \<![endif]-->
@@ -43,7 +43,7 @@ $newline never
       \          jqXHR.setRequestHeader(csrfHeaderName, csrfToken);
       \      }
       \  });
-      }    
+      }
 
     <script>
       document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
@@ -61,11 +61,11 @@ $newline never
                 <span .icon-bar>
                 <span .icon-bar>
                 <span .icon-bar>
-  
+
               <a .navbar-brand href=@{HomeR}>
                 <span .nowrap>
                   Betty
-  
+
               <div #navbar-user-status .hidden-xs>
                 <ul .nav .navbar-nav .navbar-right>
                   <li>
@@ -97,7 +97,7 @@ $newline never
 
           $maybe _ <- ma
             <!-- sidebar + content, when authenticated -->
-            <!-- sidebar -->                      
+            <!-- sidebar -->
             <div .col-xs-6 .col-sm-4 .col-md-3 #sidebar-auth>
               <div #sidebar .panel .sidebar-offcanvas>
                 <ul #affix .nav .nav-stacked>
@@ -127,7 +127,7 @@ $newline never
                       <span .fa .fa-sign-out .sidebar-icon>
                       Log out
             <!-- end sidebar -->
-                      
+
             <!-- content -->
             <div .col-xs-12 .col-sm-8 .col-md-9 .content>
               <div #pagemain .authcontent .pagemain>
@@ -135,13 +135,13 @@ $newline never
             <!-- end content -->
 
             <!-- end sidebar + content, when authenticated -->
-            
+
           $nothing
             <!-- content, when not authenticated -->
             <div #pagemain .unauthcontent .pagemain>
               ^{pageBody pc}
             <!-- end content, when not authenticated -->
-              
+
       <!-- footer -->
       <footer>
         <div #footer>
