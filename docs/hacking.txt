@@ -33,7 +33,7 @@ development, and one for testing.  To quickly set up these databases:
     sudo -u postgres createdb betty_test
 
     sudo -u postgres psql
-    postgres=# alter user betty with encrypted password 'secret';
+    postgres=# alter user betty with encrypted password 'betty';
     ALTER ROLE
     postgres=# grant all privileges on database betty_devel to betty;
     GRANT
