@@ -20,7 +20,7 @@ library
         Settings
         Betty.SESCreds
 
-    hs-source-dirs:  . app
+    hs-source-dirs:     . app
     other-modules:
         Handler.Home
         Handler.Common
@@ -121,8 +121,8 @@ library
         build-depends: unix -any
 
 executable betty
-    main-is:        main.hs
-    hs-source-dirs: app
+    main-is:            main.hs
+    hs-source-dirs:     app
     default-extensions:
         TemplateHaskell QuasiQuotes OverloadedStrings NoImplicitPrelude CPP
         MultiParamTypeClasses TypeFamilies GADTs GeneralizedNewtypeDeriving
@@ -131,7 +131,7 @@ executable betty
         TupleSections TypeSynonymInstances NoDisambiguateRecordFields
         NoRecordWildCards
 
-    ghc-options:    -threaded -rtsopts -with-rtsopts=-N
+    ghc-options:        -threaded -rtsopts -with-rtsopts=-N
     build-depends:
         base -any,
         betty -any,
@@ -141,9 +141,9 @@ executable betty
         buildable: False
 
 test-suite test
-    type:           exitcode-stdio-1.0
-    main-is:        Spec.hs
-    hs-source-dirs: test
+    type:               exitcode-stdio-1.0
+    main-is:            Spec.hs
+    hs-source-dirs:     test
     other-modules:
         HomeSpec
         CommonSpec
@@ -159,7 +159,7 @@ test-suite test
         NoMonomorphismRestriction DeriveDataTypeable ViewPatterns
         TupleSections
 
-    ghc-options:    -Wall
+    ghc-options:        -Wall
     build-depends:
         base >=4 && <5,
         betty -any,
