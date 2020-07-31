@@ -55,7 +55,7 @@ library
         Betty.DateTime
         Paths_betty
 
-    extensions:
+    default-extensions:
         TemplateHaskell QuasiQuotes OverloadedStrings NoImplicitPrelude CPP
         MultiParamTypeClasses TypeFamilies GADTs GeneralizedNewtypeDeriving
         FlexibleContexts FlexibleInstances EmptyDataDecls
@@ -123,7 +123,7 @@ library
 executable betty
     main-is:        main.hs
     hs-source-dirs: app
-    extensions:
+    default-extensions:
         TemplateHaskell QuasiQuotes OverloadedStrings NoImplicitPrelude CPP
         MultiParamTypeClasses TypeFamilies GADTs GeneralizedNewtypeDeriving
         FlexibleContexts FlexibleInstances EmptyDataDecls
@@ -152,7 +152,7 @@ test-suite test
         TestTools
         Handler.ProfileBGUnitSpec
 
-    extensions:
+    default-extensions:
         TemplateHaskell QuasiQuotes OverloadedStrings NoImplicitPrelude CPP
         MultiParamTypeClasses TypeFamilies GADTs GeneralizedNewtypeDeriving
         FlexibleContexts FlexibleInstances EmptyDataDecls
